@@ -4,12 +4,12 @@ import { useEffect, useState } from "react";
 import "./HomeScreen.css";
 
 //Assets
-import log from "../assets/log.svg";
-import register from "../assets/register.svg";
+import log from "../../assets/log.svg";
+import register from "../../assets/register.svg";
 
 //Components
-import LoginComponent from "../components/loginComponent/LoginComponent";
-import RegisterComponent from "../components/registerComponent/RegisterComponent";
+import LoginComponent from "../../components/loginComponent/LoginComponent";
+import RegisterComponent from "../../components/registerComponent/RegisterComponent";
 
 const HomeScreen = ({ history }) => {
     const [signInMode, setSignInMode] = useState(true);

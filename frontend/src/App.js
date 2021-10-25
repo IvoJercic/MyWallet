@@ -3,7 +3,7 @@ import {useState} from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 //Screens
-import HomeScreen from "./screens/HomeScreen";
+import HomeScreen from "./screens/HomeScreen/HomeScreen";
 
 //Components
 
@@ -16,7 +16,7 @@ import Logout from './components/Logout';
 import RegisterScreen from './components/registerComponent/RegisterComponent';
 import Header from './components/Header';
 import RegisterComponent from './components/registerComponent/RegisterComponent';
-import DashboardComponent from './components/dashboardComponent/DashboardComponent';
+import DashboardScreen from './screens/DashboardScreen/DashboardScreen';
 
 function App() {
 
@@ -39,7 +39,7 @@ function App() {
           <Route exact path="/" component={HomeScreen} />
           <Route exact path="/login" component={LoginComponent} />
           <Route exact path="/register" component={RegisterComponent} />
-          <Route exact path="/dashboard" component={DashboardComponent} />
+          <Route exact path="/dashboard" component={DashboardScreen} />
 
 
         </Switch>

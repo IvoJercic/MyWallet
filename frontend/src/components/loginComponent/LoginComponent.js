@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import ErrorMessage from "../ErrorMessage";
 
-const LoginComponent = ({history}) => {
+const LoginComponent = ({ history }) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState(false);
