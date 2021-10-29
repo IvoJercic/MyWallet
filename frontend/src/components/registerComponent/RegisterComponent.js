@@ -4,6 +4,8 @@ import axios from "axios";
 //Components
 import ErrorMessage from "../ErrorMessage";
 import Loading from "../Loading";
+import { useDispatch, useSelector } from "react-redux";
+import { register } from "../../redux/actions/userActions";
 
 const RegisterComponent = ({history}) => {
     const [email, setEmail] = useState("");
@@ -15,41 +17,27 @@ const RegisterComponent = ({history}) => {
     const [confirmPassword, setConfirmPassword] = useState("");
     const [message, setMessage] = useState(null);
     // const [pictureMessage, setPictureMessage] = useState(null);
-    const [error, setError] = useState(false);
-    const [loading, setLoading] = useState(false);
+
+    const dispatch=useDispatch();
+    const userRegister=useSelector(state=>state.userRegister);
+    const {loading,error,userInfo}=userRegister;
+
+    useEffect(()=>{
+        if(userInfo){
+            history.push("/dashboard");
+        }
+    });
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (password !== confirmPassword) {
-            setMessage("Passwords do not match!");
+
+        if(password!==confirmPassword){
+            setMessage("Passwords do not match");
         }
-        else {
-            setMessage(null);
-            try {
-                const config = {
-                    headers: {
-                        "Content-type": "application/json",
-                    },
-                };
-                setLoading(true);
-                const { data } = await axios.post(
-                    "/api/users",
-                    {
-                        name,
-                        email,
-                        password
-                    },
-                    config
-                );
-                localStorage.setItem("userInfo", JSON.stringify(data));
-                setLoading(false);
-                history.push("/dashboard");
-            }
-            catch (error) {
-                setError(error.response.data.message);
-                setLoading(false);
-            }
+        else{
+            dispatch(register(name,email,password));
         }
+        
     }
 
     // const postDetails = (pics) => {
@@ -133,7 +121,7 @@ const RegisterComponent = ({history}) => {
                 placeholder="Upload picture"
                 onChange={(e) => postDetails(e.target.files[0])}
             /> */}
-            <button type="submit" className="btn solid" style={{ display: loading === false ? "block" : "none" }}>Register</button>
+            <button type="submit" className="btn solid">Register</button>
             {loading === true ? "Registering in ..." : "..."}
 
             <div>

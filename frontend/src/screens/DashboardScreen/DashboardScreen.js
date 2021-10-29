@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 //Components
-import Navbar from "../../components/navbarComponent/NavbarComponent";
+import Navbar from "../../components/sideBarComponent/SideBarComponent";
 
 const DashboardScreen = ({history}) => {
 
@@ -16,7 +16,7 @@ const DashboardScreen = ({history}) => {
 
   return (
     <div>
-      <Navbar />
+      <Navbar history={history}/>
       DASHBOARDssssda
     </div>
   );

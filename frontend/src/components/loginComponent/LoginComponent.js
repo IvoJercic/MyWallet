@@ -1,39 +1,26 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../../redux/actions/userActions";
 import ErrorMessage from "../ErrorMessage";
 
 const LoginComponent = ({ history }) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [error, setError] = useState(false);
-    const [loading, setLoading] = useState(false);
+
+    const dispatch = useDispatch();
+
+    const userLogin = useSelector(state => state.userLogin);
+    const { loading, error, userInfo } = userLogin;
+
+    useEffect(() => {
+        if(userInfo){
+            history.push("/dashboard");
+        }
+    }, [history,userInfo]);//Promjenov ovoga poziva se useeffect
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        try {
-            const config = {
-                headers: {
-                    "Content-type": "application/json",
-                },
-            };
-            setLoading(true);
-            const { data } = await axios.post(
-                "/api/users/login",
-                {
-                    email,
-                    password,
-                },
-                config
-            );
-
-            localStorage.setItem("userInfo", JSON.stringify(data));
-            setLoading(false);
-            history.push("/dashboard");
-        }
-        catch (error) {
-            setError(error.response.data.message);
-            setLoading(false);
-        }
+        dispatch(login(email, password));
     }
     return (
         <form action="#" className="sign-in-form" onSubmit={(e) => handleSubmit(e)}>
@@ -59,7 +46,7 @@ const LoginComponent = ({ history }) => {
                 />
             </div>
 
-            <button type="submit" className="btn solid" style={{ display: loading === false ? "block" : "none" }}>Login</button>
+            <button type="submit" className="btn solid">Login</button>
             {loading === true ? "Signin in ..." : "..."}
             <div>
                 {error && <ErrorMessage variant="danger">{error}</ErrorMessage>}

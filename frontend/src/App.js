@@ -22,7 +22,7 @@ function App() {
 
   const [sideToggle,setSideToggle] = useState(false);
 
-  const user= useSelector(selectUser);
+  // const user= useSelector(selectUser);
   return (
     <Router>
       {/* <Header/> */}
@@ -37,8 +37,6 @@ function App() {
           <Route exact path="/cart" component={CartScreen} /> */}
 
           <Route exact path="/" component={HomeScreen} />
-          <Route exact path="/login" component={LoginComponent} />
-          <Route exact path="/register" component={RegisterComponent} />
           <Route exact path="/dashboard" component={DashboardScreen} />
 
 
