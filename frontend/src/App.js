@@ -4,19 +4,11 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 //Screens
 import HomeScreen from "./screens/HomeScreen/HomeScreen";
+import DashboardScreen from './screens/DashboardScreen/DashboardScreen';
+import CategoriesScreen from './screens/CategoriesScreen/CategoriesScreen';
 
 //Components
-
-import LoginComponent from './components/loginComponent/LoginComponent';
-
-import NavBar from "./components/NavBar";
-import { useSelector } from 'react-redux';
-import { selectUser } from './features/userSlice';
-import Logout from './components/Logout';
-import RegisterScreen from './components/registerComponent/RegisterComponent';
-import Header from './components/Header';
-import RegisterComponent from './components/registerComponent/RegisterComponent';
-import DashboardScreen from './screens/DashboardScreen/DashboardScreen';
+import SideBarComponent from "../src/components/sideBarComponent/SideBarComponent";
 
 function App() {
 
@@ -31,15 +23,14 @@ function App() {
     //   <SideDrawer show={sideToggle} click={()=>setSideToggle(false)}/>
     //   <BackDrop show={sideToggle} click={()=>setSideToggle(false)}/> */}
       <main>
+      <SideBarComponent />
         <Switch>
           {/* <Route exact path="/" component={HomeScreen} />
           <Route exact path="/product/:id" component={ProductScreen} />
           <Route exact path="/cart" component={CartScreen} /> */}
-
           <Route exact path="/" component={HomeScreen} />
           <Route exact path="/dashboard" component={DashboardScreen} />
-
-
+          <Route exact path="/categories" component={CategoriesScreen} />
         </Switch>
       </main>
     </Router>

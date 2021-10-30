@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 
 //Components
+import CreateCategoryComponent from "../../components/createCategoryComponent/CreateCategoryComponent";
 
-const DashboardScreen = ({history}) => {
+const CategoriesScreen = ({history}) => {
 
   useEffect(() => {
     const userInfo = localStorage.getItem("userInfo");
@@ -15,9 +16,9 @@ const DashboardScreen = ({history}) => {
 
   return (
     <div>
-      DASHBOARDssssda
+      <CreateCategoryComponent/>
     </div>
   );
 };
 
-export default DashboardScreen;
+export default CategoriesScreen;
