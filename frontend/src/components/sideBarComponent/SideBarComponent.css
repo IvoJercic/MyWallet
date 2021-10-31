@@ -1,5 +1,5 @@
 .navbar {
-  background-color: #060b26;
+  background-color: #2196f3;
   height: 50px;
   display: flex;
   justify-content: start;
@@ -15,7 +15,7 @@
 }
 
 .nav-menu {
-  background-color: #060b26;
+  background-color: #2196f3;
   width: 250px;
   height: 100vh;
   display: flex;
@@ -23,14 +23,15 @@
   position: fixed;
   top: 0;
   left: -100%;
-  transition: 850ms;
+  transition: 500ms ease-in-out;
   font-family: "Poppins", sans-serif;
 
 }
 
 .nav-menu.active {
   left: 0;
-  transition: 350ms;
+  transition: 500ms ease-in-out;
+  z-index: 6;
 }
 
 .nav-text {
@@ -63,7 +64,7 @@
 }
 
 .navbar-toggle {
-  background-color: #060b26;
+  background-color: #2196f3;
   width: 100%;
   height: 80px;
   display: flex;

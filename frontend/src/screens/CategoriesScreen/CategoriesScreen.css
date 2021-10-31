@@ -1,1 +1,38 @@
+.categoryIcon{
+    display: flex;
+    /* border: solid 1px black; */
+}
 
+.categoryTab{
+    width: 90%;  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color:white;
+    border-radius: 16px;
+    box-shadow:
+    0px 0px 5.3px rgba(0, 0, 0, 0.042),
+    0px 0px 10px rgba(0, 0, 0, 0.061),
+    0px 0px 80px rgba(0, 0, 0, 0.16)
+    ;  
+    border: 2px solid transparent;
+    font-size: 1.6rem;
+    padding: 10px;
+    margin: 10px ; 
+    height: 75%;
+    background: rgb(192, 192, 192);
+  }
+
+
+  .categoryTab:hover{
+      color: black;
+  }
+  
+  
+  .categoryList__div{
+    padding: 0rem 5rem;
+    height: 30rem;
+    overflow: auto;
+    display: flex;  
+    flex-direction: column;
+  }

@@ -1,4 +1,4 @@
-import './CreateCategoryComponent.css';
+import './CreateSubCategoryComponent.css';
 
 import IconDisplayComponent from '../iconDisplayComponent/IconDisplayComponent';
 import { CirclePicker } from 'react-color';
@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { createNewMainCategory } from "../../redux/actions/categoryActions";
 
-const CreateCategoryComponent = () => {
+const CreateSubCategoryComponent = () => {
 
     const [categoryName, setCategoryName] = useState("");
     const [selectedColor, setSelectedColor] = useState("#2196f3");
@@ -24,8 +24,8 @@ const CreateCategoryComponent = () => {
     };
 
     return (
-        <form action="#" className="sign-in-form createcategory" onSubmit={(e) => handleSubmit(e)}>
-            <h1 className="center">Add new category</h1>
+        <form action="#" className="sign-up-form createcategory" onSubmit={(e) => handleSubmit(e)}>
+            <h1 className="center">Add new subcategory</h1>
             <div className="createcategory__input">
                 <i className="fas fa-list"></i>
                 <input
@@ -53,4 +53,4 @@ const CreateCategoryComponent = () => {
     );
 };
 
-export default CreateCategoryComponent;
+export default CreateSubCategoryComponent;

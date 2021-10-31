@@ -100,21 +100,17 @@ const IconDisplayComponent = ({ selectedColor ,setSelectedIcon}) => {
                 key={"div__" + iconName}
                 style={{background:bckColor}}
             >{icon}
-
             </div>
         );
-    }
-
+    };
 
     const showIcons = iconList.map((iconName) => {
         return createIcon(iconName);
-    }
-    );
-
+    });
 
     return (
         <div className="icondisplay">
-            <div id="div__icons" className="grid">
+            <div className="grid">
                 {showIcons}
             </div>
         </div>
