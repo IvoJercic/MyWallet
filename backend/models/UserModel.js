@@ -20,20 +20,14 @@ const userSchema=mongoose.Schema(
             type:Boolean,
             required:true,
             default:false
-        },
-        // picture:{
-        //     type:String,
-        //     required:true,
-        //     default:
-        //         "https://media-exp1.licdn.com/dms/image/C4D03AQFlgeKhqY5ktQ/profile-displayphoto-shrink_100_100/0/1634932650392?e=1640217600&v=beta&t=MkCC-Yyxxwl51qpB7hEdGwUXN2l5YGrA-HcyL8gOHkQ"
-        // }
+        }     
     },
     {
         timestamps:true
     }
 );
 
-//Pre tj prije nego što se pozove save funkcije pozvat cemo middlewar
+//Pre tj prije nego što se pozove save funkcije pozvat cemo middleware
 userSchema.pre("save",async function(next){
     if(!this.isModified("password")){
         next();

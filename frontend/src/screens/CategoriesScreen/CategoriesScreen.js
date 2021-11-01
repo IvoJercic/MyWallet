@@ -5,6 +5,7 @@ import CreateCategoryComponent from "../../components/createCategoryComponent/Cr
 import CreateSubCategoryComponent from "../../components/createSubCategoryComponent/CreateSubCategoryComponent";
 //Actions
 import { getAllCategories } from "../../redux/actions/categoryActions";
+import { getAllSubCategoriesForCategory } from "../../redux/actions/subCategoryActions";
 import * as FaIcons from 'react-icons/fa';
 import './CategoriesScreen.css';
 
@@ -13,8 +14,13 @@ const CategoriesScreen = ({ history }) => {
     const [mainCategoryMode, setMainCategoryMode] = useState(true);
     const [categoryList, setCategoryList] = useState([]);
 
+    const [selectedCategoryForSubcategories, setSelectedCategoryForSubcategories] = useState(null);
+    const [subCategoriesList, setSubCategoriesList] = useState(["1"]);
+
     const dispatch = useDispatch();
     const data = useSelector(state => state.category.categories);
+    const data2 = useSelector(state => state.subcategory);
+
 
     useEffect(() => {
         const userInfo = localStorage.getItem("userInfo");
@@ -28,13 +34,19 @@ const CategoriesScreen = ({ history }) => {
             else {
                 setCategoryList(data.categoriesList);
             }
+            if(!data2){
+                dispatch(getAllSubCategoriesForCategory());
+            }
+            else{
+                setSubCategoriesList(data2.subcategoriesList);
+            }
+
+            console.log(data2.subcategoriesList);
         }
-    }, [data]);
+    }, [data,data2]);
 
     const createIcon = (iconName) => {
         const icon = React.createElement(FaIcons[iconName], { key: iconName, className: "icon" });
-        let bckColor;
-
         return (
             <div
                 key={"icon__" + iconName}
@@ -48,9 +60,9 @@ const CategoriesScreen = ({ history }) => {
         <div className={mainCategoryMode === false ? "container sign-up-mode" : "container"}>
             <div className="forms-container">
                 <div className="signin-signup">
-                    <CreateCategoryComponent history={history} />
+                    <CreateCategoryComponent />
 
-                    <CreateSubCategoryComponent history={history} />
+                    <CreateSubCategoryComponent setSelectedCategoryForSubcategories={setSelectedCategoryForSubcategories} />
                 </div>
             </div>
 
@@ -59,7 +71,6 @@ const CategoriesScreen = ({ history }) => {
                     <div className="content">
                         <div className="categoryList__div">
                             <h1 className="center">Your categories </h1>
-                            {/*key={"div__" + iconName}*/}
                             {
                                 categoryList.map(category =>
                                     <div className="categoryTab"
@@ -83,14 +94,13 @@ const CategoriesScreen = ({ history }) => {
                 </div>
                 <div className="panel right-panel">
                     <div className="content">
-                        <h3>Here you can create subcategories for easier managing</h3>
-                        <p>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum
-                            laboriosam ad deleniti.
-                        </p>
-                        <button className="btn transparent" id="sign-in-btn" onClick={() => setMainCategoryMode(!mainCategoryMode)}>
-                            Add Categories
+                        <div className="categoryList__div">
+                            <h1 className="center">Your categories </h1>
+                           
+                            <button className="btn transparent" id="sign-up-btn" onClick={() => setMainCategoryMode(!mainCategoryMode)}>
+                            Add category
                         </button>
+                        </div>
                     </div>
                 </div>
             </div>

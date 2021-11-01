@@ -1,6 +1,8 @@
 const asyncHandler = require("express-async-handler");
 const Category = require("../models/CategoryModel");
 const Subcategory=require("../models/SubcategoryModel");
+const Root=require("../models/SubcategoryModel");
+
 //AsyncHandler ce hvatati sve greske
 
 const createCategory = asyncHandler(async (req, res) => {
@@ -42,6 +44,10 @@ const createSubCategory = asyncHandler(async (req, res) => {
     }    
 
     const categoryy=await Category.findOne({category});
+    const Root = await Subcategory.create({
+        category:categoryy
+    });
+
     const categoryyId=categoryy["id"].toString();
 
     const subcategory = await Subcategory.create({
@@ -84,4 +90,30 @@ const getCategories = asyncHandler(async (req, res) => {
     }
 });
 
-module.exports = { createCategory, createSubCategory,getCategories }
+const getSubcategories = asyncHandler(async (req, res) => {
+    // console.log("RADI");
+    const { categoryName } = req.body;
+    // console.log(categoryName);
+    const category = (await Category.findOne({name:categoryName}));
+    const categoryId=category["id"];
+    const subCategories=(await Subcategory.find({category:categoryId}));
+    console.log(subCategories);
+
+    if (subCategories) {
+        res.status(201).json({
+            "subcategoriesList": subCategories.map((e) => {
+                const temp = {}
+                temp.name = e.name
+                temp.category = e.category
+                temp.icon=e.icon
+                return temp;
+            })
+        });
+    }
+    else {
+        res.status(400);
+        throw new Error("Error Occured");
+    }
+});
+
+module.exports = { createCategory, createSubCategory,getCategories,getSubcategories }

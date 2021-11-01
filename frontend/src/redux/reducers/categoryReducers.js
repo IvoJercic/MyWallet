@@ -7,7 +7,10 @@ import {
     GET_ALL_CATEGORIES_FAIL,
     NEW_SUBCATEGORY_REQUEST,
     NEW_SUBCATEGORY_SUCCESS,
-    NEW_SUBCATEGORY_FAIL
+    NEW_SUBCATEGORY_FAIL,
+    GET_ALL_SUBCATEGORIES_PER_CATEGORY_REQUEST,
+    GET_ALL_SUBCATEGORIES_PER_CATEGORY_SUCCESS,
+    GET_ALL_SUBCATEGORIES_PER_CATEGORY_FAIL
 } from "../constants/categoryConstants";
 
 export const categoryReducer = (state = {}, action) => {
@@ -32,6 +35,13 @@ export const categoryReducer = (state = {}, action) => {
             return { loading: false, categories: action.payload };
         case GET_ALL_CATEGORIES_FAIL:
             return { loading: false, error: action.payload };
+
+        // case GET_ALL_SUBCATEGORIES_PER_CATEGORY_REQUEST:
+        //     return { loading: true };
+        // case GET_ALL_SUBCATEGORIES_PER_CATEGORY_SUCCESS:
+        //     return { loading: false, subcategories: action.payload };
+        // case GET_ALL_SUBCATEGORIES_PER_CATEGORY_FAIL:
+        //     return { loading: false, error: action.payload };
         default:
             return state;
     }

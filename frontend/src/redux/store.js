@@ -9,12 +9,14 @@ import { composeWithDevTools } from "redux-devtools-extension";
 //Reducer
 import { userLoginReducer, userRegisterReducer } from "./reducers/userReducers";
 import { categoryReducer } from "./reducers/categoryReducers";
+import { subCategoryReducer } from "./reducers/subCategoryReducers";
 
 const reducer =combineReducers({
     //Reducers
     userLogin:userLoginReducer,
     userRegister:userRegisterReducer,
-    category:categoryReducer
+    category:categoryReducer,
+    subcategory:subCategoryReducer
 });
 
 const userInfoFromStorage=localStorage.getItem("userInfo")

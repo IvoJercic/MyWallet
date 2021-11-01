@@ -1,17 +1,16 @@
 import './CreateSubCategoryComponent.css';
 
 import IconDisplayComponent from '../iconDisplayComponent/IconDisplayComponent';
-import { CirclePicker } from 'react-color';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { createNewMainCategory,createNewSubCategory } from "../../redux/actions/categoryActions";
+import { createNewSubCategory } from "../../redux/actions/categoryActions";
 import ReactSelectComponent from '../ReactSelectComponent';
-import { Accordion, Card } from 'react-bootstrap'
 import { getAllCategories } from "../../redux/actions/categoryActions";
-import { FaAd } from 'react-icons/fa';
+import { getAllSubCategoriesForCategory } from "../../redux/actions/subCategoryActions";
+
 import * as FaIcons from 'react-icons/fa';
 
-const CreateSubCategoryComponent = () => {
+const CreateSubCategoryComponent = ({setSelectedCategoryForSubcategories}) => {
 
     const [selectedCategoryName, setSelectedCategoryName] = useState("");
     const [subCategoryName, setSubCategoryName] = useState("");
@@ -29,6 +28,7 @@ const CreateSubCategoryComponent = () => {
         }
         else {
             setCategoryList(data.categoriesList);
+            setSelectedCategoryForSubcategories(data.subCategoriesList);
         }
 
         makeObject(categoryList)
@@ -42,10 +42,16 @@ const CreateSubCategoryComponent = () => {
     };
 
     const handleCategorySelect = (category) => {
+        setSelectedCategoryForSubcategories(category.name);
         setSelectedCategoryName(category.name);
         setSelectedColor(category.color);
-        console.log(selectedColor);
+        dispatch(getAllSubCategoriesForCategory(category.name));
+        console.log(category.name);
     };
+
+    const handleSubCategoryChange=(e)=>{        
+        setSubCategoryName(e.target.value);
+    }
 
     const makeObject = () => {
         let temp = [];
@@ -84,7 +90,7 @@ const CreateSubCategoryComponent = () => {
                     type="text"
                     placeholder="Subcategory"
                     value={subCategoryName}
-                    onChange={(e) => setSubCategoryName(e.target.value)}
+                    onChange={(e) => handleSubCategoryChange(e)}
                 />
             </div>
 
