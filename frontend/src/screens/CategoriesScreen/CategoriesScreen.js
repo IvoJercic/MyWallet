@@ -35,7 +35,7 @@ const CategoriesScreen = ({ history }) => {
     const createIcon = (iconName) => {
         const icon = React.createElement(FaIcons[iconName], { key: iconName, className: "icon" });
         let bckColor;
-      
+
         return (
             <div
                 key={"icon__" + iconName}
@@ -51,25 +51,25 @@ const CategoriesScreen = ({ history }) => {
                 <div className="signin-signup">
                     <CreateCategoryComponent history={history} />
 
-                    <CreateSubCategoryComponent history={history} />
+                    <CreateSubCategoryComponent history={history} categoryList={categoryList} />
                 </div>
             </div>
 
             <div className="panels-container">
                 <div className="panel left-panel">
                     <div className="content">
-                        <h1 className="center">Your categories </h1>
                         <div className="categoryList__div">
+                            <h1 className="center">Your categories </h1>
                             {/*key={"div__" + iconName}*/}
                             {
                                 categoryList.map(category =>
                                     <div className="categoryTab"
                                         key={category.name}
-                                        style={{background:category.color}}
-                                        >
-                                            {createIcon(category.icon)}
-                                            &nbsp;&nbsp;
-                                            {category.name}
+                                        style={{ background: category.color }}
+                                    >
+                                        {createIcon(category.icon)}
+                                        &nbsp;&nbsp;
+                                        {category.name}
                                     </div>
                                 )}
                         </div>
