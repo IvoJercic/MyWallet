@@ -26,6 +26,8 @@ const CreateCategoryComponent = () => {
     return (
         <form action="#" className="sign-in-form createcategory" onSubmit={(e) => handleSubmit(e)}>
             <h1 className="center">Add new category</h1>
+        <br/>
+            <label htmlFor="subCategoryName"/> Category name
             <div className="createcategory__input">
                 <i className="fas fa-list"></i>
                 <input

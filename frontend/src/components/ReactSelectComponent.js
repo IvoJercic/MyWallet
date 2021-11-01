@@ -1,9 +1,11 @@
 import Select, { components } from "react-select";
+import './ReactSelectComponent.css';
 
-const ReactSelectComponent = ({ options }) => {
+const ReactSelectComponent = ({ options,setCategoryName }) => {
     return (
       <div>
-        <Select options={ options }
+        <Select options={ options }           
+         className="reactSelect"
         />
       </div>
     );

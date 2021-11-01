@@ -1,5 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const Category = require("../models/CategoryModel");
+const Subcategory=require("../models/SubcategoryModel");
 //AsyncHandler ce hvatati sve greske
 
 const createCategory = asyncHandler(async (req, res) => {
@@ -31,6 +32,38 @@ const createCategory = asyncHandler(async (req, res) => {
     }
 });
 
+const createSubCategory = asyncHandler(async (req, res) => {
+    const { name, category, icon } = req.body;
+    const subCategoryExists = await Subcategory.findOne({ name,category });
+
+    if (subCategoryExists) {
+        res.status(400);
+        throw new Error("Subcategory Already Exists");        
+    }    
+
+    const categoryy=await Category.findOne({category});
+    const categoryyId=categoryy["id"].toString();
+
+    const subcategory = await Subcategory.create({
+        name:name,
+        category:categoryyId,
+        icon:icon,
+    });
+
+    if (subcategory) {
+        res.status(201).json({
+            _id: subcategory._id,
+            name: subcategory.name,
+            category: subcategory.category,
+            icon: subcategory.icon,
+        });
+    }
+    else {
+        res.status(400);
+        throw new Error("Error Occured");
+    }
+});
+
 const getCategories = asyncHandler(async (req, res) => {
     const categoriesList = (await Category.find({}));
 
@@ -51,4 +84,4 @@ const getCategories = asyncHandler(async (req, res) => {
     }
 });
 
-module.exports = { createCategory, getCategories }
+module.exports = { createCategory, createSubCategory,getCategories }

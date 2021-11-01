@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
 //Components
 import CreateCategoryComponent from "../../components/createCategoryComponent/CreateCategoryComponent";
 import CreateSubCategoryComponent from "../../components/createSubCategoryComponent/CreateSubCategoryComponent";
@@ -51,7 +50,7 @@ const CategoriesScreen = ({ history }) => {
                 <div className="signin-signup">
                     <CreateCategoryComponent history={history} />
 
-                    <CreateSubCategoryComponent history={history} categoryList={categoryList} />
+                    <CreateSubCategoryComponent history={history} />
                 </div>
             </div>
 
