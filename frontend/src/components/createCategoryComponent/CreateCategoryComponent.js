@@ -5,18 +5,33 @@ import { CirclePicker } from 'react-color';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { createNewMainCategory } from "../../redux/actions/categoryActions";
+import axios from "axios";
 
-const CreateCategoryComponent = () => {
+const CreateCategoryComponent = ({setRefresher}) => {
 
     const [categoryName, setCategoryName] = useState("");
     const [selectedColor, setSelectedColor] = useState("#2196f3");
     const [selectedIcon, setSelectedIcon] = useState("");
 
-    const dispatch = useDispatch();
-
-    const handleSubmit = (e) => {
+    const handleSubmit = async(e) => {
         e.preventDefault();
-        dispatch(createNewMainCategory(categoryName, selectedColor, selectedIcon))
+        // dispatch(createNewMainCategory(categoryName, selectedColor, selectedIcon))
+        const config = {
+            headers: {
+                "Content-type": "application/json",
+            },
+        };
+
+        const { data } = await axios.post(
+            "/api/category",
+            {
+                name:categoryName,
+                color:selectedColor,
+                icon:selectedIcon
+            },
+            config
+        );
+        setRefresher(prevState => !prevState);
     };
 
     const handleColorChange = (color) => {

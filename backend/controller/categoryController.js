@@ -36,20 +36,14 @@ const createCategory = asyncHandler(async (req, res) => {
 
 const createSubCategory = asyncHandler(async (req, res) => {
     const { name, category, icon } = req.body;
-    const subCategoryExists = await Subcategory.findOne({ name,category });
+    const categoryy=await Category.findOne({name:category});
+    const categoryyId=categoryy["id"].toString();
+    const subCategoryExists = await Subcategory.findOne({ name,categoryyId });
 
     if (subCategoryExists) {
         res.status(400);
         throw new Error("Subcategory Already Exists");        
     }    
-
-    const categoryy=await Category.findOne({category});
-    const Root = await Subcategory.create({
-        category:categoryy
-    });
-
-    const categoryyId=categoryy["id"].toString();
-
     const subcategory = await Subcategory.create({
         name:name,
         category:categoryyId,
@@ -91,13 +85,11 @@ const getCategories = asyncHandler(async (req, res) => {
 });
 
 const getSubcategories = asyncHandler(async (req, res) => {
-    // console.log("RADI");
-    const { categoryName } = req.body;
-    // console.log(categoryName);
+    const { categoryName } = req.params;
+
     const category = (await Category.findOne({name:categoryName}));
     const categoryId=category["id"];
     const subCategories=(await Subcategory.find({category:categoryId}));
-    console.log(subCategories);
 
     if (subCategories) {
         res.status(201).json({

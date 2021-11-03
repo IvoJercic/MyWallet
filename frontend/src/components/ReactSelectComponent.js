@@ -1,7 +1,7 @@
 import Select, { components } from "react-select";
 import './ReactSelectComponent.css';
 
-const ReactSelectComponent = ({ options,setCategoryName }) => {
+const ReactSelectComponent = ({ options }) => {
     return (
       <div>
         <Select options={ options }           

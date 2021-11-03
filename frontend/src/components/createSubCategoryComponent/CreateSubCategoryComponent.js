@@ -2,58 +2,62 @@ import './CreateSubCategoryComponent.css';
 
 import IconDisplayComponent from '../iconDisplayComponent/IconDisplayComponent';
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { createNewSubCategory } from "../../redux/actions/categoryActions";
 import ReactSelectComponent from '../ReactSelectComponent';
-import { getAllCategories } from "../../redux/actions/categoryActions";
-import { getAllSubCategoriesForCategory } from "../../redux/actions/subCategoryActions";
 
 import * as FaIcons from 'react-icons/fa';
+import axios from "axios";
 
-const CreateSubCategoryComponent = ({setSelectedCategoryForSubcategories}) => {
+const CreateSubCategoryComponent = (
+    {
+        categoryList,
+        setSelectedCategoryForSubcategories,
+        setSelectedCategoryForSubcategoriesColor,
+        setRefresher }) => {
 
     const [selectedCategoryName, setSelectedCategoryName] = useState("");
     const [subCategoryName, setSubCategoryName] = useState("");
     const [selectedColor, setSelectedColor] = useState("");
     const [selectedIcon, setSelectedIcon] = useState("");
-    const [categoryList, setCategoryList] = useState([]);
     const [listForSelect, setListForSelect] = useState([]);
 
-    const dispatch = useDispatch();
-    const data = useSelector(state => state.category.categories);
-
     useEffect(() => {
-        if (!data) {
-            dispatch(getAllCategories());
-        }
-        else {
-            setCategoryList(data.categoriesList);
-            setSelectedCategoryForSubcategories(data.subCategoriesList);
-        }
-
-        makeObject(categoryList)
-        // console.log(categoryList);
-    }, [data]);
+        makeObjectForSelectElement(categoryList);
+    }, [categoryList]);
 
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        dispatch(createNewSubCategory(selectedCategoryName, subCategoryName, selectedIcon))
+        const config = {
+            headers: {
+                "Content-type": "application/json",
+            },
+        };
+
+        const { data } = await axios.post(
+            "/api/category/subcategory",
+            {
+                name: subCategoryName,
+                category: selectedCategoryName,
+                icon: selectedIcon
+            },
+            config
+        );
+        setRefresher(prevState => !prevState);
     };
 
     const handleCategorySelect = (category) => {
-        setSelectedCategoryForSubcategories(category.name);
         setSelectedCategoryName(category.name);
+        setSelectedCategoryForSubcategories(category.name);
+        setSelectedCategoryForSubcategoriesColor(category.color);
+        setRefresher(prevState => !prevState);
         setSelectedColor(category.color);
-        dispatch(getAllSubCategoriesForCategory(category.name));
-        console.log(category.name);
     };
 
-    const handleSubCategoryChange=(e)=>{        
+    const handleSubCategoryChange = (e) => {
         setSubCategoryName(e.target.value);
     }
 
-    const makeObject = () => {
+    const makeObjectForSelectElement = () => {
         let temp = [];
         categoryList.map(element => {
             temp.push({
@@ -78,7 +82,6 @@ const CreateSubCategoryComponent = ({setSelectedCategoryForSubcategories}) => {
             <label htmlFor="subCategoryName" /> Category name
             <ReactSelectComponent
                 options={listForSelect}
-                setCategoryName={setSelectedCategoryName}
             />
             <br />
 
@@ -103,7 +106,7 @@ const CreateSubCategoryComponent = ({setSelectedCategoryForSubcategories}) => {
             <br />
             <button
                 type="submit"
-                className={selectedIcon !== "" && selectedCategoryName !== "" && subCategoryName !== "" && subCategoryName.length > 2 ? "btn solid" : "btnDisabled"}
+                className={selectedIcon !== "" && subCategoryName !== "" && subCategoryName.length > 2 ? "btn solid" : "btnDisabled"}
             >Save</button>
         </form>
     );
