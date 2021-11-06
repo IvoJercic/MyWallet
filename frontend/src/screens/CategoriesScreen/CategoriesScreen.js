@@ -102,6 +102,23 @@ const CategoriesScreen = ({ history }) => {
         );
     };
 
+    const toggleDiv = (e) => {
+        let flag=false;
+        e.target.classList.forEach(clazz => {
+            if(clazz=="opened"){
+                flag=true;
+            }            
+        });
+
+        if(flag){
+            e.target.classList.remove("opened");
+        }
+        else{
+            e.target.classList.add("opened");
+        }             
+    }
+
+
     return (
         <div className={mainCategoryMode === false ? "container sign-up-mode" : "container"}>
             <div className="forms-container">
@@ -127,6 +144,7 @@ const CategoriesScreen = ({ history }) => {
                                     <div className="categoryTab"
                                         key={category.name}
                                         style={{ background: category.color }}
+                                        onClick={(e) => toggleDiv(e)}
                                     >
                                         {createIcon(category.icon)}
                                         &nbsp;&nbsp;
