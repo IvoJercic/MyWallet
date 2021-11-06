@@ -14,10 +14,11 @@ const CreateSubCategoryComponent = (
         setRefresher }) => {
 
     const [selectedCategoryName, setSelectedCategoryName] = useState("");
+    const [selectedCategoryId,setSelectedCategoryId]=useState("");
     const [subCategoryName, setSubCategoryName] = useState("");
     const [selectedColor, setSelectedColor] = useState("");
     const [selectedIcon, setSelectedIcon] = useState("");
-    const [listForSelect, setListForSelect] = useState([]);
+    const [listForSelect, setListForSelect] = useState([]);    
 
     useEffect(() => {
         makeObjectForSelectElement(categoryList);
@@ -36,13 +37,14 @@ const CreateSubCategoryComponent = (
             "/api/subcategory/",
             {
                 name: subCategoryName,
-                category: selectedCategoryName,
+                category: selectedCategoryId,
                 icon: selectedIcon
             },
             config
         );
         setRefresher(prevState => !prevState);
         setSelectedCategoryName("");
+        setSelectedCategoryId("");
         setSelectedColor("");
         setSelectedIcon("");
         setSubCategoryName("");
@@ -53,7 +55,7 @@ const CreateSubCategoryComponent = (
         setRefresher(prevState => !prevState);
         setSelectedColor(category.color);
         setSelectedCategory(category);
-        console.log(category);
+        setSelectedCategoryId(category.id);
     };
 
     const handleSubCategoryChange = (e) => {

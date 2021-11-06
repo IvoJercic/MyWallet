@@ -58,14 +58,22 @@ const CategoriesScreen = ({ history }) => {
         }
     }
 
-    const handleDeleteCategory = async (category) => {
-        let popup = window.confirm("Are you sure you want to delete category " + category.name)        
-        if (popup) {
-            setRefresher(prevState => !prevState);
-            const { data } = await axios.delete("/api/category/" + category.id);
-        }        
+    const handleDeleteCategoryOrSubcategory = async (category, type) => {
+        if (type == "category") {
+            const popup = window.confirm("Are you sure you want to delete your category " + category.name + "\nYou will also delete all subcategories for this category !");
+            if (popup) {
+                setRefresher(prevState => !prevState);
+                const { data } = await axios.delete("/api/category/" + category.id);
+            }
+        }
+        else if (type == "subcategory") {
+            const popup = window.confirm("Are you sure you want to delete your subcategory " + category.name);
+            if (popup) {
+                setRefresher(prevState => !prevState);
+                const { data } = await axios.delete("/api/subcategory/" + category.id);
+            }
+        }
     }
-
 
     const createIcon = (iconName, prefix = "") => {
         const icon = React.createElement(FaIcons[iconName], { key: prefix + iconName, className: "icon" });
@@ -78,12 +86,12 @@ const CategoriesScreen = ({ history }) => {
         );
     };
 
-    const createDeleteIcon = (category) => {
+    const createDeleteIcon = (category, type) => {
         const icon = React.createElement(FaIcons["FaWindowClose"],
             {
                 key: "delete" + category.icon,
                 className: "deleteicon",
-                onClick: () => handleDeleteCategory(category)
+                onClick: () => handleDeleteCategoryOrSubcategory(category, type)
             });
         return (
             <div
@@ -93,7 +101,6 @@ const CategoriesScreen = ({ history }) => {
             </div>
         );
     };
-
 
     return (
         <div className={mainCategoryMode === false ? "container sign-up-mode" : "container"}>
@@ -127,8 +134,7 @@ const CategoriesScreen = ({ history }) => {
                                             {category.name}
                                         </b>
                                         &nbsp;&nbsp;
-                                        {createDeleteIcon(category)}
-
+                                        {createDeleteIcon(category, "category")}
                                     </div>
                                 ) : ""}
                         </div>
@@ -155,16 +161,13 @@ const CategoriesScreen = ({ history }) => {
                                         &nbsp;&nbsp;
                                         {subcategory.name}
                                         &nbsp;&nbsp;
-                                        {createDeleteIcon(subcategory.icon)}
-
+                                        {createDeleteIcon(subcategory, "subcategory")}
                                     </div>
                                 ) : ""}
-
                         </div>
                         <button className="btn transparent" id="sign-up-btn" onClick={() => setMainCategoryMode(!mainCategoryMode)}>
                             Add category
                         </button>
-
                     </div>
                 </div>
             </div>

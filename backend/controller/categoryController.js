@@ -1,7 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const Category = require("../models/CategoryModel");
-const Subcategory=require("../models/SubcategoryModel");
-const Root=require("../models/SubcategoryModel");
+const Subcategory = require("../models/SubcategoryModel");
 
 //AsyncHandler ce hvatati sve greske
 
@@ -38,7 +37,7 @@ const createCategory = asyncHandler(async (req, res) => {
 const getCategories = asyncHandler(async (req, res) => {
     const { userId } = req.params;
 
-    const categoriesList = (await Category.find({user:userId}));
+    const categoriesList = (await Category.find({ user: userId }));
 
     if (categoriesList) {
         res.status(201).json({
@@ -46,8 +45,8 @@ const getCategories = asyncHandler(async (req, res) => {
                 const temp = {}
                 temp.name = e.name
                 temp.color = e.color
-                temp.icon=e.icon
-                temp.id=e._id
+                temp.icon = e.icon
+                temp.id = e._id
                 return temp;
             })
         });
@@ -58,17 +57,22 @@ const getCategories = asyncHandler(async (req, res) => {
     }
 });
 
-const deleteCategory = asyncHandler(async (req,res)=>{
+const deleteCategory = asyncHandler(async (req, res) => {
     const { categoryId } = req.params;
-    const category = (await Category.findOneAndDelete({_id:categoryId}));
-
+    const category = (await Category.findOneAndDelete({ _id: categoryId }));
+    const subcategories=(await Subcategory.find({category:categoryId}))    
+    subcategories.forEach(element => {
+        Subcategory.findOneAndDelete({_id:element._id}).then(()=>{
+            console.log("Subcategory deleted");
+        }) 
+    });
     if (category) {
         res.status(201);
     }
     else {
         res.status(400);
         throw new Error("DELETE CATEGORY ERROR");
-    }    
+    }
 })
 
-module.exports = { createCategory, getCategories ,deleteCategory}
+module.exports = { createCategory, getCategories, deleteCategory }
