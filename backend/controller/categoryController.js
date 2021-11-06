@@ -11,7 +11,7 @@ const createCategory = asyncHandler(async (req, res) => {
 
     if (categoryExists) {
         res.status(400);
-        throw new Error("Category Already Exists");
+        throw new Error("CATEGORY ALREADY EXISTS");
     }
 
     const category = await Category.create({
@@ -31,11 +31,9 @@ const createCategory = asyncHandler(async (req, res) => {
     }
     else {
         res.status(400);
-        throw new Error("Error Occured");
+        throw new Error("CREATE CATEGORY ERROR");
     }
 });
-
-
 
 const getCategories = asyncHandler(async (req, res) => {
     const { userId } = req.params;
@@ -56,10 +54,21 @@ const getCategories = asyncHandler(async (req, res) => {
     }
     else {
         res.status(400);
-        throw new Error("Error Occured");
+        throw new Error("GET ALL CATEGORIES ERROR");
     }
 });
 
+const deleteCategory = asyncHandler(async (req,res)=>{
+    const { categoryId } = req.params;
+    const category = (await Category.findOneAndDelete({_id:categoryId}));
 
+    if (category) {
+        res.status(201);
+    }
+    else {
+        res.status(400);
+        throw new Error("DELETE CATEGORY ERROR");
+    }    
+})
 
-module.exports = { createCategory, getCategories }
+module.exports = { createCategory, getCategories ,deleteCategory}

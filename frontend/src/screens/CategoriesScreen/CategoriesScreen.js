@@ -17,7 +17,7 @@ const CategoriesScreen = ({ history }) => {
     const [refresher, setRefresher] = useState(false);
 
     //Proslijedujemo child componenti
-    const [selectedCategory,setSelectedCategory]=useState(null);
+    const [selectedCategory, setSelectedCategory] = useState(null);
 
     useEffect(() => {
         const userInfo = localStorage.getItem("userInfo");
@@ -32,11 +32,9 @@ const CategoriesScreen = ({ history }) => {
         }
     }, [refresher]);
 
-
-
     const getAllCategories = async () => {
         const { data } = await axios.get(
-            "/api/category/"+JSON.parse(localStorage.getItem("userInfo"))._id
+            "/api/category/" + JSON.parse(localStorage.getItem("userInfo"))._id
         );
         let tempCategoryList = [];
         data.categoriesList.map((e) => {
@@ -52,19 +50,22 @@ const CategoriesScreen = ({ history }) => {
         );
 
         let tempSubCategoryList = [];
-        if(data.subcategoriesList!=null){
+        if (data.subcategoriesList != null) {
             data.subcategoriesList.map((e) => {
                 tempSubCategoryList.push(e);
             });
-    
             setSubCategoriesList(tempSubCategoryList);
+        }
+    }
+
+    const handleDeleteCategory = async (category) => {
+        let popup = window.confirm("Are you sure you want to delete category " + category.name)        
+        if (popup) {
+            setRefresher(prevState => !prevState);
+            const { data } = await axios.delete("/api/category/" + category.id);
         }        
     }
 
-    const test=()=>{
-        console.log("RADI");
-        console.log(selectedCategory);
-    }
 
     const createIcon = (iconName, prefix = "") => {
         const icon = React.createElement(FaIcons[iconName], { key: prefix + iconName, className: "icon" });
@@ -77,11 +78,16 @@ const CategoriesScreen = ({ history }) => {
         );
     };
 
-    const createDeleteIcon = (iconName) => {
-        const icon = React.createElement(FaIcons["FaWindowClose"], { key: "delete" + iconName, className: "deleteicon",onClick:test });
+    const createDeleteIcon = (category) => {
+        const icon = React.createElement(FaIcons["FaWindowClose"],
+            {
+                key: "delete" + category.icon,
+                className: "deleteicon",
+                onClick: () => handleDeleteCategory(category)
+            });
         return (
             <div
-                key={"delete_icon__" + iconName}
+                key={"delete_icon__" + category.icon}
                 className="categoryIcon"
             >{icon}
             </div>
@@ -117,9 +123,11 @@ const CategoriesScreen = ({ history }) => {
                                     >
                                         {createIcon(category.icon)}
                                         &nbsp;&nbsp;
-                                        {category.name}
+                                        <b>
+                                            {category.name}
+                                        </b>
                                         &nbsp;&nbsp;
-                                        {createDeleteIcon(category.icon)}
+                                        {createDeleteIcon(category)}
 
                                     </div>
                                 ) : ""}
@@ -143,7 +151,7 @@ const CategoriesScreen = ({ history }) => {
                                         key={subcategory.name}
                                         style={{ background: selectedCategory.color }}
                                     >
-                                        {createIcon(subcategory.icon,"sub")}
+                                        {createIcon(subcategory.icon, "sub")}
                                         &nbsp;&nbsp;
                                         {subcategory.name}
                                         &nbsp;&nbsp;
@@ -154,8 +162,8 @@ const CategoriesScreen = ({ history }) => {
 
                         </div>
                         <button className="btn transparent" id="sign-up-btn" onClick={() => setMainCategoryMode(!mainCategoryMode)}>
-                                Add category
-                            </button>
+                            Add category
+                        </button>
 
                     </div>
                 </div>
