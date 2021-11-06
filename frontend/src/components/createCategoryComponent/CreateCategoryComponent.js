@@ -3,8 +3,6 @@ import './CreateCategoryComponent.css';
 import IconDisplayComponent from '../iconDisplayComponent/IconDisplayComponent';
 import { CirclePicker } from 'react-color';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { createNewMainCategory } from "../../redux/actions/categoryActions";
 import axios from "axios";
 
 const CreateCategoryComponent = ({setRefresher}) => {
@@ -12,6 +10,7 @@ const CreateCategoryComponent = ({setRefresher}) => {
     const [categoryName, setCategoryName] = useState("");
     const [selectedColor, setSelectedColor] = useState("#2196f3");
     const [selectedIcon, setSelectedIcon] = useState("");
+
 
     const handleSubmit = async(e) => {
         e.preventDefault();
@@ -27,11 +26,15 @@ const CreateCategoryComponent = ({setRefresher}) => {
             {
                 name:categoryName,
                 color:selectedColor,
-                icon:selectedIcon
+                icon:selectedIcon,
+                user:JSON.parse(localStorage.getItem("userInfo"))._id
             },
             config
         );
         setRefresher(prevState => !prevState);
+        setCategoryName("");
+        setSelectedColor("#2196f3");
+        setSelectedIcon("");
     };
 
     const handleColorChange = (color) => {

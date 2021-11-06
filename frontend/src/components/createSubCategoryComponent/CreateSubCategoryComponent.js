@@ -10,8 +10,7 @@ import axios from "axios";
 const CreateSubCategoryComponent = (
     {
         categoryList,
-        setSelectedCategoryForSubcategories,
-        setSelectedCategoryForSubcategoriesColor,
+        setSelectedCategory,
         setRefresher }) => {
 
     const [selectedCategoryName, setSelectedCategoryName] = useState("");
@@ -34,7 +33,7 @@ const CreateSubCategoryComponent = (
         };
 
         const { data } = await axios.post(
-            "/api/category/subcategory",
+            "/api/subcategory/",
             {
                 name: subCategoryName,
                 category: selectedCategoryName,
@@ -43,14 +42,18 @@ const CreateSubCategoryComponent = (
             config
         );
         setRefresher(prevState => !prevState);
+        setSelectedCategoryName("");
+        setSelectedColor("");
+        setSelectedIcon("");
+        setSubCategoryName("");
     };
 
     const handleCategorySelect = (category) => {
         setSelectedCategoryName(category.name);
-        setSelectedCategoryForSubcategories(category.name);
-        setSelectedCategoryForSubcategoriesColor(category.color);
         setRefresher(prevState => !prevState);
         setSelectedColor(category.color);
+        setSelectedCategory(category);
+        console.log(category);
     };
 
     const handleSubCategoryChange = (e) => {

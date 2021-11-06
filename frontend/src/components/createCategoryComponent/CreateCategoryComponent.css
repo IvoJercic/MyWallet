@@ -11,14 +11,14 @@
     align-self: center;
     justify-content: center;
     margin: auto;
-    height: 95%;
+    height: 45rem;
+    background: white;
 }
 
 .colorPicker{
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 0px;
 }
 
 .createcategory__input{

@@ -6,7 +6,7 @@ const Root=require("../models/SubcategoryModel");
 //AsyncHandler ce hvatati sve greske
 
 const createCategory = asyncHandler(async (req, res) => {
-    const { name, color, icon } = req.body;
+    const { name, color, icon, user } = req.body;
     const categoryExists = await Category.findOne({ name });
 
     if (categoryExists) {
@@ -18,6 +18,7 @@ const createCategory = asyncHandler(async (req, res) => {
         name,
         color,
         icon,
+        user
     });
 
     if (category) {
@@ -34,38 +35,12 @@ const createCategory = asyncHandler(async (req, res) => {
     }
 });
 
-const createSubCategory = asyncHandler(async (req, res) => {
-    const { name, category, icon } = req.body;
-    const categoryy=await Category.findOne({name:category});
-    const categoryyId=categoryy["id"].toString();
-    const subCategoryExists = await Subcategory.findOne({ name,categoryyId });
 
-    if (subCategoryExists) {
-        res.status(400);
-        throw new Error("Subcategory Already Exists");        
-    }    
-    const subcategory = await Subcategory.create({
-        name:name,
-        category:categoryyId,
-        icon:icon,
-    });
-
-    if (subcategory) {
-        res.status(201).json({
-            _id: subcategory._id,
-            name: subcategory.name,
-            category: subcategory.category,
-            icon: subcategory.icon,
-        });
-    }
-    else {
-        res.status(400);
-        throw new Error("Error Occured");
-    }
-});
 
 const getCategories = asyncHandler(async (req, res) => {
-    const categoriesList = (await Category.find({}));
+    const { userId } = req.params;
+
+    const categoriesList = (await Category.find({user:userId}));
 
     if (categoriesList) {
         res.status(201).json({
@@ -74,6 +49,7 @@ const getCategories = asyncHandler(async (req, res) => {
                 temp.name = e.name
                 temp.color = e.color
                 temp.icon=e.icon
+                temp.id=e._id
                 return temp;
             })
         });
@@ -84,28 +60,6 @@ const getCategories = asyncHandler(async (req, res) => {
     }
 });
 
-const getSubcategories = asyncHandler(async (req, res) => {
-    const { categoryName } = req.params;
 
-    const category = (await Category.findOne({name:categoryName}));
-    const categoryId=category["id"];
-    const subCategories=(await Subcategory.find({category:categoryId}));
 
-    if (subCategories) {
-        res.status(201).json({
-            "subcategoriesList": subCategories.map((e) => {
-                const temp = {}
-                temp.name = e.name
-                temp.category = e.category
-                temp.icon=e.icon
-                return temp;
-            })
-        });
-    }
-    else {
-        res.status(400);
-        throw new Error("Error Occured");
-    }
-});
-
-module.exports = { createCategory, createSubCategory,getCategories,getSubcategories }
+module.exports = { createCategory, getCategories }

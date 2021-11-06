@@ -13,7 +13,7 @@ import './IconDisplayComponent.css';
 const IconDisplayComponent = ({ selectedColor ,setSelectedIcon}) => {
     const [selectedIconName, setSelectedIconName] = useState("");
 
-    const iconList = [
+    const iconList = [        
         "FaBtc",
         "FaCreativeCommonsBy",
         "FaCuttlefish",

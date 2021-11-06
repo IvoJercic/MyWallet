@@ -32,3 +32,8 @@
 .icon{
     height: 36px;
 }
+
+.deleteicon{
+    cursor: pointer;
+    color: white;
+}

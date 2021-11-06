@@ -13,12 +13,11 @@ const CategoriesScreen = ({ history }) => {
 
     const [mainCategoryMode, setMainCategoryMode] = useState(true);
     const [categoryList, setCategoryList] = useState([]);
-    const [subCategoriesList, setSubCategoriesList] = useState(["1"]);
-    const [refresher,setRefresher]=useState(false);
+    const [subCategoriesList, setSubCategoriesList] = useState([]);
+    const [refresher, setRefresher] = useState(false);
 
     //Proslijedujemo child componenti
-    const [selectedCategoryForSubcategories, setSelectedCategoryForSubcategories] = useState(null);
-    const [selectedCategoryForSubcategoriesColor,setSelectedCategoryForSubcategoriesColor]=useState(null);
+    const [selectedCategory,setSelectedCategory]=useState(null);
 
     useEffect(() => {
         const userInfo = localStorage.getItem("userInfo");
@@ -27,7 +26,7 @@ const CategoriesScreen = ({ history }) => {
         }
         else {
             getAllCategories();
-            if (selectedCategoryForSubcategories != null) {
+            if (selectedCategory != null) {
                 getAllSubCategoriesForCategory();
             }
         }
@@ -37,7 +36,7 @@ const CategoriesScreen = ({ history }) => {
 
     const getAllCategories = async () => {
         const { data } = await axios.get(
-            "/api/category"
+            "/api/category/"+JSON.parse(localStorage.getItem("userInfo"))._id
         );
         let tempCategoryList = [];
         data.categoriesList.map((e) => {
@@ -49,17 +48,23 @@ const CategoriesScreen = ({ history }) => {
 
     const getAllSubCategoriesForCategory = async () => {
         const { data } = await axios.get(
-            "/api/category/" + selectedCategoryForSubcategories
+            "/api/subcategory/" + selectedCategory.id
         );
 
         let tempSubCategoryList = [];
-        data.subcategoriesList.map((e) => {
-            tempSubCategoryList.push(e);
-        });
-
-        setSubCategoriesList(tempSubCategoryList);
+        if(data.subcategoriesList!=null){
+            data.subcategoriesList.map((e) => {
+                tempSubCategoryList.push(e);
+            });
+    
+            setSubCategoriesList(tempSubCategoryList);
+        }        
     }
 
+    const test=()=>{
+        console.log("RADI");
+        console.log(selectedCategory);
+    }
 
     const createIcon = (iconName, prefix = "") => {
         const icon = React.createElement(FaIcons[iconName], { key: prefix + iconName, className: "icon" });
@@ -72,16 +77,27 @@ const CategoriesScreen = ({ history }) => {
         );
     };
 
+    const createDeleteIcon = (iconName) => {
+        const icon = React.createElement(FaIcons["FaWindowClose"], { key: "delete" + iconName, className: "deleteicon",onClick:test });
+        return (
+            <div
+                key={"delete_icon__" + iconName}
+                className="categoryIcon"
+            >{icon}
+            </div>
+        );
+    };
+
+
     return (
         <div className={mainCategoryMode === false ? "container sign-up-mode" : "container"}>
             <div className="forms-container">
                 <div className="signin-signup">
-                    <CreateCategoryComponent setRefresher={setRefresher}/>
+                    <CreateCategoryComponent setRefresher={setRefresher} />
 
                     <CreateSubCategoryComponent
                         categoryList={categoryList}
-                        setSelectedCategoryForSubcategories={setSelectedCategoryForSubcategories}
-                        setSelectedCategoryForSubcategoriesColor={setSelectedCategoryForSubcategoriesColor}
+                        setSelectedCategory={setSelectedCategory}
                         setRefresher={setRefresher}
                     />
                 </div>
@@ -92,6 +108,7 @@ const CategoriesScreen = ({ history }) => {
                     <div className="content">
                         <div className="categoryList__div">
                             <h1 className="center">Your categories </h1>
+                            <hr />
                             {categoryList ?
                                 categoryList.map(category =>
                                     <div className="categoryTab"
@@ -101,13 +118,12 @@ const CategoriesScreen = ({ history }) => {
                                         {createIcon(category.icon)}
                                         &nbsp;&nbsp;
                                         {category.name}
+                                        &nbsp;&nbsp;
+                                        {createDeleteIcon(category.icon)}
+
                                     </div>
                                 ) : ""}
                         </div>
-                        <p>
-                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Debitis,
-                            ex ratione. Aliquid!
-                        </p>
                         <button className="btn transparent" id="sign-up-btn" onClick={() => setMainCategoryMode(!mainCategoryMode)}>
                             Add Subcategories
                         </button>
@@ -116,28 +132,31 @@ const CategoriesScreen = ({ history }) => {
                 <div className="panel right-panel">
                     <div className="content">
                         <div className="categoryList__div">
-                            <h1 className="center">Selected category </h1>
-                            {selectedCategoryForSubcategories}
+                            {selectedCategory
+                                ? <h1 className="center">Category: {selectedCategory.name} </h1>
+                                : <h1 className="center">Choose category </h1>
+                            }
                             <hr />
-                            {subCategoriesList!=[] ?
+                            {subCategoriesList ?
                                 subCategoriesList.map(subcategory =>
                                     <div className="categoryTab"
-                                        key={"subcategory_" + subcategory.name}
-                                        style={{ background: selectedCategoryForSubcategoriesColor }}
+                                        key={subcategory.name}
+                                        style={{ background: selectedCategory.color }}
                                     >
-                                        {subcategory.icon
-                                            ? createIcon(subcategory.icon, "sub")
-                                            : ""
-                                        }
+                                        {createIcon(subcategory.icon,"sub")}
                                         &nbsp;&nbsp;
                                         {subcategory.name}
+                                        &nbsp;&nbsp;
+                                        {createDeleteIcon(subcategory.icon)}
+
                                     </div>
                                 ) : ""}
 
-                            <button className="btn transparent" id="sign-up-btn" onClick={() => setMainCategoryMode(!mainCategoryMode)}>
+                        </div>
+                        <button className="btn transparent" id="sign-up-btn" onClick={() => setMainCategoryMode(!mainCategoryMode)}>
                                 Add category
                             </button>
-                        </div>
+
                     </div>
                 </div>
             </div>
