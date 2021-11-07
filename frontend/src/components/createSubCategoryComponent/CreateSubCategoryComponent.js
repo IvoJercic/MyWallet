@@ -10,15 +10,17 @@ import axios from "axios";
 const CreateSubCategoryComponent = (
     {
         categoryList,
-        setSelectedCategory,
+        setSelectedCategory,//Potrebno Categorie screen komponenti za ispis odabrane komponente 
         setRefresher }) => {
 
-    const [selectedCategoryName, setSelectedCategoryName] = useState("");
-    const [selectedCategoryId,setSelectedCategoryId]=useState("");
+    const [listForSelect, setListForSelect] = useState([]);
     const [subCategoryName, setSubCategoryName] = useState("");
-    const [selectedColor, setSelectedColor] = useState("");
     const [selectedIcon, setSelectedIcon] = useState("");
-    const [listForSelect, setListForSelect] = useState([]);    
+
+    //Proslijedujemo child select komponenti
+    const [selectedCategoryForSubcategories, setSelectedCategoryForSubcategories] = useState("");
+    //potrebno ovoj komponenit za spremanje
+
 
     useEffect(() => {
         makeObjectForSelectElement(categoryList);
@@ -37,25 +39,13 @@ const CreateSubCategoryComponent = (
             "/api/subcategory/",
             {
                 name: subCategoryName,
-                category: selectedCategoryId,
+                category: selectedCategoryForSubcategories.id,
                 icon: selectedIcon
             },
             config
         );
         setRefresher(prevState => !prevState);
-        setSelectedCategoryName("");
-        setSelectedCategoryId("");
-        setSelectedColor("");
-        setSelectedIcon("");
         setSubCategoryName("");
-    };
-
-    const handleCategorySelect = (category) => {
-        setSelectedCategoryName(category.name);
-        setRefresher(prevState => !prevState);
-        setSelectedColor(category.color);
-        setSelectedCategory(category);
-        setSelectedCategoryId(category.id);
     };
 
     const handleSubCategoryChange = (e) => {
@@ -70,14 +60,21 @@ const CreateSubCategoryComponent = (
                 label:
                     <div
                         style={{ color: element.color }}
-                        onClick={() => handleCategorySelect(element)}
+                    // onClick={() => handleCategorySelect(element)}
                     >
                         {React.createElement(FaIcons[element.icon])}
                         <span>{element.name}</span>
-                    </div>
+                    </div>,
+                category: element
             })
         });
         setListForSelect(temp);
+    }
+
+    const handleCategorySelect=(category)=>{
+        setSelectedCategoryForSubcategories(category);
+        setSelectedCategory(category);
+        setRefresher(prevState => !prevState);
     }
 
     return (
@@ -87,6 +84,7 @@ const CreateSubCategoryComponent = (
             <label htmlFor="subCategoryName" /> Category name
             <ReactSelectComponent
                 options={listForSelect}
+                handleCategorySelect={handleCategorySelect}
             />
             <br />
 
@@ -104,8 +102,8 @@ const CreateSubCategoryComponent = (
 
             <br />
             <br />
-            {selectedColor !== ""
-                ? <IconDisplayComponent selectedColor={selectedColor} setSelectedIcon={setSelectedIcon} />
+            {selectedCategoryForSubcategories.color !== ""
+                ? <IconDisplayComponent selectedColor={selectedCategoryForSubcategories.color} setSelectedIcon={setSelectedIcon} />
                 : ""
             }
             <br />

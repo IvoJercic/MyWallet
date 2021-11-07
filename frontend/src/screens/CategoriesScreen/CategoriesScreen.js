@@ -118,7 +118,6 @@ const CategoriesScreen = ({ history }) => {
         }             
     }
 
-
     return (
         <div className={mainCategoryMode === false ? "container sign-up-mode" : "container"}>
             <div className="forms-container">
@@ -177,7 +176,9 @@ const CategoriesScreen = ({ history }) => {
                                     >
                                         {createIcon(subcategory.icon, "sub")}
                                         &nbsp;&nbsp;
+                                        <b>
                                         {subcategory.name}
+                                        </b>
                                         &nbsp;&nbsp;
                                         {createDeleteIcon(subcategory, "subcategory")}
                                     </div>
