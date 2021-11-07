@@ -1,1 +1,1 @@
-worker: node backend/server.js
+worker: npm run dev
