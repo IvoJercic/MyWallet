@@ -10,7 +10,6 @@ import axios from "axios";
 
 
 const CategoriesScreen = ({ history }) => {
-
     const [mainCategoryMode, setMainCategoryMode] = useState(true);
     const [categoryList, setCategoryList] = useState([]);
     const [subCategoriesList, setSubCategoriesList] = useState([]);
@@ -75,6 +74,10 @@ const CategoriesScreen = ({ history }) => {
         }
     }
 
+    const handleEditCategoryOrSubcategory = async (category, type) => {
+        console.log("RADI");        
+    }
+
     const createIcon = (iconName, prefix = "") => {
         const icon = React.createElement(FaIcons[iconName], { key: prefix + iconName, className: "icon" });
         return (
@@ -87,15 +90,31 @@ const CategoriesScreen = ({ history }) => {
     };
 
     const createDeleteIcon = (category, type) => {
-        const icon = React.createElement(FaIcons["FaWindowClose"],
+        const icon = React.createElement(FaIcons["FaTimes"],
             {
                 key: "delete" + category.icon,
-                className: "deleteicon",
+                className:"deleteicon",
                 onClick: () => handleDeleteCategoryOrSubcategory(category, type)
             });
         return (
             <div
                 key={"delete_icon__" + category.icon}
+                className="categoryIcon"
+            >{icon}
+            </div>
+        );
+    };
+
+    const createEditIcon = (category, type) => {
+        const icon = React.createElement(FaIcons["FaPen"],
+            {
+                key: "edit" + category.icon,
+                className:"editicon",
+                onClick: () => handleEditCategoryOrSubcategory(category, type)
+            });
+        return (
+            <div
+                key={"edit_icon__" + category.icon}
                 className="categoryIcon"
             >{icon}
             </div>
@@ -143,13 +162,16 @@ const CategoriesScreen = ({ history }) => {
                                     <div className="categoryTab"
                                         key={category.name}
                                         style={{ background: category.color }}
-                                        onClick={(e) => toggleDiv(e)}
+                                        // onClick={(e) => toggleDiv(e)}
                                     >
                                         {createIcon(category.icon)}
                                         &nbsp;&nbsp;
                                         <b>
                                             {category.name}
+                                        
                                         </b>
+                                        &nbsp;&nbsp;
+                                        {createEditIcon(category, "category")}
                                         &nbsp;&nbsp;
                                         {createDeleteIcon(category, "category")}
                                     </div>

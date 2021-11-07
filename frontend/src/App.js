@@ -12,16 +12,10 @@ import SideBarComponent from "../src/components/sideBarComponent/SideBarComponen
 
 function App() {
 
-  const [sideToggle,setSideToggle] = useState(false);
 
   // const user= useSelector(selectUser);
   return (
     <Router>
-      {/* <Header/> */}
-      {/* {user? <Logout />: <Login/> } */}
-    {/* //   <NavBar click={()=>setSideToggle(true)}/>     
-    //   <SideDrawer show={sideToggle} click={()=>setSideToggle(false)}/>
-    //   <BackDrop show={sideToggle} click={()=>setSideToggle(false)}/> */}
       <main>
       <SideBarComponent />
         <Switch>

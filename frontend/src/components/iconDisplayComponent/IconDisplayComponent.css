@@ -33,7 +33,8 @@
     height: 36px;
 }
 
-.deleteicon{
+.deleteicon,
+.editicon{
     cursor: pointer;
     color: white;
 }
