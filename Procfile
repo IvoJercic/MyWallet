@@ -1,2 +1,1 @@
-web:node server.js
-worker: npm run client
+web:node server.js && npm run client
