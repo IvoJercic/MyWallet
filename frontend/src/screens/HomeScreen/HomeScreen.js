@@ -34,7 +34,7 @@ const HomeScreen = ({ history }) => {
             <div className="panels-container">
                 <div className="panel left-panel">
                     <div className="content">
-                        <h3>New here ?</h3>
+                        <h3>Welcome ?</h3>
                         <p>
                             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Debitis,
                             ex ratione. Aliquid!
