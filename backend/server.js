@@ -1,18 +1,32 @@
-require("dotenv").config();
+// require("dotenv").config();
+const dotenv=require("dotenv");
 const express= require("express");
 const connectDB=require("./config/db");
 const { notFound, errorHandler } = require("./middlewares/errorMiddleware");
 const userRoutes=require("./routes/userRoutes");
 const categoryRoutes=require("./routes/categoryRoutes");
 const subcategoryRoutes=require("./routes/subCategoryRoutes")
-connectDB();
+const path=require("path");
 
 const app=express();
+dotenv.config();
+connectDB();
 app.use(express.json());
 
 app.use("/api/users",userRoutes);
 app.use("/api/category",categoryRoutes);
 app.use("/api/subcategory",subcategoryRoutes);
+
+// DEPLOYMENT
+__dirname=path.resolve();
+if(process.env.NODE_ENV==="production"){
+    app.use(express.static(path.join(__dirname,"/frontend/build")));
+
+    app.get("*",(req,res)=>{
+        res.sendFile(path.resolve(__dirname,"frontend","build","index.html"))
+    });
+}
+
 
 app.use(notFound)
 app.use(errorHandler)

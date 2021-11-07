@@ -1,1 +1,1 @@
-web:node server.js && npm run client
+web: node backend/server.js
