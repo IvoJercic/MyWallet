@@ -1,2 +1,1 @@
-worker: npm start
-worker: cd frontend && npm start
+worker: npm run dev
