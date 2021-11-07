@@ -8,8 +8,7 @@
     "server": "nodemon backend/server.js",
     "client": "npm start --prefix frontend",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "data:import": "node backend/seederScript.js",
-    "postinstall": "bower install && grunt build"
+    "data:import": "node backend/seederScript.js"
   },
   "keywords": [
     "wallet",
