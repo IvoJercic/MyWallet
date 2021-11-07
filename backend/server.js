@@ -1,10 +1,10 @@
 require("dotenv").config();
 const express= require("express");
-const connectDB=require("./backend/config/db");
-const { notFound, errorHandler } = require("./backend/middlewares/errorMiddleware");
-const userRoutes=require("./backend/routes/userRoutes");
-const categoryRoutes=require("./backend/routes/categoryRoutes");
-const subcategoryRoutes=require("./backend/routes/subCategoryRoutes")
+const connectDB=require("./config/db");
+const { notFound, errorHandler } = require("./middlewares/errorMiddleware");
+const userRoutes=require("./routes/userRoutes");
+const categoryRoutes=require("./routes/categoryRoutes");
+const subcategoryRoutes=require("./routes/subCategoryRoutes")
 connectDB();
 
 const app=express();
