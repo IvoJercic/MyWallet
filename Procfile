@@ -1,1 +1,1 @@
-worker: "cd backend && node server.js"
+worker: node server.js
