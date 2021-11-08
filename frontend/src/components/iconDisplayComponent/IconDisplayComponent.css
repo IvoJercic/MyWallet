@@ -38,3 +38,10 @@
     cursor: pointer;
     color: white;
 }
+
+.deleteicon:hover,
+.editicon:hover
+{
+    cursor: pointer;
+    color: #102B49;
+}

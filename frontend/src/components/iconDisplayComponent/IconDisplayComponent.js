@@ -1,17 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 //Components
 import ErrorMessage from "../ErrorMessage";
 import * as FaIcons from 'react-icons/fa';
 
-import * as AiIcons from 'react-icons/ai';
-
 import './IconDisplayComponent.css';
 
 
 
-const IconDisplayComponent = ({ selectedColor ,setSelectedIcon}) => {
+const IconDisplayComponent = ({ selectedColor ,setSelectedIcon,updateMode,iconBeforeUpdate}) => {
     const [selectedIconName, setSelectedIconName] = useState("");
+
+
+    useEffect(() => {
+        if(updateMode){        
+            console.log(iconBeforeUpdate);    
+            setSelectedIconName(iconBeforeUpdate);
+            setSelectedIcon(iconBeforeUpdate);
+        }
+    }, []);
 
     const iconList = [        
         "FaBtc",

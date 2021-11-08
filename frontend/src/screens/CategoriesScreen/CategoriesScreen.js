@@ -7,6 +7,7 @@ import CreateSubCategoryComponent from "../../components/createSubCategoryCompon
 //
 import * as FaIcons from 'react-icons/fa';
 import axios from "axios";
+import UpdateCategoryComponent from "../../components/updateCategoryComponent/UpdateCategoryComponent";
 
 
 const CategoriesScreen = ({ history }) => {
@@ -14,6 +15,9 @@ const CategoriesScreen = ({ history }) => {
     const [categoryList, setCategoryList] = useState([]);
     const [subCategoriesList, setSubCategoriesList] = useState([]);
     const [refresher, setRefresher] = useState(false);
+
+    const [updateCategory, setUpdateCategory] = useState(false);
+    const [categoryForUpdate, setCategoryForUpdate] = useState("");
 
     //Proslijedujemo child componenti
     const [selectedCategory, setSelectedCategory] = useState(null);
@@ -75,7 +79,9 @@ const CategoriesScreen = ({ history }) => {
     }
 
     const handleEditCategoryOrSubcategory = async (category, type) => {
-        console.log("RADI");        
+        console.log("RADI");
+        setUpdateCategory(true);
+        setCategoryForUpdate(category);
     }
 
     const createIcon = (iconName, prefix = "") => {
@@ -93,7 +99,7 @@ const CategoriesScreen = ({ history }) => {
         const icon = React.createElement(FaIcons["FaTimes"],
             {
                 key: "delete" + category.icon,
-                className:"deleteicon",
+                className: "deleteicon",
                 onClick: () => handleDeleteCategoryOrSubcategory(category, type)
             });
         return (
@@ -109,7 +115,7 @@ const CategoriesScreen = ({ history }) => {
         const icon = React.createElement(FaIcons["FaPen"],
             {
                 key: "edit" + category.icon,
-                className:"editicon",
+                className: "editicon",
                 onClick: () => handleEditCategoryOrSubcategory(category, type)
             });
         return (
@@ -122,26 +128,33 @@ const CategoriesScreen = ({ history }) => {
     };
 
     const toggleDiv = (e) => {
-        let flag=false;
+        let flag = false;
         e.target.classList.forEach(clazz => {
-            if(clazz=="opened"){
-                flag=true;
-            }            
+            if (clazz == "opened") {
+                flag = true;
+            }
         });
 
-        if(flag){
+        if (flag) {
             e.target.classList.remove("opened");
         }
-        else{
+        else {
             e.target.classList.add("opened");
-        }             
+        }
     }
 
     return (
         <div className={mainCategoryMode === false ? "container sign-up-mode" : "container"}>
             <div className="forms-container">
                 <div className="signin-signup">
-                    <CreateCategoryComponent setRefresher={setRefresher} />
+                    {updateCategory
+                        ? <UpdateCategoryComponent
+                            setRefresher={setRefresher}
+                            categoryForUpdate={categoryForUpdate} />
+                            
+                        : <CreateCategoryComponent
+                            setRefresher={setRefresher} />
+                    }
 
                     <CreateSubCategoryComponent
                         categoryList={categoryList}
@@ -162,13 +175,13 @@ const CategoriesScreen = ({ history }) => {
                                     <div className="categoryTab"
                                         key={category.name}
                                         style={{ background: category.color }}
-                                        // onClick={(e) => toggleDiv(e)}
+                                    // onClick={(e) => toggleDiv(e)}
                                     >
                                         {createIcon(category.icon)}
                                         &nbsp;&nbsp;
                                         <b>
                                             {category.name}
-                                        
+
                                         </b>
                                         &nbsp;&nbsp;
                                         {createEditIcon(category, "category")}
@@ -199,7 +212,7 @@ const CategoriesScreen = ({ history }) => {
                                         {createIcon(subcategory.icon, "sub")}
                                         &nbsp;&nbsp;
                                         <b>
-                                        {subcategory.name}
+                                            {subcategory.name}
                                         </b>
                                         &nbsp;&nbsp;
                                         {createDeleteIcon(subcategory, "subcategory")}

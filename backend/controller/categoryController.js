@@ -75,4 +75,17 @@ const deleteCategory = asyncHandler(async (req, res) => {
     }
 })
 
-module.exports = { createCategory, getCategories, deleteCategory }
+const updateCategory = asyncHandler(async (req, res) => {
+    const { categoryId } = req.params;
+    const { name, color, icon } = req.body;
+    const category = (await Category.findOneAndUpdate({_id:categoryId},{ name: name,color:color,icon:icon }));
+    if (category) {        
+        res.status(201);
+    }
+    else {
+        res.status(400);
+        throw new Error("UPDATE CATEGORY ERROR");
+    }
+})
+
+module.exports = { createCategory, getCategories, deleteCategory,updateCategory }
