@@ -8,6 +8,7 @@ import CreateSubCategoryComponent from "../../components/createSubCategoryCompon
 import * as FaIcons from 'react-icons/fa';
 import axios from "axios";
 import UpdateCategoryComponent from "../../components/updateCategoryComponent/UpdateCategoryComponent";
+import UpdateSubCategoryComponent from "../../components/updateSubCategoryComponent/UpdateSubCategoryComponent";
 
 
 const CategoriesScreen = ({ history }) => {
@@ -18,6 +19,10 @@ const CategoriesScreen = ({ history }) => {
 
     const [updateCategory, setUpdateCategory] = useState(false);
     const [categoryForUpdate, setCategoryForUpdate] = useState("");
+
+    const [updateSubCategory, setUpdateSubCategory] = useState(false);
+    const [subCategoryForUpdate, setSubCategoryForUpdate] = useState("");
+
 
     //Proslijedujemo child componenti
     const [selectedCategory, setSelectedCategory] = useState(null);
@@ -79,9 +84,15 @@ const CategoriesScreen = ({ history }) => {
     }
 
     const handleEditCategoryOrSubcategory = async (category, type) => {
-        console.log("RADI");
-        setUpdateCategory(true);
-        setCategoryForUpdate(category);
+        if (type == "category") {
+            setUpdateCategory(true);
+            setCategoryForUpdate(category);
+        }
+        else if (type == "subcategory") {
+            setUpdateSubCategory(true);
+            setSubCategoryForUpdate(category);
+        }
+
     }
 
     const createIcon = (iconName, prefix = "") => {
@@ -150,17 +161,26 @@ const CategoriesScreen = ({ history }) => {
                     {updateCategory
                         ? <UpdateCategoryComponent
                             setRefresher={setRefresher}
-                            categoryForUpdate={categoryForUpdate} />
-                            
+                            categoryForUpdate={categoryForUpdate}
+                            setUpdateCategory={setUpdateCategory} />
+
                         : <CreateCategoryComponent
                             setRefresher={setRefresher} />
                     }
 
-                    <CreateSubCategoryComponent
-                        categoryList={categoryList}
-                        setSelectedCategory={setSelectedCategory}
+                    {updateSubCategory
+                        ? <UpdateSubCategoryComponent 
                         setRefresher={setRefresher}
-                    />
+                        subCategoryForUpdate={subCategoryForUpdate}
+                        setUpdateSubCategory={setUpdateSubCategory}
+                        selectedCategory={selectedCategory} />
+
+                        : <CreateSubCategoryComponent
+                            categoryList={categoryList}
+                            setSelectedCategory={setSelectedCategory}
+                            setRefresher={setRefresher}
+                        />
+                    }
                 </div>
             </div>
 
@@ -214,6 +234,8 @@ const CategoriesScreen = ({ history }) => {
                                         <b>
                                             {subcategory.name}
                                         </b>
+                                        &nbsp;&nbsp;
+                                        {createEditIcon(subcategory, "subcategory")}
                                         &nbsp;&nbsp;
                                         {createDeleteIcon(subcategory, "subcategory")}
                                     </div>

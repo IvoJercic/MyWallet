@@ -14,7 +14,6 @@ const IconDisplayComponent = ({ selectedColor ,setSelectedIcon,updateMode,iconBe
 
     useEffect(() => {
         if(updateMode){        
-            console.log(iconBeforeUpdate);    
             setSelectedIconName(iconBeforeUpdate);
             setSelectedIcon(iconBeforeUpdate);
         }

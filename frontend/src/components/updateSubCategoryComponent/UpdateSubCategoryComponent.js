@@ -1,4 +1,4 @@
-import './UpdateCategoryComponent.css';
+import './UpdateSubCategoryComponent.css';
 
 import IconDisplayComponent from '../iconDisplayComponent/IconDisplayComponent';
 import { CirclePicker } from 'react-color';
@@ -6,16 +6,16 @@ import { useState, useEffect } from 'react';
 import axios from "axios";
 import * as FaIcons from 'react-icons/fa';
 
-const UpdateCategoryComponent = ({ setRefresher, categoryForUpdate, setUpdateCategory }) => {
+const UpdateSubCategoryComponent= ({ setRefresher, subCategoryForUpdate, setUpdateSubCategory,selectedCategory }) => {
 
-    const [categoryName, setCategoryName] = useState("");
+    const [subCategoryName, setSubCategoryName] = useState("");
     const [selectedColor, setSelectedColor] = useState("");
     const [selectedIcon, setSelectedIcon] = useState("");
 
     useEffect(() => {
-        setCategoryName(categoryForUpdate.name);
-        setSelectedColor(categoryForUpdate.color);
-        setSelectedIcon(categoryForUpdate.icon);
+        setSubCategoryName(subCategoryForUpdate.name);
+        setSelectedColor(selectedCategory.color);
+        setSelectedIcon(subCategoryForUpdate.icon);
     }, []);
 
     const handleSubmit = async (e) => {
@@ -26,35 +26,31 @@ const UpdateCategoryComponent = ({ setRefresher, categoryForUpdate, setUpdateCat
             },
         };
         setRefresher(prevState => !prevState);
-        setUpdateCategory(false);
+        setUpdateSubCategory(false);
         const { data } = await axios.put(
-            "/api/category/" + categoryForUpdate.id,
+            "/api/subcategory/" + subCategoryForUpdate.id,
             {
-                name: categoryName,
-                color: selectedColor,
+                name: subCategoryName,
                 icon: selectedIcon,
             },
             config
         );
-        setCategoryName("");
+        setSubCategoryName("");
         setSelectedColor("");
         setSelectedIcon("");
     };
 
-    const handleColorChange = (color) => {
-        setSelectedColor(color.hex);
-    };
 
     const handleCancelUpdate = () => {
-        const popup = window.confirm("Are you sure you want to cancel editing your category " + categoryForUpdate.name);
+        const popup = window.confirm("Are you sure you want to cancel editing your subcategory " + subCategoryForUpdate.name);
         if (popup) {
-            setUpdateCategory(false);
+            setUpdateSubCategory(false);
         }
     }
 
     return (
-        <form action="#" className="sign-in-form createcategory" onSubmit={(e) => handleSubmit(e)}>
-            <span style={{ display: 'flex' }}><h1 className="center">Update category</h1> </span>
+        <form action="#" className="sign-up-form createcategory" onSubmit={(e) => handleSubmit(e)}>
+            <span style={{ display: 'flex' }}><h1 className="center">Update subcategory</h1> </span>
             <div
                 onClick={() => handleCancelUpdate()}
                 className={"cancelDiv"}
@@ -62,35 +58,31 @@ const UpdateCategoryComponent = ({ setRefresher, categoryForUpdate, setUpdateCat
             </div>
 
             <hr />
-            <h2>{categoryForUpdate.name}</h2>
+            <h2>{subCategoryForUpdate.name}</h2>
             <div className="createcategory__input">
                 <i className="fas fa-list"></i>
                 <input
                     type="text"
                     placeholder="Name"
-                    value={categoryName}
-                    onChange={(e) => setCategoryName(e.target.value)}
+                    value={subCategoryName}
+                    onChange={(e) => setSubCategoryName(e.target.value)}
                 />
             </div>
-            <CirclePicker
-                className="colorPicker"
-                color={selectedColor}
-                onChangeComplete={handleColorChange}
-            />
+
             <br />
             <br />
             <IconDisplayComponent selectedColor={selectedColor}
                 setSelectedIcon={setSelectedIcon}
                 updateMode={true}
-                iconBeforeUpdate={categoryForUpdate.icon}
+                iconBeforeUpdate={subCategoryForUpdate.icon}
             />
             <br />
             <button
                 type="submit"
-                className={selectedIcon !== "" && categoryName !== "" && categoryName.length > 2 ? "btn solid" : "btnDisabled"}
+                className={selectedIcon !== "" && subCategoryName !== "" && subCategoryName.length > 2 ? "btn solid" : "btnDisabled"}
             >Save</button>
         </form>
     );
 };
 
-export default UpdateCategoryComponent;
+export default UpdateSubCategoryComponent;

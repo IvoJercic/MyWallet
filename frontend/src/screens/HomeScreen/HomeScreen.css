@@ -150,6 +150,7 @@ form.sign-in-form {
 
 .btn {
   width: 150px;
+  text-align: center;
   background-color: #102B49;
   border: none;
   outline: none;
@@ -457,3 +458,17 @@ form.sign-in-form {
     padding-top: 20px;
 }
 
+.cancelDiv{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color:white;
+  background-color: #102B49;
+  border-radius: 16px;
+  box-shadow:0 3px 5px 0 rgb(0 0 0 / 10%), 0 3px 6px 0 rgb(0 0 0 / 6%);
+  border: 2px solid transparent;
+  font-size: 1rem;
+  padding: 5px;
+  margin: 5px ; 
+  cursor: pointer;
+}
