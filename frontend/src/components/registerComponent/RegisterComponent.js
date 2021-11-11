@@ -3,7 +3,6 @@ import axios from "axios";
 
 //Components
 import ErrorMessage from "../ErrorMessage";
-import Loading from "../Loading";
 import { useDispatch, useSelector } from "react-redux";
 import { register } from "../../redux/actions/userActions";
 

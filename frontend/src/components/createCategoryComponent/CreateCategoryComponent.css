@@ -53,3 +53,19 @@
     color: #aaa;
     font-weight: 500;
 }
+
+.divRadioBtns{
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.divRadioBtns>label{
+    font-size: 1.1rem;
+    cursor: pointer;
+ }
+
+.radioBtn{
+    margin: 20px;
+    cursor: pointer;
+}

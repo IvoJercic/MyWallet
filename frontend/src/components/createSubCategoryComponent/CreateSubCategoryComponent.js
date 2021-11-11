@@ -2,7 +2,7 @@ import './CreateSubCategoryComponent.css';
 
 import IconDisplayComponent from '../iconDisplayComponent/IconDisplayComponent';
 import React, { useEffect, useState } from 'react';
-import ReactSelectComponent from '../ReactSelectComponent';
+import ReactSelectComponent from '../reactSelectComponent/ReactSelectComponent';
 
 import * as FaIcons from 'react-icons/fa';
 import axios from "axios";

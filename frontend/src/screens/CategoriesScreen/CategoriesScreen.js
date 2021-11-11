@@ -197,12 +197,18 @@ const CategoriesScreen = ({ history }) => {
                                         style={{ background: category.color }}
                                     // onClick={(e) => toggleDiv(e)}
                                     >
+                                        {category.type=="Income"
+                                        ?createIcon("FaAngleDoubleUp")
+                                        :createIcon("FaAngleDoubleDown")}                                       
+                                        &nbsp;&nbsp;
+                                        &nbsp;&nbsp;
                                         {createIcon(category.icon)}
                                         &nbsp;&nbsp;
                                         <b>
                                             {category.name}
 
                                         </b>
+                                        &nbsp;&nbsp;
                                         &nbsp;&nbsp;
                                         {createEditIcon(category, "category")}
                                         &nbsp;&nbsp;

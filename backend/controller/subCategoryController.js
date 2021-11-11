@@ -71,9 +71,7 @@ const deleteSubCategory = asyncHandler(async (req, res) => {
 
 const updateSubCategory = asyncHandler(async (req, res) => {
     const { subcategoryId } = req.params;
-    // console.log(subcategoryId);
     const { name, icon } = req.body;
-    console.log(name, icon);
     const subcategory = (await Subcategory.findOneAndUpdate({_id:subcategoryId},{ name: name,icon:icon }));
     if (subcategory) {        
         res.status(201);

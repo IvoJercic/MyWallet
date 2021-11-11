@@ -16,5 +16,11 @@ export const SideBarComponentData = [
     icon: <AiIcons.AiFillHome />,
     cName: 'nav-text'
   },
+  {
+    title: 'Input',
+    path: '/input',
+    icon: <AiIcons.AiFillHome />,
+    cName: 'nav-text'
+  },
   
 ];

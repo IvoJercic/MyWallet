@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import HomeScreen from "./screens/HomeScreen/HomeScreen";
 import DashboardScreen from './screens/DashboardScreen/DashboardScreen';
 import CategoriesScreen from './screens/CategoriesScreen/CategoriesScreen';
+import InputScreen from './screens/InputScreen/InputScreen';
 
 //Components
 import SideBarComponent from "../src/components/sideBarComponent/SideBarComponent";
@@ -25,6 +26,7 @@ function App() {
           <Route exact path="/" component={HomeScreen} />
           <Route exact path="/dashboard" component={DashboardScreen} />
           <Route exact path="/categories" component={CategoriesScreen} />
+          <Route exact path="/input" component={InputScreen} />
         </Switch>
       </main>
     </Router>

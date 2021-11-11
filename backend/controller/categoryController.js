@@ -5,8 +5,8 @@ const Subcategory = require("../models/SubcategoryModel");
 //AsyncHandler ce hvatati sve greske
 
 const createCategory = asyncHandler(async (req, res) => {
-    const { name, color, icon, user } = req.body;
-    const categoryExists = await Category.findOne({ name });
+    const { name, color, icon, user,type } = req.body;
+    const categoryExists = await Category.findOne({ name ,user});
 
     if (categoryExists) {
         res.status(400);
@@ -17,7 +17,8 @@ const createCategory = asyncHandler(async (req, res) => {
         name,
         color,
         icon,
-        user
+        user,
+        type
     });
 
     if (category) {
@@ -26,6 +27,7 @@ const createCategory = asyncHandler(async (req, res) => {
             name: category.name,
             color: category.color,
             icon: category.icon,
+            type:category.type
         });
     }
     else {
@@ -47,6 +49,7 @@ const getCategories = asyncHandler(async (req, res) => {
                 temp.color = e.color
                 temp.icon = e.icon
                 temp.id = e._id
+                temp.type=e.type
                 return temp;
             })
         });
