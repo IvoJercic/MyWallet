@@ -92,7 +92,6 @@ const CategoriesScreen = ({ history }) => {
             setUpdateSubCategory(true);
             setSubCategoryForUpdate(category);
         }
-
     }
 
     const createIcon = (iconName, prefix = "") => {

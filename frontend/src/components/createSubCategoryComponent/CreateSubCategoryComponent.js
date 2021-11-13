@@ -19,8 +19,6 @@ const CreateSubCategoryComponent = (
 
     //Proslijedujemo child select komponenti
     const [selectedCategoryForSubcategories, setSelectedCategoryForSubcategories] = useState("");
-    //potrebno ovoj komponenit za spremanje
-
 
     useEffect(() => {
         makeObjectForSelectElement(categoryList);
@@ -60,10 +58,9 @@ const CreateSubCategoryComponent = (
                 label:
                     <div
                         style={{ color: element.color }}
-                    // onClick={() => handleCategorySelect(element)}
                     >
                         {React.createElement(FaIcons[element.icon])}
-                        <span>{element.name}</span>
+                        <span>{element.name} ({element.type})</span>
                     </div>,
                 category: element
             })
