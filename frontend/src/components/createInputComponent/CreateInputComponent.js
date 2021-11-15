@@ -1,11 +1,12 @@
 import './CreateInputComponent.css';
-
-import IconDisplayComponent from '../iconDisplayComponent/IconDisplayComponent';
 import React, { useEffect, useState } from 'react';
 import ReactSelectComponent from '../reactSelectComponent/ReactSelectComponent';
 
 import * as FaIcons from 'react-icons/fa';
 import axios from "axios";
+
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const CreateInputComponent = ({
     categoryList,
@@ -13,19 +14,29 @@ const CreateInputComponent = ({
 
     const [categoryListForSelect, setCategoryListForSelect] = useState([]);
     const [subCategoryListForSelect, setSubCategoryListForSelect] = useState([]);
+    const [ref, setRef] = useState(true);//refresher
 
     const [subCategoryList, setSubCategoryList] = useState([]);
 
+    const [startDate, setStartDate] = useState(new Date());
     const [selectedCategory, setSelectedCategory] = useState("");
     const [selectedSubCategory, setSelectedSubCategory] = useState("");
     const [input, setInput] = useState("");
     const [amount, setAmount] = useState(0);
 
-    useEffect(() => {
-        makeObjectForSelectElement(categoryList);
-        getAllSubCategoriesForCategory();
 
-    }, [categoryList,selectedCategory]);
+    useEffect(() => {
+        makeObjectForCategorySelect(categoryList);
+
+    }, [categoryList]);
+
+    useEffect(() => {
+        getAllSubCategoriesForCategory();
+    }, [selectedCategory]);
+
+    useEffect(() => {
+        makeObjectForSubcategorySelect();
+    }, [ref]);
 
 
     const handleSubmit = async (e) => {
@@ -37,16 +48,16 @@ const CreateInputComponent = ({
         };
 
         const { data } = await axios.post(
-            "/api/subcategory/",
+            "/api/input/",
             {
-                // name: subCategoryName,
-                // category: selectedCategoryForSubcategories.id,
-                // icon: selectedIcon
+                datetime: startDate,
+                category: selectedCategory.id,
+                subcategory: selectedSubCategory.id,
+                description:input,
+                amount:amount
             },
             config
         );
-        // setRefresher(prevState => !prevState);
-        // setSubCategoryName("");
     };
 
     const handleAmountChange = (e) => {
@@ -58,23 +69,14 @@ const CreateInputComponent = ({
     }
 
     const getAllSubCategoriesForCategory = async () => {
-        console.log("RADII");
         const { data } = await axios.get(
             "/api/subcategory/" + selectedCategory.id
         );
-        console.log(data);
-
-        let tempSubCategoryList = [];
-        if (data.subcategoriesList != null) {
-            data.subcategoriesList.map((e) => {
-                tempSubCategoryList.push(e);
-            });
-            setSubCategoryList(tempSubCategoryList);
-            makeObjectForSelectElement2();
-        }
+        setSubCategoryList(data.subcategoriesList);
+        setRef(prev => !prev);
     }
 
-    const makeObjectForSelectElement = () => {
+    const makeObjectForCategorySelect = () => {
         let temp = [];
         categoryList.map(element => {
             temp.push({
@@ -92,7 +94,7 @@ const CreateInputComponent = ({
         setCategoryListForSelect(temp);
     }
 
-    const makeObjectForSelectElement2 = () => {
+    const makeObjectForSubcategorySelect = () => {
         let temp = [];
         subCategoryList.map(element => {
             temp.push({
@@ -120,10 +122,25 @@ const CreateInputComponent = ({
         // setRefresher(prevState => !prevState);
     }
 
+    const handleDateTimeSelect=(date)=>{
+        if(date.length==startDate.length){
+            setStartDate(date);
+        }       
+    }
+
     return (
         <form action="#" className="signin-up-form createcategory" onSubmit={(e) => handleSubmit(e)}>
-            <h1 className="center">Add new input</h1>
+            <h1 className="center">New input:</h1>
             <br />
+            <DatePicker
+                selected={startDate}
+                onChange={(date) => handleDateTimeSelect(date)}
+                timeInputLabel="Time:"
+                dateFormat="dd/MM/yyyy hh:mm a"
+                showTimeInput
+            />
+            <br/>
+
             <label htmlFor="subCategoryName" /> Category name
             <ReactSelectComponent
                 options={categoryListForSelect}

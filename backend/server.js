@@ -6,6 +6,7 @@ const { notFound, errorHandler } = require("./middlewares/errorMiddleware");
 const userRoutes=require("./routes/userRoutes");
 const categoryRoutes=require("./routes/categoryRoutes");
 const subcategoryRoutes=require("./routes/subCategoryRoutes")
+const inputRoutes=require("./routes/inputRoutes");
 const path=require("path");
 
 const app=express();
@@ -16,6 +17,7 @@ app.use(express.json());
 app.use("/api/users",userRoutes);
 app.use("/api/category",categoryRoutes);
 app.use("/api/subcategory",subcategoryRoutes);
+app.use("/api/input",inputRoutes);
 
 // DEPLOYMENT
 __dirname=path.resolve();
