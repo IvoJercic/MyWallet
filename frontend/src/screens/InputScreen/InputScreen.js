@@ -14,20 +14,10 @@ import UpdateSubCategoryComponent from "../../components/updateSubCategoryCompon
 
 
 const InputScreen = ({ history }) => {
-  const [mainCategoryMode, setMainCategoryMode] = useState(true);
   const [categoryList, setCategoryList] = useState([]);
-  const [subCategoriesList, setSubCategoriesList] = useState([]);
+  const [inputList, setInputList] = useState([]);
+
   const [refresher, setRefresher] = useState(false);
-
-  const [updateCategory, setUpdateCategory] = useState(false);
-  const [categoryForUpdate, setCategoryForUpdate] = useState("");
-
-  const [updateSubCategory, setUpdateSubCategory] = useState(false);
-  const [subCategoryForUpdate, setSubCategoryForUpdate] = useState("");
-
-
-  //Proslijedujemo child componenti
-  const [selectedCategory, setSelectedCategory] = useState(null);
 
   useEffect(() => {
     const userInfo = localStorage.getItem("userInfo");
@@ -36,9 +26,8 @@ const InputScreen = ({ history }) => {
     }
     else {
       getAllCategories();
-      if (selectedCategory != null) {
-        getAllSubCategoriesForCategory();
-      }
+      getAllInputs();
+      console.log(new Date(1637082736595).toString());
     }
   }, [refresher]);
 
@@ -46,34 +35,23 @@ const InputScreen = ({ history }) => {
     const { data } = await axios.get(
       "/api/category/" + JSON.parse(localStorage.getItem("userInfo"))._id
     );
-    let tempCategoryList = [];
-    data.categoriesList.map((e) => {
-      tempCategoryList.push(e);
-    });
-
-    setCategoryList(tempCategoryList);
+    setCategoryList(data.categoriesList);
   }
 
-  const getAllSubCategoriesForCategory = async () => {
+
+  const getAllInputs = async () => {
     const { data } = await axios.get(
-      "/api/subcategory/" + selectedCategory.id
+      "/api/input/" + JSON.parse(localStorage.getItem("userInfo"))._id
     );
-
-    let tempSubCategoryList = [];
-    if (data.subcategoriesList != null) {
-      data.subcategoriesList.map((e) => {
-        tempSubCategoryList.push(e);
-      });
-      setSubCategoriesList(tempSubCategoryList);
-    }
+    setInputList(data.inputsList);
   }
+
 
   return (
-    <div className={mainCategoryMode === false ? "container sign-up-mode" : "container"}>
+    <div className={"container"}>
       <div className="forms-container">
         <div className="signin-signup">
           <CreateInputComponent
-            setRefresher={setRefresher}
             categoryList={categoryList} />
         </div>
       </div>
@@ -81,10 +59,26 @@ const InputScreen = ({ history }) => {
       <div className="panels-container">
         <div className="panel left-panel">
           <div className="content">
-            <div className="categoryList__div">
+            <div className="inputList__div">
               <h1 className="center">Your last inputs</h1>
               <hr />
-
+              <div className="input-container">
+                {
+                  inputList.map(input =>
+                    <div className="inputTab"
+                      key={input.id}
+                    >
+                      <div className="inputTab__date">
+                        {new Date(input.datetime).toLocaleString().substring(0, 19)}
+                      </div>
+                      <div className="inputTab__description">
+                        <b>
+                          {input.description}
+                        </b>
+                      </div>
+                    </div>
+                  ).slice(0, 5)}
+              </div>
             </div>
           </div>
         </div>

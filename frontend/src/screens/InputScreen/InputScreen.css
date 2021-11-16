@@ -1,0 +1,54 @@
+.categoryIcon{
+    display: flex;
+    /* border: solid 1px black; */
+}
+
+.inputTab{
+    width: 30rem;  
+    display: inline-flex;
+    justify-content: center;
+    justify-self: center;
+    align-items: center;
+    align-self: center;
+    color:white;
+    border-radius: 16px;
+  
+    border: 2px solid transparent;
+    font-size: 1.6rem;
+    padding: 10px;
+    background: rgb(192, 192, 192);
+    cursor: default;
+  }
+
+  .inputTab .opened{
+    height: 10rem;
+  }
+
+  .inputTab:hover{
+      color: #102B49;
+  }  
+  
+  .inputList__div{
+    height: 30rem;
+    overflow: auto;
+    display: flex;  
+    flex-direction: column; 
+  }
+
+  .dateTimeDiv{
+    display: flex;
+    flex: 0.6;
+
+  }
+
+  .input-container{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .inputTab__description{
+    display: flex;
+    flex: 0.4;
+
+  }

@@ -21,6 +21,10 @@ const inputSchema=mongoose.Schema(
         amount:{
             type:Number,
             required:true
+        },
+        user:{
+            type:String,
+            required:true
         }
     },
     {

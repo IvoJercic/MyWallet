@@ -10,7 +10,7 @@ import "react-datepicker/dist/react-datepicker.css";
 
 const CreateInputComponent = ({
     categoryList,
-    setRefresher }) => {
+    }) => {
 
     const [categoryListForSelect, setCategoryListForSelect] = useState([]);
     const [subCategoryListForSelect, setSubCategoryListForSelect] = useState([]);
@@ -53,8 +53,9 @@ const CreateInputComponent = ({
                 datetime: startDate,
                 category: selectedCategory.id,
                 subcategory: selectedSubCategory.id,
-                description:input,
-                amount:amount
+                description: input,
+                amount: amount,
+                user: JSON.parse(localStorage.getItem("userInfo"))._id
             },
             config
         );
@@ -114,32 +115,32 @@ const CreateInputComponent = ({
 
     const handleCategorySelect = (category) => {
         setSelectedCategory(category);
-        // setRefresher(prevState => !prevState);
     }
 
     const handleSubCategorySelect = (category) => {
         setSelectedSubCategory(category);
-        // setRefresher(prevState => !prevState);
     }
 
-    const handleDateTimeSelect=(date)=>{
-        if(date.length==startDate.length){
+    const handleDateTimeSelect = (date) => {
+        if (date.length == startDate.length) {
             setStartDate(date);
-        }       
+        }
     }
 
     return (
         <form action="#" className="signin-up-form createcategory" onSubmit={(e) => handleSubmit(e)}>
             <h1 className="center">New input:</h1>
             <br />
-            <DatePicker
-                selected={startDate}
-                onChange={(date) => handleDateTimeSelect(date)}
-                timeInputLabel="Time:"
-                dateFormat="dd/MM/yyyy hh:mm a"
-                showTimeInput
-            />
-            <br/>
+            <div>
+                <DatePicker
+                    selected={startDate}
+                    onChange={(date) => handleDateTimeSelect(date)}
+                    timeInputLabel="Time:"
+                    dateFormat="dd/MM/yyyy hh:mm a"
+                    showTimeInput
+                />
+            </div>
+            <br />
 
             <label htmlFor="subCategoryName" /> Category name
             <ReactSelectComponent
