@@ -1,9 +1,10 @@
 const asyncHandler = require("express-async-handler");
 const Subcategory = require("../models/SubcategoryModel");
+const Category=require("../models/CategoryModel");
 
 //AsyncHandler ce hvatati sve greske
 const createSubCategory = asyncHandler(async (req, res) => {
-    const { name, category, icon } = req.body;
+    const { name, category, icon,user } = req.body;
     // const categoryy=await Category.findOne({name:category});
     // const categoryyId=categoryy["id"].toString();
     const subCategoryExists = await Subcategory.findOne({ name: name, category: category });
@@ -16,6 +17,7 @@ const createSubCategory = asyncHandler(async (req, res) => {
         name: name,
         category: category,
         icon: icon,
+        user:user
     });
 
     if (subcategory) {
@@ -28,7 +30,7 @@ const createSubCategory = asyncHandler(async (req, res) => {
     }
     else {
         res.status(400);
-        throw new Error("Error Occured");
+        throw new Error("CREATE SUBCATEGORY ERROR");
     }
 });
 
@@ -51,7 +53,7 @@ const getSubcategories = asyncHandler(async (req, res) => {
     }
     else {
         res.status(400);
-        throw new Error("Error Occured");
+        throw new Error("GET SUBCATEGORIES FOR CATEGORY ERROR");
     }
 });
 
@@ -68,7 +70,6 @@ const deleteSubCategory = asyncHandler(async (req, res) => {
     }
 })
 
-
 const updateSubCategory = asyncHandler(async (req, res) => {
     const { subcategoryId } = req.params;
     const { name, icon } = req.body;
@@ -82,4 +83,28 @@ const updateSubCategory = asyncHandler(async (req, res) => {
     }
 })
 
-module.exports = { createSubCategory, getSubcategories, deleteSubCategory ,updateSubCategory}
+const getSubcategoriesForUser = asyncHandler(async (req, res) => {
+    const { userId } = req.params;
+
+    const subCategories = (await Subcategory.find({ user:userId }));
+
+    if (subCategories) {
+        res.status(201).json({
+            "subcategoriesList": subCategories.map((e) => {
+                const temp = {}
+                temp.name = e.name
+                temp.category = e.category
+                temp.icon = e.icon
+                temp.id = e._id
+                return temp;
+            })
+        });
+    }
+    else {
+        res.status(400);
+        throw new Error("GET SUBCATEGORIES FOR USER ERROR");
+    }
+});
+
+
+module.exports = { createSubCategory, getSubcategories, deleteSubCategory ,updateSubCategory,getSubcategoriesForUser}

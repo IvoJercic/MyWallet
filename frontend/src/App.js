@@ -7,6 +7,7 @@ import HomeScreen from "./screens/HomeScreen/HomeScreen";
 import DashboardScreen from './screens/DashboardScreen/DashboardScreen';
 import CategoriesScreen from './screens/CategoriesScreen/CategoriesScreen';
 import InputScreen from './screens/InputScreen/InputScreen';
+import HistoryScreen from './screens/HistoryScreen/HistoryScreen';
 
 //Components
 import SideBarComponent from "../src/components/sideBarComponent/SideBarComponent";
@@ -27,6 +28,8 @@ function App() {
           <Route exact path="/dashboard" component={DashboardScreen} />
           <Route exact path="/categories" component={CategoriesScreen} />
           <Route exact path="/input" component={InputScreen} />
+          <Route exact path="/history" component={HistoryScreen} />
+
         </Switch>
       </main>
     </Router>

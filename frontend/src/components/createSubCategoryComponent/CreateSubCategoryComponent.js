@@ -38,7 +38,8 @@ const CreateSubCategoryComponent = (
             {
                 name: subCategoryName,
                 category: selectedCategoryForSubcategories.id,
-                icon: selectedIcon
+                icon: selectedIcon,
+                user: JSON.parse(localStorage.getItem("userInfo"))._id
             },
             config
         );

@@ -10,7 +10,8 @@ import "react-datepicker/dist/react-datepicker.css";
 
 const CreateInputComponent = ({
     categoryList,
-    }) => {
+    setRefresher
+}) => {
 
     const [categoryListForSelect, setCategoryListForSelect] = useState([]);
     const [subCategoryListForSelect, setSubCategoryListForSelect] = useState([]);
@@ -59,6 +60,12 @@ const CreateInputComponent = ({
             },
             config
         );
+        setRefresher(prevState=>!prevState);
+        setStartDate(new Date());
+        setSelectedCategory("");
+        setSelectedSubCategory("");
+        setInput("");
+        setAmount("");
     };
 
     const handleAmountChange = (e) => {

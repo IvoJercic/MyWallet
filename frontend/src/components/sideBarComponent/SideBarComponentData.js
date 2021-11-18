@@ -22,5 +22,12 @@ export const SideBarComponentData = [
     icon: <AiIcons.AiFillHome />,
     cName: 'nav-text'
   },
+  {
+    title: 'History',
+    path: '/history',
+    icon: <AiIcons.AiFillHome />,
+    cName: 'nav-text'
+  },
+  
   
 ];
