@@ -472,3 +472,30 @@ form.sign-in-form {
   margin: 5px ; 
   cursor: pointer;
 }
+
+.flex{
+  display: flex;
+  flex:0.5 0.5;
+}
+
+
+.historyScreen_table_header{
+  display: grid;  
+  grid-template-columns: repeat(5,1fr);
+  text-align: center;  
+}
+
+.historyScreen_table_row{
+  display: grid;
+  grid-template-columns: repeat(5,1fr);
+}
+
+.historyScreen_table_row>div{
+  display: flex;
+  justify-content: center;
+}
+
+
+.historyScreen_table_row:hover{
+  background: grey;  
+}

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 //CSS
 import './HistoryScreen.css';
 //Components
-import CreateInputComponent from "../../components/createInputComponent/CreateInputComponent";
 import * as FaIcons from 'react-icons/fa';
 import axios from "axios";
 
@@ -12,7 +11,6 @@ const HistoryScreen = ({ history }) => {
   const [subCategoryList, setSubCategoryList] = useState([]);
 
   const [inputList, setInputList] = useState([]);
-
 
 
   useEffect(() => {
@@ -53,27 +51,29 @@ const HistoryScreen = ({ history }) => {
   return (
     <div className="historyScreen">
       HISTORY
-      <table>
-        <thead>
-          <th>DATE</th>
-          <th>DESCRIPTION</th>
-          <th>AMOUNT</th>
-          <th>CATEGORY</th>
-          <th>SUBCATEGORY</th>
-        </thead>
-        <tbody>
+      <div className="historyScreen_table">
+        <div className="historyScreen_table_header">
+          <div>DATE</div>
+          <div>DESCRIPTION</div>
+          <div>AMOUNT</div>
+          <div>CATEGORY</div>
+          <div>SUBCATEGORY</div>
+        </div>
+        <div className="historyScreen_table_body">
           {inputList ?
             inputList.map(input =>
-              <tr key={input.id}>
-                <td>{new Date(input.datetime).toLocaleString().substring(0, 19)}</td>
-                <td>{input.description}</td>
-                <td>{input.amount} kn</td>
-                <td>{categoryList.filter(cat => cat.id === input.category)[0].name}</td>
-                <td>{subCategoryList.filter(subC => subC.id === input.subcategory)[0].name}</td>
-              </tr>
+              <div className="historyScreen_table_row" key={input.id}>
+                <div>
+                  {new Date(input.datetime).toLocaleString().substring(0, 19)}
+                </div>
+                <div>{input.description}</div>
+                <div>{input.amount} kn</div>
+                <div>{categoryList.filter(cat => cat.id === input.category)[0].name}</div>
+                <div>{subCategoryList.filter(subC => subC.id === input.subcategory)[0].name}</div>
+              </div>
             ) : ""}
-        </tbody>
-      </table>
+        </div>
+      </div>
     </div>
   );
 };
