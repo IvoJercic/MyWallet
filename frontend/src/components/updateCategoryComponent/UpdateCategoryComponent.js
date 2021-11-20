@@ -55,13 +55,6 @@ const UpdateCategoryComponent = ({ setRefresher, categoryForUpdate, setUpdateCat
     return (
         <form action="#" className="sign-in-form createcategory" onSubmit={(e) => handleSubmit(e)}>
             <span style={{ display: 'flex' }}><h1 className="center">Update category</h1> </span>
-            <div
-                onClick={() => handleCancelUpdate()}
-                className={"cancelDiv"}
-            >Cancel <FaIcons.FaTimes />
-            </div>
-
-            <hr />
             <h2>{categoryForUpdate.name}</h2>
             <div className="createcategory__input">
                 <i className="fas fa-list"></i>
@@ -85,10 +78,19 @@ const UpdateCategoryComponent = ({ setRefresher, categoryForUpdate, setUpdateCat
                 iconBeforeUpdate={categoryForUpdate.icon}
             />
             <br />
-            <button
-                type="submit"
-                className={selectedIcon !== "" && categoryName !== "" && categoryName.length > 2 ? "btn solid" : "btnDisabled"}
-            >Save</button>
+            <span style={{ display: "flex" }}>
+                <button
+                    type="submit"
+                    className={selectedIcon !== "" && categoryName !== "" && categoryName.length > 2 ? "btn solid" : "btnDisabled"}
+                >Save</button>
+
+                &nbsp;
+                <button
+                    type="button"
+                    onClick={() => handleCancelUpdate()}
+                    className={"btn solid"}
+                >Cancel</button>
+            </span>
         </form>
     );
 };

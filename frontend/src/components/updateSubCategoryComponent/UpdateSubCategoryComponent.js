@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react';
 import axios from "axios";
 import * as FaIcons from 'react-icons/fa';
 
-const UpdateSubCategoryComponent= ({ setRefresher, subCategoryForUpdate, setUpdateSubCategory,selectedCategory }) => {
+const UpdateSubCategoryComponent = ({ setRefresher, subCategoryForUpdate, setUpdateSubCategory, selectedCategory }) => {
 
     const [subCategoryName, setSubCategoryName] = useState("");
     const [selectedColor, setSelectedColor] = useState("");
@@ -51,13 +51,6 @@ const UpdateSubCategoryComponent= ({ setRefresher, subCategoryForUpdate, setUpda
     return (
         <form action="#" className="sign-up-form createcategory" onSubmit={(e) => handleSubmit(e)}>
             <span style={{ display: 'flex' }}><h1 className="center">Update subcategory</h1> </span>
-            <div
-                onClick={() => handleCancelUpdate()}
-                className={"cancelDiv"}
-            >Cancel <FaIcons.FaTimes />
-            </div>
-
-            <hr />
             <h2>{subCategoryForUpdate.name}</h2>
             <div className="createcategory__input">
                 <i className="fas fa-list"></i>
@@ -77,10 +70,19 @@ const UpdateSubCategoryComponent= ({ setRefresher, subCategoryForUpdate, setUpda
                 iconBeforeUpdate={subCategoryForUpdate.icon}
             />
             <br />
-            <button
-                type="submit"
-                className={selectedIcon !== "" && subCategoryName !== "" && subCategoryName.length > 2 ? "btn solid" : "btnDisabled"}
-            >Save</button>
+            <span style={{ display: "flex" }}>
+                <button
+                    type="submit"
+                    className={selectedIcon !== "" && subCategoryName !== "" && subCategoryName.length > 2 ? "btn solid" : "btnDisabled"}
+                >Save
+                </button>
+                &nbsp;
+                <button
+                    type="button"
+                    onClick={() => handleCancelUpdate()}
+                    className={"btn solid"}
+                >Cancel</button>
+            </span>
         </form>
     );
 };

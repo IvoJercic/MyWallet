@@ -85,11 +85,17 @@ const CategoriesScreen = ({ history }) => {
 
     const handleEditCategoryOrSubcategory = async (category, type) => {
         if (type == "category") {
-            setUpdateCategory(true);
+            setUpdateCategory(false);
+            setTimeout(() => {
+                setUpdateCategory(true);
+            }, 100);
             setCategoryForUpdate(category);
         }
         else if (type == "subcategory") {
-            setUpdateSubCategory(true);
+            setUpdateSubCategory(false);
+            setTimeout(() => {
+                setUpdateSubCategory(true);
+            }, 100);
             setSubCategoryForUpdate(category);
         }
     }
@@ -168,11 +174,11 @@ const CategoriesScreen = ({ history }) => {
                     }
 
                     {updateSubCategory
-                        ? <UpdateSubCategoryComponent 
-                        setRefresher={setRefresher}
-                        subCategoryForUpdate={subCategoryForUpdate}
-                        setUpdateSubCategory={setUpdateSubCategory}
-                        selectedCategory={selectedCategory} />
+                        ? <UpdateSubCategoryComponent
+                            setRefresher={setRefresher}
+                            subCategoryForUpdate={subCategoryForUpdate}
+                            setUpdateSubCategory={setUpdateSubCategory}
+                            selectedCategory={selectedCategory} />
 
                         : <CreateSubCategoryComponent
                             categoryList={categoryList}
@@ -196,9 +202,9 @@ const CategoriesScreen = ({ history }) => {
                                         style={{ background: category.color }}
                                     // onClick={(e) => toggleDiv(e)}
                                     >
-                                        {category.type=="Income"
-                                        ?createIcon("FaAngleDoubleUp")
-                                        :createIcon("FaAngleDoubleDown")}                                       
+                                        {category.type == "Income"
+                                            ? createIcon("FaAngleDoubleUp")
+                                            : createIcon("FaAngleDoubleDown")}
                                         &nbsp;&nbsp;
                                         &nbsp;&nbsp;
                                         {createIcon(category.icon)}

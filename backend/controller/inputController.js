@@ -54,4 +54,17 @@ const getInputs = asyncHandler(async (req, res) => {
 });
 
 
-module.exports = { createInput,getInputs }
+const updateInput = asyncHandler(async (req, res) => {
+    const { inputId } = req.params;
+    const { description, datetime, amount } = req.body;
+    const input = (await Input.findOneAndUpdate({_id:inputId},{ description: description,datetime:datetime,amount:amount }));
+    if (input) {        
+        res.status(201);
+    }
+    else {
+        res.status(400);
+        throw new Error("UPDATE INPUT ERROR");
+    }
+})
+
+module.exports = { createInput,getInputs,updateInput }

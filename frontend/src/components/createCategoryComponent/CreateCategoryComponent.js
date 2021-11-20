@@ -47,9 +47,7 @@ const CreateCategoryComponent = ({ setRefresher }) => {
 
     return (
         <form action="#" className="sign-in-form createcategory" onSubmit={(e) => handleSubmit(e)}>
-            <h1 className="center">Add new category</h1>
-            <br />
-            <label htmlFor="subCategoryName" /> Category name
+            <h2 className="center">New category</h2>
             <div className="createcategory__input">
                 <i className="fas fa-list"></i>
                 <input
@@ -68,6 +66,7 @@ const CreateCategoryComponent = ({ setRefresher }) => {
                 className="colorPicker"
                 color={selectedColor}
                 onChangeComplete={handleColorChange}
+                style={{height:"100px"}}
             />
             <br />
             <br />
