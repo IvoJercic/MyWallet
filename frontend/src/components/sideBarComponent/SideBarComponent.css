@@ -31,7 +31,7 @@
 .nav-menu.active {
   left: 0;
   transition: 500ms ease-in-out;
-  z-index: 6;
+  z-index: 8;
 }
 
 .nav-text {

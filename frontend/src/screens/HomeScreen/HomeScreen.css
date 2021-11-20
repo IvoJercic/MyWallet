@@ -478,6 +478,10 @@ form.sign-in-form {
   flex:0.5 0.5;
 }
 
+.historyScreen{
+  color:white;
+  background-color: #102B49;
+}
 
 .historyScreen_table_header{
   display: grid;  
@@ -493,6 +497,8 @@ form.sign-in-form {
 .historyScreen_table_row>div{
   display: flex;
   justify-content: center;
+  text-align: center;
+  align-items: center;
 }
 
 

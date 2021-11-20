@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from "react";
 
 //Components
-import ErrorMessage from "../ErrorMessage";
 import * as FaIcons from 'react-icons/fa';
 
 import './IconDisplayComponent.css';
-
-
 
 const IconDisplayComponent = ({ selectedColor ,setSelectedIcon,updateMode,iconBeforeUpdate}) => {
     const [selectedIconName, setSelectedIconName] = useState("");

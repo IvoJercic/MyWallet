@@ -9,8 +9,6 @@ import UpdateInputComponent from "../../components/updateInputComponent/UpdateIn
 
 
 const InputScreen = ({ history }) => {
-  const [mainCategoryMode, setMainCategoryMode] = useState(true);
-
   const [categoryList, setCategoryList] = useState([]);
   const [subCategoryList, setSubCategoryList] = useState([]);
   const [inputList, setInputList] = useState([]);
@@ -18,8 +16,6 @@ const InputScreen = ({ history }) => {
 
   const [updateInput, setUpdateInput] = useState(false);
   const [inputForUpdate, setInputForUpdate] = useState("");
-
-
 
   useEffect(() => {
     const userInfo = localStorage.getItem("userInfo");
@@ -50,20 +46,30 @@ const InputScreen = ({ history }) => {
     );
     setSubCategoryList(data.subcategoriesList);
   }
-  
+
   const getAllInputs = async () => {
     const { data } = await axios.get(
       "/api/input/" + JSON.parse(localStorage.getItem("userInfo"))._id
     );
     setInputList(data.inputsList);
   }
-  const handleEditInput = async (input) => {    
+
+  const handleEditInput = async (input) => {
     setUpdateInput(false);
     setTimeout(() => {
-      setUpdateInput(true);  
+      setUpdateInput(true);
     }, 100);
-    
+
     setInputForUpdate(input);
+  }
+
+  const handleDeleteInput = async (input) => {
+    const popup = window.confirm("Are you sure you want to delete your input " + input.description + "?");
+    if (popup) {
+      setUpdateInput(false);
+      setRefresher(prevState => !prevState);
+      const { data } = await axios.delete("/api/input/" + input.id);
+    }
   }
 
   const createEditIcon = (input) => {
@@ -82,25 +88,38 @@ const InputScreen = ({ history }) => {
     );
   };
 
+  const createDeleteIcon = (input) => {
+    const icon = React.createElement(FaIcons["FaTimes"],
+      {
+        key: "delete" + input.id,
+        className: "deleteicon",
+        onClick: () => handleDeleteInput(input)
+      });
+    return (
+      <div
+        key={"delete_icon__" + input.id}
+        className="categoryIcon"
+      >{icon}
+      </div>
+    );
+  };
+
   return (
     <div className={"container"}>
       <div className="forms-container">
         <div className="signin-signup">
-
           {updateInput
             ? <UpdateInputComponent
               setRefresher={setRefresher}
               inputForUpdate={inputForUpdate}
-              setUpdateInput={setUpdateInput} 
+              setUpdateInput={setUpdateInput}
               categoryList={categoryList}
-              subCategoryList={subCategoryList}/>
+              subCategoryList={subCategoryList} />
 
             : <CreateInputComponent
               categoryList={categoryList}
               setRefresher={setRefresher} />
           }
-
-
         </div>
       </div>
 
@@ -128,8 +147,12 @@ const InputScreen = ({ history }) => {
                           ({input.amount} kn)
                         </b>
                       </div>
-                      <div>
+                      &nbsp;&nbsp;
+                      <div style={{display:"flex"}}>
                         {createEditIcon(input)}
+                        &nbsp;&nbsp;
+                        {createDeleteIcon(input)}
+
                       </div>
                     </div>
                   ).reverse().slice(0, 10)}

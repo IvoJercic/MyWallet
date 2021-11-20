@@ -70,6 +70,7 @@ const CategoriesScreen = ({ history }) => {
         if (type == "category") {
             const popup = window.confirm("Are you sure you want to delete your category " + category.name + "\nYou will also delete all subcategories for this category !");
             if (popup) {
+                setUpdateCategory(false);
                 setRefresher(prevState => !prevState);
                 const { data } = await axios.delete("/api/category/" + category.id);
             }
@@ -77,6 +78,7 @@ const CategoriesScreen = ({ history }) => {
         else if (type == "subcategory") {
             const popup = window.confirm("Are you sure you want to delete your subcategory " + category.name);
             if (popup) {
+                setUpdateSubCategory(false);
                 setRefresher(prevState => !prevState);
                 const { data } = await axios.delete("/api/subcategory/" + category.id);
             }

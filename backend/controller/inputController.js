@@ -67,4 +67,15 @@ const updateInput = asyncHandler(async (req, res) => {
     }
 })
 
-module.exports = { createInput,getInputs,updateInput }
+const deleteInput = asyncHandler(async (req, res) => {
+    const { inputId } = req.params;
+    const input = (await Input.findOneAndDelete({ _id: inputId }));
+    if (input) {
+        res.status(201);
+    }
+    else {
+        res.status(400);
+        throw new Error("DELETE INPUT ERROR");
+    }
+})
+module.exports = { createInput,getInputs,updateInput,deleteInput }

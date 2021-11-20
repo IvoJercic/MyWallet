@@ -11,7 +11,6 @@ const HistoryScreen = ({ history }) => {
   const [subCategoryList, setSubCategoryList] = useState([]);
 
   const [inputList, setInputList] = useState([]);
-  const [mainCategoryMode, setMainCategoryMode] = useState(true);
 
 
   useEffect(() => {
@@ -48,51 +47,44 @@ const HistoryScreen = ({ history }) => {
     setInputList(data.inputsList);
   }
 
-
-
   return (
-    <div className={mainCategoryMode === false ? "container sign-up-mode" : "container"}>
-
-      <div className="panels-container">
-        <div className="panel left-panel">
-          <div className="content">
-
-            <div className="historyScreen">
-              HISTORY
-              <div className="historyScreen_table">
-                <div className="historyScreen_table_header">
-                  <div>DATE</div>
-                  <div>DESCRIPTION</div>
-                  <div>AMOUNT</div>
-                  <div>CATEGORY</div>
-                  <div>SUBCATEGORY</div>
+    <div className="historyScreen">
+      <h1 className="center">All inputs ever</h1>
+      <br />
+      <hr />
+      <div className="historyScreen_table">
+        <div className="historyScreen_table_header">
+          <h4>DATE</h4>
+          <h4>DESCRIPTION</h4>
+          <h4>AMOUNT</h4>
+          <h4>CATEGORY</h4>
+          <h4>SUBCATEGORY</h4>
+        </div>
+        <hr />
+        <div className="historyScreen_table_body">
+          {inputList ?
+            inputList.map(input =>
+              <div className="historyScreen_table_row" key={input.id}>
+                <div>
+                  {new Date(input.datetime).toLocaleString().substring(0, 19)}
                 </div>
-                <div className="historyScreen_table_body">
-                  {inputList ?
-                    inputList.map(input =>
-                      <div className="historyScreen_table_row" key={input.id}>
-                        <div>
-                          {new Date(input.datetime).toLocaleString().substring(0, 19)}
-                        </div>
-                        <div>{input.description}</div>
-                        <div>{input.amount} kn</div>
-                        <div>{categoryList.filter(cat => cat.id === input.category)[0].name}</div>
-                        <div>{subCategoryList.filter(subC => subC.id === input.subcategory)[0].name}</div>
-                      </div>
-                    ) : ""}
+                <div>{input.description}</div>
+                <div>{input.amount} kn</div>
+                <div>
+                  {React.createElement(FaIcons[categoryList.filter(cat => cat.id === input.category)[0].icon])}
+                  &nbsp;
+                  {categoryList.filter(cat => cat.id === input.category)[0].name}
                 </div>
-                <button className="btn transparent" id="sign-up-btn" onClick={() => setMainCategoryMode(!mainCategoryMode)}>
-                  Add category
-                </button>
-
+                <div>
+                  {React.createElement(FaIcons[subCategoryList.filter(cat => cat.id === input.subcategory)[0].icon])}
+                  &nbsp;
+                  {subCategoryList.filter(subC => subC.id === input.subcategory)[0].name}
+                </div>
               </div>
-            </div>
-          </div>
+            ) : ""}
         </div>
       </div>
     </div>
-
-
   );
 };
 

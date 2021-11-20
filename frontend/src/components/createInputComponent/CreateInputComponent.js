@@ -39,7 +39,6 @@ const CreateInputComponent = ({
         makeObjectForSubcategorySelect();
     }, [ref]);
 
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         const config = {
