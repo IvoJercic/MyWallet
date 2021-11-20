@@ -69,7 +69,7 @@ const HistoryScreen = ({ history }) => {
                   {new Date(input.datetime).toLocaleString().substring(0, 19)}
                 </div>
                 <div>{input.description}</div>
-                <div>{input.amount} kn </div>
+                <div>{input.amount} kn</div>
                 <div>
                   {React.createElement(FaIcons[categoryList.filter(cat => cat.id === input.category)[0].icon])}
                   &nbsp;
