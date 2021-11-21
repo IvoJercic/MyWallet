@@ -28,7 +28,6 @@ const CreateInputComponent = ({
 
     useEffect(() => {
         makeObjectForCategorySelect(categoryList);
-
     }, [categoryList]);
 
     useEffect(() => {

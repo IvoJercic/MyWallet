@@ -16,7 +16,7 @@ const ReactSelectComponent = ({ options ,handleCategorySelect}) => {
         id="selectCategory"
          className="reactSelect"
         value={selectedValue}
-        onChange={handleChange}
+        onChange={handleChange}        
         />
       </div>
     );
