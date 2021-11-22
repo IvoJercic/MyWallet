@@ -28,6 +28,11 @@ export const SideBarComponentData = [
     icon: <AiIcons.AiFillHome />,
     cName: 'nav-text'
   },
-  
+  {
+    title: 'Accounts',
+    path: '/accounts',
+    icon: <AiIcons.AiFillHome />,
+    cName: 'nav-text'
+  },
   
 ];

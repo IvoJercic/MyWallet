@@ -1,0 +1,38 @@
+.categoryIcon{
+    display: flex;
+    /* border: solid 1px black; */
+}
+
+.categoryTab{
+    width: 30rem;  
+    display: flex;
+    justify-content: center;
+    justify-self: center;
+    align-items: center;
+    align-self: center;
+    color:white;
+    border-radius: 16px;
+  
+    border: 2px solid transparent;
+    font-size: 1.6rem;
+    padding: 10px;
+    margin: 10px ; 
+    height: 8 rem;
+    background: rgb(192, 192, 192);
+    cursor: default;
+  }
+
+  .categoryTab .opened{
+    height: 10rem;
+  }
+
+  .categoryTab:hover{
+      color: #102B49;
+  }  
+  
+  .categoryList__div{
+    height: 30rem;
+    overflow: auto;
+    display: flex;  
+    flex-direction: column; 
+  }

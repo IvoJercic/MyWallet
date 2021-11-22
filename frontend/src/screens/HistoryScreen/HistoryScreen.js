@@ -24,7 +24,7 @@ const HistoryScreen = ({ history }) => {
   useEffect(() => {
     makeObjectForCategorySelect();
     makeObjectForSubcategorySelect();
-  }, [categoryList,subCategoryList]);
+  }, [categoryList, subCategoryList]);
 
   useEffect(() => {
     const userInfo = localStorage.getItem("userInfo");
@@ -49,7 +49,7 @@ const HistoryScreen = ({ history }) => {
 
   useEffect(() => {
     makeObjectForSubcategorySelect();
-}, [ref]);
+  }, [ref]);
 
   const getAllCategories = async () => {
     const { data } = await axios.get(
@@ -69,22 +69,31 @@ const HistoryScreen = ({ history }) => {
     const { data } = await axios.get(
       "/api/input/" + JSON.parse(localStorage.getItem("userInfo"))._id
     );
-    if(filterCategory==""){
-      setInputList(data.inputsList);
-    }
-    else{
-      setInputList(data.inputsList
-        .filter(input=>input.category==filterCategory.id));
-    }    
+    
+    const filtered = data.inputsList.filter(
+      input =>
+        input.category == filterCategory.id,
+    );
+
+    setInputList(filtered)
+
+    // if (filterCategory == "") {
+    //   setInputList(data.inputsList);
+    // }
+    // else {
+    //   setInputList(data.inputsList
+    //     .filter(input => input.category == filterCategory.id));
+    // }
   }
 
   const getAllSubCategoriesForCategory = async () => {
     const { data } = await axios.get(
-        "/api/subcategory/" + filterCategory.id
+      "/api/subcategory/" + filterCategory.id
     );
     setSubCategoryList(data.subcategoriesList);
     setRef(prev => !prev);
-}
+  }
+
   const makeObjectForCategorySelect = () => {
     let temp = [];
     categoryList.map(element => {
@@ -146,9 +155,9 @@ const HistoryScreen = ({ history }) => {
             </div>
             <div>
               <ReactSelectComponent
-                options={subCategoryListForSelect} 
+                options={subCategoryListForSelect}
                 handleCategorySelect={handleFilterSubCategorySelect}
-                />
+              />
             </div>
             <div>AMOUNT</div>
             <div>CATEGORY</div>

@@ -7,6 +7,7 @@ const userRoutes=require("./routes/userRoutes");
 const categoryRoutes=require("./routes/categoryRoutes");
 const subcategoryRoutes=require("./routes/subCategoryRoutes")
 const inputRoutes=require("./routes/inputRoutes");
+const accountRoutes=require("./routes/accountRoutes");
 const path=require("path");
 
 const app=express();
@@ -18,6 +19,7 @@ app.use("/api/users",userRoutes);
 app.use("/api/category",categoryRoutes);
 app.use("/api/subcategory",subcategoryRoutes);
 app.use("/api/input",inputRoutes);
+app.use("/api/account",accountRoutes);
 
 // DEPLOYMENT
 __dirname=path.resolve();

@@ -11,6 +11,7 @@ import HistoryScreen from './screens/HistoryScreen/HistoryScreen';
 
 //Components
 import SideBarComponent from "../src/components/sideBarComponent/SideBarComponent";
+import AccountsScreen from './screens/AccountsScreen/AccountsScreen';
 
 function App() {
 
@@ -29,6 +30,8 @@ function App() {
           <Route exact path="/categories" component={CategoriesScreen} />
           <Route exact path="/input" component={InputScreen} />
           <Route exact path="/history" component={HistoryScreen} />
+          <Route exact path="/accounts" component={AccountsScreen} />
+
 
         </Switch>
       </main>
