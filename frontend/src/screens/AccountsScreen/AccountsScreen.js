@@ -11,9 +11,12 @@ import UpdateCategoryComponent from "../../components/updateCategoryComponent/Up
 import UpdateSubCategoryComponent from "../../components/updateSubCategoryComponent/UpdateSubCategoryComponent";
 import CreateAccountComponent from "../../components/createAccountComponent/CreateAccountComponent";
 import UpdateAccountsComponent from "../../components/updateAccountsComponent/UpdateAccountsComponent";
+import TransferComponent from "../../components/transferComponent/TransferComponent";
 
 
 const AccountsScreen = ({ history }) => {
+    const [mainCategoryMode, setMainCategoryMode] = useState(true);
+
     const [accountList, setAccountList] = useState([]);
     const [refresher, setRefresher] = useState(false);
     const [updateAccount, setUpdateAccount] = useState(false);
@@ -93,7 +96,7 @@ const AccountsScreen = ({ history }) => {
 
 
     return (
-        <div className={"container"}>
+        <div className={mainCategoryMode === false ? "container sign-up-mode" : "container"}>
             <div className="forms-container">
                 <div className="signin-signup">
                     {updateAccount
@@ -105,8 +108,12 @@ const AccountsScreen = ({ history }) => {
                         />
 
                         : <CreateAccountComponent
-                        setRefresher={setRefresher} />
+                            setRefresher={setRefresher} />
                     }
+                    <TransferComponent
+                    setRefresher={setRefresher}
+                    accountList={accountList}/>
+                        
                 </div>
             </div>
 
@@ -123,11 +130,11 @@ const AccountsScreen = ({ history }) => {
                                         style={{ background: "#2196f3" }}
                                     // onClick={(e) => toggleDiv(e)}
                                     >
-
                                         <b>
                                             {account.name}
-
                                         </b>
+                                        &nbsp;
+                                        ({account.amount} kn)
                                         &nbsp;&nbsp;
                                         &nbsp;&nbsp;
                                         {createEditIcon(account)}
@@ -136,7 +143,21 @@ const AccountsScreen = ({ history }) => {
                                     </div>
                                 ) : ""}
                         </div>
+                        <button className="btn transparent" id="sign-up-btn" onClick={() => setMainCategoryMode(!mainCategoryMode)}>
+                            Transfer
+                        </button>
+                    </div>
+                </div>
 
+                <div className="panel right-panel">
+                    <div className="content">
+                        <div className="categoryList__div">
+                            <h1 className="center">Transfers: </h1>
+                            <hr />
+                        </div>
+                        <button className="btn transparent" id="sign-up-btn" onClick={() => setMainCategoryMode(!mainCategoryMode)}>
+                            Add category
+                        </button>
                     </div>
                 </div>
             </div>

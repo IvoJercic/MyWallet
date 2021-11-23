@@ -143,7 +143,6 @@ const HistoryScreen = ({ history }) => {
       <h1 className="center">All inputs ever</h1>
       <h2>FILTERS: {filterCategory.name}</h2>
       <br />
-      <hr />
       <form action="#" className="historyScreenBox">
         <div className="historyScreen_table">
           <div className="historyScreen_table_header">
