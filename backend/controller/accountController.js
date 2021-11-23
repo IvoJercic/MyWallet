@@ -1,11 +1,57 @@
 const asyncHandler = require("express-async-handler");
 const Account = require("../models/AccountModel");
+const Transfer = require("../models/TransferModel");
 
 //AsyncHandler ce hvatati sve greske
 
+
+const transferAmount = asyncHandler(async (req, res) => {
+    const { senderId, receiverId } = req.params;
+    const { amount, user } = req.body;
+
+    const transfer = await Transfer.create({
+        sender: senderId,
+        receiver: receiverId,
+        amount,
+        user
+    });
+
+    //Skini s sendera
+    const accountSender = (await Account.findOneAndUpdate({ _id: senderId }, { $inc: { amount: -amount } }));
+    if (accountSender) {
+        res.status(201);
+    }
+    else {
+        res.status(400);
+        throw new Error("UPDATE SENDER AMOUNT ERROR");
+    }
+
+    //Dodaj receiveru
+    const accountReceiver = (await Account.findOneAndUpdate({ _id: receiverId }, { $inc: { amount: amount } }));
+    if (accountReceiver) {
+        res.status(201);
+    }
+    else {
+        res.status(400);
+        throw new Error("UPDATE SENDER AMOUNT ERROR");
+    }
+
+    if (transfer) {
+        res.status(201).json({
+            _id: transfer._id,
+            amount: transfer.amount,
+            user: transfer.user
+        });
+    }
+    else {
+        res.status(400);
+        throw new Error("CREATE TRANSFER ERROR");
+    }
+});
+
 const createAccount = asyncHandler(async (req, res) => {
     const { name, amount, user } = req.body;
-    const accountExists = await Account.findOne({ name ,user});
+    const accountExists = await Account.findOne({ name, user });
 
     if (accountExists) {
         res.status(400);
@@ -14,16 +60,16 @@ const createAccount = asyncHandler(async (req, res) => {
 
     const account = await Account.create({
         name,
-        amount,        
-        user        
+        amount,
+        user
     });
 
     if (account) {
         res.status(201).json({
             _id: account._id,
             name: account.name,
-            amount: account.amount,            
-            user:category.user
+            amount: account.amount,
+            user: category.user
         });
     }
     else {
@@ -42,8 +88,8 @@ const getAccounts = asyncHandler(async (req, res) => {
                 const temp = {}
                 temp.name = e.name
                 temp.id = e._id
-                temp.amount=e.amount
-                temp.user=e.user
+                temp.amount = e.amount
+                temp.user = e.user
                 return temp;
             })
         });
@@ -69,8 +115,8 @@ const deleteAccount = asyncHandler(async (req, res) => {
 const updateAccount = asyncHandler(async (req, res) => {
     const { accountId } = req.params;
     const { name } = req.body;
-    const account = (await Account.findOneAndUpdate({_id:accountId},{ name: name }));
-    if (account) {        
+    const account = (await Account.findOneAndUpdate({ _id: accountId }, { name: name }));
+    if (account) {
         res.status(201);
     }
     else {
@@ -79,4 +125,4 @@ const updateAccount = asyncHandler(async (req, res) => {
     }
 })
 
-module.exports = { createAccount, getAccounts,deleteAccount,updateAccount }
+module.exports = { createAccount, getAccounts, deleteAccount, updateAccount, transferAmount }

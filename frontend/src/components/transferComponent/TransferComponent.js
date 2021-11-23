@@ -45,25 +45,20 @@ const TransferComponent = ({setRefresher,accountList}) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // const config = {
-        //     headers: {
-        //         "Content-type": "application/json",
-        //     },
-        // };
+        const config = {
+            headers: {
+                "Content-type": "application/json",
+            },
+        };
 
-        // const { data } = await axios.post(
-        //     "/api/input/",
-        //     {
-        //         datetime: startDate,
-        //         category: selectedCategory.id,
-        //         subcategory: selectedSubCategory.id,
-        //         description: input,
-        //         amount: amount,
-        //         account:selectedAccount.id,
-        //         user: JSON.parse(localStorage.getItem("userInfo"))._id
-        //     },
-        //     config
-        // );
+        const { data } = await axios.post(
+            "/api/account/"+accountSender.id+"/"+accountReceiver.id,
+            {
+                amount: amount,
+                user: JSON.parse(localStorage.getItem("userInfo"))._id
+            },
+            config
+        );
         setRefresher(prevState => !prevState);
         setAccountSender("");
         setAccountReceiver("");
@@ -71,7 +66,7 @@ const TransferComponent = ({setRefresher,accountList}) => {
     };
 
     return (
-        <form action="#" className="sign-up-form createcategory">
+        <form action="#" className="sign-up-form createcategory" onSubmit={(e) => handleSubmit(e)}>
             <h1 className="center">Transfer amount to other account</h1>
             <p>From</p>
             <ReactSelectComponent
