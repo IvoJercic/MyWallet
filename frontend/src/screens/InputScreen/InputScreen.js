@@ -13,6 +13,7 @@ const InputScreen = ({ history }) => {
   const [subCategoryList, setSubCategoryList] = useState([]);
   const [inputList, setInputList] = useState([]);
   const [refresher, setRefresher] = useState(false);
+  const [accountList,setAccountList]=useState([]);
 
   const [updateInput, setUpdateInput] = useState(false);
   const [inputForUpdate, setInputForUpdate] = useState("");
@@ -26,6 +27,7 @@ const InputScreen = ({ history }) => {
       getAllCategories();
       getAllSubCategories();
       getAllInputs();
+      getAllAccounts();
     }
   }, []);
 
@@ -52,6 +54,13 @@ const InputScreen = ({ history }) => {
       "/api/input/" + JSON.parse(localStorage.getItem("userInfo"))._id
     );
     setInputList(data.inputsList);
+  }
+
+  const getAllAccounts = async () => {
+    const { data } = await axios.get(
+      "/api/account/" + JSON.parse(localStorage.getItem("userInfo"))._id
+    );
+    setAccountList(data.accountsList);
   }
 
   const handleEditInput = async (input) => {
@@ -114,10 +123,12 @@ const InputScreen = ({ history }) => {
               inputForUpdate={inputForUpdate}
               setUpdateInput={setUpdateInput}
               categoryList={categoryList}
+              accountList={accountList}
               subCategoryList={subCategoryList} />
 
             : <CreateInputComponent
               categoryList={categoryList}
+              accountList={accountList}
               setRefresher={setRefresher} />
           }
         </div>

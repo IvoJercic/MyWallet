@@ -4,14 +4,15 @@ const Input = require("../models/InputModel");
 //AsyncHandler ce hvatati sve greske
 
 const createInput = asyncHandler(async (req, res) => {
-    const { datetime, category, subcategory, description,amount,user } = req.body;
+    const { datetime, category, subcategory, description,amount,user,account } = req.body;
     const input = await Input.create({
         datetime,
         category,
         subcategory,
         description,
         amount,
-        user
+        user,
+        account
     });
     if (input) {
         res.status(201).json({
@@ -20,7 +21,8 @@ const createInput = asyncHandler(async (req, res) => {
             description: input.description,
             category: input.category,
             subcategory: input.subcategory,
-            amount:input.amount
+            amount:input.amount,
+            account:input.account
         });
     }
     else {
@@ -43,6 +45,8 @@ const getInputs = asyncHandler(async (req, res) => {
                 temp.id = e._id
                 temp.description=e.description
                 temp.amount=e.amount
+                temp.account=e.account
+
                 return temp;
             })
         });

@@ -25,6 +25,10 @@ const inputSchema=mongoose.Schema(
         user:{
             type:String,
             required:true
+        },
+        account:{
+            type:String,
+            required:true
         }
     },
     {

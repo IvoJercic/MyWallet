@@ -10,11 +10,13 @@ import "react-datepicker/dist/react-datepicker.css";
 
 const CreateInputComponent = ({
     categoryList,
+    accountList,
     setRefresher
-}) => {
+    }) => {
 
     const [categoryListForSelect, setCategoryListForSelect] = useState([]);
     const [subCategoryListForSelect, setSubCategoryListForSelect] = useState([]);
+    const [accountListForSelect, setAccountListForSelect] = useState([]);
     const [ref, setRef] = useState(true);//refresher
 
     const [subCategoryList, setSubCategoryList] = useState([]);
@@ -22,13 +24,19 @@ const CreateInputComponent = ({
     const [startDate, setStartDate] = useState(new Date());
     const [selectedCategory, setSelectedCategory] = useState("");
     const [selectedSubCategory, setSelectedSubCategory] = useState("");
+    const [selectedAccount,setSelectedAccount]=useState("");
     const [input, setInput] = useState("");
     const [amount, setAmount] = useState(0);
 
 
     useEffect(() => {
-        makeObjectForCategorySelect(categoryList);
+        makeObjectForCategorySelect();
     }, [categoryList]);
+
+    useEffect(() => {
+        makeObjectForAccountSelect();
+    }, [accountList]);
+
 
     useEffect(() => {
         getAllSubCategoriesForCategory();
@@ -54,14 +62,16 @@ const CreateInputComponent = ({
                 subcategory: selectedSubCategory.id,
                 description: input,
                 amount: amount,
+                account:selectedAccount.id,
                 user: JSON.parse(localStorage.getItem("userInfo"))._id
             },
             config
         );
-        setRefresher(prevState=>!prevState);
+        setRefresher(prevState => !prevState);
         setStartDate(new Date());
         setSelectedCategory("");
         setSelectedSubCategory("");
+        setSelectedAccount("");
         setInput("");
         setAmount("");
     };
@@ -100,6 +110,21 @@ const CreateInputComponent = ({
         setCategoryListForSelect(temp);
     }
 
+    const makeObjectForAccountSelect = () => {
+        let temp = [];
+        accountList.map(element => {
+            temp.push({
+                value: element.name,
+                label:
+                    <div>
+                        <span>{element.name}</span>
+                    </div>,
+                category: element
+            })
+        });
+        setAccountListForSelect(temp);
+    }
+
     const makeObjectForSubcategorySelect = () => {
         let temp = [];
         subCategoryList.map(element => {
@@ -119,7 +144,13 @@ const CreateInputComponent = ({
     }
 
     const handleCategorySelect = (category) => {
+        console.log(category);
         setSelectedCategory(category);
+    }
+
+    const handleAccountSelect = (category) => {
+        console.log(category);
+        setSelectedAccount(category);
     }
 
     const handleSubCategorySelect = (category) => {
@@ -145,6 +176,11 @@ const CreateInputComponent = ({
                     showTimeInput
                 />
             </div>
+            <label htmlFor="subCategoryName" /> Account
+            <ReactSelectComponent
+                options={accountListForSelect}
+                handleCategorySelect={handleAccountSelect}
+            />
             <br />
 
             <label htmlFor="subCategoryName" /> Category name

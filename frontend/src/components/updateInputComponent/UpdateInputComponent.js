@@ -4,7 +4,7 @@ import axios from "axios";
 import * as FaIcons from 'react-icons/fa';
 import DatePicker from "react-datepicker";
 
-const UpdateInputComponent = ({ setRefresher, inputForUpdate, setUpdateInput, categoryList, subCategoryList }) => {
+const UpdateInputComponent = ({ setRefresher, inputForUpdate, setUpdateInput, categoryList, accountList, subCategoryList }) => {
     const [inputDescription, setInputDescription] = useState("");
     const [inputDate, setInputDate] = useState(null);
     const [inputAmount, setInputAmount] = useState(0);
@@ -69,7 +69,7 @@ const UpdateInputComponent = ({ setRefresher, inputForUpdate, setUpdateInput, ca
 
     return (
         <form action="#" className="sign-in-form createcategory" onSubmit={(e) => handleSubmit(e)}>
-            <span style={{textAlign:"center" }}><h1 className="center">Update input</h1></span>
+            <span style={{ textAlign: "center" }}><h1 className="center">Update input</h1></span>
             <h2>{inputForUpdate.description}</h2>
             <div>
                 <DatePicker
@@ -81,6 +81,17 @@ const UpdateInputComponent = ({ setRefresher, inputForUpdate, setUpdateInput, ca
                 />
             </div>
             <br />
+            <label htmlFor="inputSubCategory" /> Account name
+            <div className="createcategory__input">
+                <i className="fas fa-list"></i>
+                <input
+                    id="inputAccount"
+                    type="text"
+                    placeholder="Account name"
+                    defaultValue={accountList.filter(acc => acc.id === inputForUpdate.account)[0].name}
+                    disabled
+                />
+            </div>
             <label htmlFor="inputCategory" /> Category name
             <div className="createcategory__input">
                 {createIcon(categoryList.filter(cat => cat.id === inputForUpdate.category)[0].icon)}
@@ -92,7 +103,6 @@ const UpdateInputComponent = ({ setRefresher, inputForUpdate, setUpdateInput, ca
                     disabled
                 />
             </div>
-            <br />
             <label htmlFor="inputSubCategory" /> Subcategory name
             <div className="createcategory__input">
                 {createIcon(subCategoryList.filter(sub => sub.id === inputForUpdate.subcategory)[0].icon)}
@@ -104,7 +114,6 @@ const UpdateInputComponent = ({ setRefresher, inputForUpdate, setUpdateInput, ca
                     disabled
                 />
             </div>
-            <br />
             <label htmlFor="inputDescription" /> Description of input
             <div className="createcategory__input">
                 <i className="fas fa-list"></i>
@@ -116,7 +125,6 @@ const UpdateInputComponent = ({ setRefresher, inputForUpdate, setUpdateInput, ca
                     onChange={(e) => setInputDescription(e.target.value)}
                 />
             </div>
-            <br />
             <label htmlFor="inputAmount" /> Amount (kn)
             <div className="createcategory__input">
                 <i className="fas fa-list"></i>
@@ -132,7 +140,7 @@ const UpdateInputComponent = ({ setRefresher, inputForUpdate, setUpdateInput, ca
             <span style={{ display: "flex" }}>
                 <button
                     type="submit"
-                    className={inputDescription !== "" && inputDate !== "" && inputDescription.length > 2 && inputAmount>0 ? "btn solid" : "btnDisabled"}
+                    className={inputDescription !== "" && inputDate !== "" && inputDescription.length > 2 && inputAmount > 0 ? "btn solid" : "btnDisabled"}
                 >Save</button>
                 &nbsp;
                 <button
