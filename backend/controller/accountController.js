@@ -16,6 +16,7 @@ const transferAmount = asyncHandler(async (req, res) => {
         user
     });
 
+    try{
     //Skini s sendera
     const accountSender = (await Account.findOneAndUpdate({ _id: senderId }, { $inc: { amount: -amount } }));
     if (accountSender) {
@@ -35,7 +36,10 @@ const transferAmount = asyncHandler(async (req, res) => {
         res.status(400);
         throw new Error("UPDATE SENDER AMOUNT ERROR");
     }
-
+    }catch (err) {
+        // error handling
+        console.error("TRANSACTION ERROR");      
+      }
     if (transfer) {
         res.status(201).json({
             _id: transfer._id,

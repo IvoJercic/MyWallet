@@ -21,7 +21,7 @@ const TransferComponent = ({setRefresher,accountList}) => {
                 value: element.name,
                 label:
                     <div>
-                        <span>{element.name}</span>
+                        <span>{element.name} ({element.amount} kn)</span>
                     </div>,
                 category: element
             })
@@ -45,24 +45,29 @@ const TransferComponent = ({setRefresher,accountList}) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const config = {
-            headers: {
-                "Content-type": "application/json",
-            },
-        };
-
-        const { data } = await axios.post(
-            "/api/account/"+accountSender.id+"/"+accountReceiver.id,
-            {
-                amount: amount,
-                user: JSON.parse(localStorage.getItem("userInfo"))._id
-            },
-            config
-        );
-        setRefresher(prevState => !prevState);
-        setAccountSender("");
-        setAccountReceiver("");
-        setAmount(0);
+        if(accountSender!=accountReceiver){
+            alert("You are trying to fool me");
+        }
+        else{
+            const config = {
+                headers: {
+                    "Content-type": "application/json",
+                },
+            };
+    
+            const { data } = await axios.post(
+                "/api/account/"+accountSender.id+"/"+accountReceiver.id,
+                {
+                    amount: amount,
+                    user: JSON.parse(localStorage.getItem("userInfo"))._id
+                },
+                config
+            );
+            setRefresher(prevState => !prevState);
+            setAccountSender("");
+            setAccountReceiver("");
+            setAmount(0);
+        }        
     };
 
     return (
@@ -82,12 +87,14 @@ const TransferComponent = ({setRefresher,accountList}) => {
             <hr/>
             <label htmlFor="subCategoryName" /> Amount
             <div className="createcategory__input">
-                <i className="fas fa-list"></i>
+                <i></i>
                 <input
                     id="subCategoryName"
                     type="number"
                     placeholder="100"
                     value={amount}
+                    max={accountSender.amount}
+                    min={0}
                     onChange={(e) => handleAmountChange(e)}
                 />
             </div>

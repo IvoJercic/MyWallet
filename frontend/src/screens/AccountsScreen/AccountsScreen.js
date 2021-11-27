@@ -156,7 +156,7 @@ const AccountsScreen = ({ history }) => {
                             <hr />
                         </div>
                         <button className="btn transparent" id="sign-up-btn" onClick={() => setMainCategoryMode(!mainCategoryMode)}>
-                            Add category
+                            Add account
                         </button>
                     </div>
                 </div>
