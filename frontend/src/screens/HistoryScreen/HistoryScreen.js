@@ -21,10 +21,6 @@ const HistoryScreen = ({ history }) => {
   const [filterCategory, setFilterCategory] = useState("");
   const [filterSubCategory, setFilterSubCategory] = useState("");
 
-  useEffect(() => {
-    makeObjectForCategorySelect();
-    makeObjectForSubcategorySelect();
-  }, [categoryList, subCategoryList]);
 
   useEffect(() => {
     const userInfo = localStorage.getItem("userInfo");
@@ -32,16 +28,16 @@ const HistoryScreen = ({ history }) => {
       history.push("/");
     }
     else {
-      getAllCategories();
       getAllSubCategories();
+      getAllCategories();
       getAllInputs();
     }
   }, []);
 
   useEffect(() => {
-    getAllSubCategoriesForCategory();
-    getAllInputs();
-  }, [filterCategory]);
+    makeObjectForCategorySelect();
+    makeObjectForSubcategorySelect();
+  }, [categoryList, subCategoryList]);
 
   useEffect(() => {
     getAllInputs();
@@ -69,29 +65,8 @@ const HistoryScreen = ({ history }) => {
     const { data } = await axios.get(
       "/api/input/" + JSON.parse(localStorage.getItem("userInfo"))._id
     );
-    
-    const filtered = data.inputsList.filter(
-      input =>
-        input.category == filterCategory.id,
-    );
 
-    setInputList(filtered)
-
-    // if (filterCategory == "") {
-    //   setInputList(data.inputsList);
-    // }
-    // else {
-    //   setInputList(data.inputsList
-    //     .filter(input => input.category == filterCategory.id));
-    // }
-  }
-
-  const getAllSubCategoriesForCategory = async () => {
-    const { data } = await axios.get(
-      "/api/subcategory/" + filterCategory.id
-    );
-    setSubCategoryList(data.subcategoriesList);
-    setRef(prev => !prev);
+    setInputList(data.inputsList);
   }
 
   const makeObjectForCategorySelect = () => {
@@ -141,11 +116,9 @@ const HistoryScreen = ({ history }) => {
   return (
     <div className="historyScreen">
       <h1 className="center">All inputs ever</h1>
-      <h2>FILTERS: {filterCategory.name}</h2>
-      <br />
       <form action="#" className="historyScreenBox">
         <div className="historyScreen_table">
-          <div className="historyScreen_table_header">
+          {/* <div className="historyScreen_table_header">
             <div>
               <ReactSelectComponent
                 options={categoryListForSelect}
@@ -161,7 +134,7 @@ const HistoryScreen = ({ history }) => {
             <div>AMOUNT</div>
             <div>CATEGORY</div>
             <div>SUBCATEGORY</div>
-          </div>
+          </div> */}
           <br />
           <br />
           <div className="historyScreen_table_header">
@@ -176,7 +149,7 @@ const HistoryScreen = ({ history }) => {
           <div className="historyScreen_table_body">
             {inputList ?
               inputList.map(input =>
-                <div className="historyScreen_table_row" key={input.id} style={{ background: categoryList.filter(cat => cat.id === input.category)[0].color }}>
+                <div className="historyScreen_table_row" key={input.id} style={{ background: categoryList?.filter(cat => cat?.id === input?.category)[0]?.color }}>
                   <div>
                     {new Date(input.datetime).toLocaleString().substring(0, 19)}
                     &nbsp;
@@ -184,14 +157,14 @@ const HistoryScreen = ({ history }) => {
                   <div>{input.description}</div>
                   <div>{input.amount} kn</div>
                   <div>
-                    {/* {React.createElement(FaIcons[categoryList.filter(cat => cat.id === input.category)[0].icon])} */}
+                    {React.createElement(FaIcons[categoryList.filter(cat => cat?.id === input?.category)[0]?.icon])}
                     &nbsp;
-                    {/* {categoryList.filter(cat => cat.id === input.category)[0].name} */}
+                    {categoryList.filter(cat => cat?.id === input?.category)[0]?.name}
                   </div>
                   <div>
-                    {/* {React.createElement(FaIcons[subCategoryList.filter(cat => cat.id === input.subcategory)[0].icon])} */}
+                    {React.createElement(FaIcons[subCategoryList.filter(cat => cat?.id === input?.subcategory)[0]?.icon])}
                     &nbsp;
-                    {/* {subCategoryList.filter(subC => subC.id === input.subcategory)[0].name} */}
+                    {subCategoryList.filter(subC => subC?.id === input?.subcategory)[0]?.name}
                   </div>
                 </div>
               ) : ""}

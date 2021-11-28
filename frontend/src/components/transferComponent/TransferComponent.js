@@ -45,7 +45,7 @@ const TransferComponent = ({setRefresher,accountList}) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if(accountSender!=accountReceiver){
+        if(accountSender===accountReceiver){
             alert("You are trying to fool me");
         }
         else{

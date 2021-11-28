@@ -129,4 +129,26 @@ const updateAccount = asyncHandler(async (req, res) => {
     }
 })
 
-module.exports = { createAccount, getAccounts, deleteAccount, updateAccount, transferAmount }
+const getTransfers = asyncHandler(async (req, res) => {
+    const { userId } = req.params;
+    const transfersList = (await Transfer.find({ user: userId }));
+
+    if (transfersList) {
+        res.status(201).json({
+            "transfersList": transfersList.map((e) => {
+                const temp = {}
+                temp.sender = e.sender
+                temp.id = e._id
+                temp.receiver = e.receiver
+                temp.amount = e.amount
+                return temp;
+            })
+        });
+    }
+    else {
+        res.status(400);
+        throw new Error("GET ALL TRANSFERS ERROR");
+    }
+});
+
+module.exports = { createAccount, getAccounts, deleteAccount, updateAccount, transferAmount,getTransfers }

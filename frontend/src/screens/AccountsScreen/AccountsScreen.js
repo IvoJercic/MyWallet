@@ -18,6 +18,7 @@ const AccountsScreen = ({ history }) => {
     const [mainCategoryMode, setMainCategoryMode] = useState(true);
 
     const [accountList, setAccountList] = useState([]);
+    const [transferList, setTransferList] = useState([]);
     const [refresher, setRefresher] = useState(false);
     const [updateAccount, setUpdateAccount] = useState(false);
     const [accountForUpdate, setAccountForUpdate] = useState("");
@@ -29,7 +30,7 @@ const AccountsScreen = ({ history }) => {
         }
         else {
             getAllAccounts();
-
+            getAllTransfers();
         }
     }, [refresher]);
 
@@ -42,6 +43,17 @@ const AccountsScreen = ({ history }) => {
             tempAccountList.push(e);
         });
         setAccountList(tempAccountList);
+    }
+
+    const getAllTransfers = async () => {
+        const { data } = await axios.get(
+            "/api/account/transfers/" + JSON.parse(localStorage.getItem("userInfo"))._id
+        );
+        let tempTransfersList = [];
+        data.transfersList.map((e) => {
+            tempTransfersList.push(e);
+        });
+        setTransferList(tempTransfersList);
     }
 
 
@@ -111,9 +123,8 @@ const AccountsScreen = ({ history }) => {
                             setRefresher={setRefresher} />
                     }
                     <TransferComponent
-                    setRefresher={setRefresher}
-                    accountList={accountList}/>
-                        
+                        setRefresher={setRefresher}
+                        accountList={accountList} />
                 </div>
             </div>
 
@@ -128,7 +139,6 @@ const AccountsScreen = ({ history }) => {
                                     <div className="categoryTab"
                                         key={account.id}
                                         style={{ background: "#2196f3" }}
-                                    // onClick={(e) => toggleDiv(e)}
                                     >
                                         <b>
                                             {account.name}
@@ -154,6 +164,18 @@ const AccountsScreen = ({ history }) => {
                         <div className="categoryList__div">
                             <h1 className="center">Transfers: </h1>
                             <hr />
+                            {transferList ?
+                                transferList.map(transfer =>
+                                    <div className="categoryTab"
+                                        key={transfer.id}
+                                        style={{ background: "#2196f3" }}
+                                    >
+                                        {accountList.filter(acc => acc?.id === transfer?.sender)[0]?.name}
+                                        {">"}
+                                        {accountList.filter(acc => acc?.id === transfer?.receiver)[0]?.name}
+                                        {"("+transfer.amount+" kn)"}
+                                    </div>
+                                ).reverse() : ""}
                         </div>
                         <button className="btn transparent" id="sign-up-btn" onClick={() => setMainCategoryMode(!mainCategoryMode)}>
                             Add account

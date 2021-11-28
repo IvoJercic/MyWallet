@@ -225,7 +225,7 @@ const CreateInputComponent = ({
             <br />
             <button
                 type="submit"
-                className={selectedCategory !== "" && selectedSubCategory !== "" && input.length > 3 && input != "" && amount > 0 ? "btn solid" : "btnDisabled"}
+                className={selectedCategory !== "" && selectedSubCategory !== "" && input.length > 2 && input != "" && amount > 0 ? "btn solid" : "btnDisabled"}
             >Save</button>
         </form>
     );
