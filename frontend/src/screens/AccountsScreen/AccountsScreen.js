@@ -153,6 +153,7 @@ const AccountsScreen = ({ history }) => {
                                     </div>
                                 ) : ""}
                         </div>
+                        <br/>
                         <button className="btn transparent" id="sign-up-btn" onClick={() => setMainCategoryMode(!mainCategoryMode)}>
                             Transfer
                         </button>
@@ -177,6 +178,7 @@ const AccountsScreen = ({ history }) => {
                                     </div>
                                 ).reverse() : ""}
                         </div>
+                        <br/>
                         <button className="btn transparent" id="sign-up-btn" onClick={() => setMainCategoryMode(!mainCategoryMode)}>
                             Add account
                         </button>
