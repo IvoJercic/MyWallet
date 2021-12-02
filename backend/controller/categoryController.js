@@ -1,6 +1,7 @@
 const asyncHandler = require("express-async-handler");
 const Category = require("../models/CategoryModel");
 const Subcategory = require("../models/SubcategoryModel");
+const Input =require("../models/InputModel")
 
 //AsyncHandler ce hvatati sve greske
 
@@ -63,12 +64,21 @@ const getCategories = asyncHandler(async (req, res) => {
 const deleteCategory = asyncHandler(async (req, res) => {
     const { categoryId } = req.params;
     const category = (await Category.findOneAndDelete({ _id: categoryId }));
-    const subcategories=(await Subcategory.find({category:categoryId}))    
+    const subcategories=(await Subcategory.find({category:categoryId}));    
     subcategories.forEach(element => {
         Subcategory.findOneAndDelete({_id:element._id}).then(()=>{
             console.log("Subcategory deleted");
         }) 
     });
+    
+    const inputs=(await Input.find({category:categoryId}))    
+
+    inputs.forEach(element => {
+        Input.findOneAndDelete({_id:element._id}).then(()=>{
+            console.log("Input deleted");
+        }) 
+    });
+    
     if (category) {
         res.status(201);
     }
