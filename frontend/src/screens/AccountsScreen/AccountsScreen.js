@@ -34,6 +34,23 @@ const AccountsScreen = ({ history }) => {
         }
     }, [refresher]);
 
+
+    const handleChangeMode=()=>{
+        setMainCategoryMode(!mainCategoryMode)
+
+        if(mainCategoryMode==true){
+            setTimeout(() => {
+                document.getElementById("categoryRight").style="display:block";    
+            }, 2000);
+            
+        }   
+        else{
+            setTimeout(() => {
+                document.getElementById("categoryRight").style="display:none";    
+            }, 2000);
+        } 
+    }
+
     const getAllAccounts = async () => {
         const { data } = await axios.get(
             "/api/account/" + JSON.parse(localStorage.getItem("userInfo"))._id
@@ -129,7 +146,7 @@ const AccountsScreen = ({ history }) => {
             </div>
 
             <div className="panels-container">
-                <div className="panel left-panel">
+                <div className="panel left-panel" id="categoryLeft">
                     <div className="content">
                         <div className="categoryList__div">
                             <h1 className="center">Your accounts </h1>
@@ -153,16 +170,15 @@ const AccountsScreen = ({ history }) => {
                                     </div>
                                 ) : ""}
                         </div>
-                        <br/>
-                        <button className="btn transparent" id="sign-up-btn" onClick={() => setMainCategoryMode(!mainCategoryMode)}>
+                        <button className="btn transparent" id="sign-up-btn" onClick={() => handleChangeMode()}>
                             Transfer
                         </button>
                     </div>
                 </div>
 
-                <div className="panel right-panel">
-                    <div className="content">
-                        <div className="categoryList__div">
+                <div className="panel right-panel" id="rightPanel">
+                <div className="content" id="categoryRight" style={{display:"none"}}>
+                <div className="categoryList__div" id="rightWindow">
                             <h1 className="center">Transfers: </h1>
                             <hr />
                             {transferList ?
@@ -179,7 +195,7 @@ const AccountsScreen = ({ history }) => {
                                 ).reverse() : ""}
                         </div>
                         <br/>
-                        <button className="btn transparent" id="sign-up-btn" onClick={() => setMainCategoryMode(!mainCategoryMode)}>
+                        <button className="btn transparent" id="sign-up-btn" onClick={() => handleChangeMode()}>
                             Add account
                         </button>
                     </div>
