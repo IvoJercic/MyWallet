@@ -300,14 +300,14 @@ form.sign-in-form {
   pointer-events: all;
 }
 
-@media (max-width: 870px) {
+@media (max-width: 986px) {
   .container {
-    min-height: 800px;
-    height: 100vh;
+    min-height: 900px;
+    height: 250vh;
   }
   .signin-signup {
     width: 100%;
-    top: 95%;
+    top: 75%;
     transform: translate(-50%, -100%);
     transition: 1s 0.8s ease-in-out;
   }
@@ -331,11 +331,10 @@ form.sign-in-form {
   }
 
   .right-panel {
-    grid-row: 3 / 4;
   }
 
   .left-panel {
-    grid-row: 1 / 2;
+    grid-row: 1 / 1;
   }
 
   .image {
@@ -345,7 +344,6 @@ form.sign-in-form {
   }
 
   .panel .content {
-    padding-right: 15%;
     transition: transform 0.9s ease-in-out;
     transition-delay: 0.8s;
   }
@@ -384,7 +382,7 @@ form.sign-in-form {
 
   .container.sign-up-mode .left-panel .image,
   .container.sign-up-mode .left-panel .content {
-    transform: translateY(-300px);
+    transform: translateY(-3200px);
   }
 
   .container.sign-up-mode .right-panel .image,
@@ -534,4 +532,16 @@ form.sign-in-form {
   margin: auto;
   height: 45rem;
   background: white;
+}
+
+.chartScreen{
+  display: flex;
+}
+
+.chartSmall{
+  width: 30%;
+}
+
+.chartLarge{
+  width: 70%;
 }

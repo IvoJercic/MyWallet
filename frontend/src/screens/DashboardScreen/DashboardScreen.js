@@ -21,13 +21,13 @@ const DashboardScreen = ({ history }) => {
     else {
       getAllSubCategories();
       getAllCategories();
-      getAllInputs();      
+      getAllInputs();
     }
   }, []);
 
 
   useEffect(() => {
-    makerAreaChartObjectForYear();
+    makeAreaChartDiff();
   }, [inputList]);
 
 
@@ -72,14 +72,59 @@ const DashboardScreen = ({ history }) => {
         // console.log(inputsForCurrentCategory);
         tempArray.push({
           name: category.name,
-          y: inputsForCurrentCategory.map(item=> item.amount).reduce((a,b)=>a+b),
+          y: inputsForCurrentCategory.map(item => item.amount).reduce((a, b) => a + b),
           drilldown: category.name,
           color: category.color
         })
       }
     });
-   
+
     return tempArray;
+  }
+
+  const makePieChartObjectForExpensesVsIncome = (type) => {
+    let temp = [];
+    let tempExpenses = inputList.filter(input => categoryList?.filter(cat => cat?.id === input?.category)[0]?.type == "Expense");
+    let tempIncome = inputList.filter(input => categoryList?.filter(cat => cat?.id === input?.category)[0]?.type == "Income");
+
+    if (tempExpenses.length == 1) {
+      temp.push({
+        name: "Expense",
+        y: tempExpenses[0]?.amount
+      })
+    }
+    else if (tempExpenses.length == 0) {
+      temp.push({
+        name: "Expense",
+        y: 0
+      })
+    }
+    else {
+      temp.push({
+        name: "Expense",
+        y: tempExpenses.map(item => item.amount).reduce((a, b) => a + b)
+      })
+    }
+
+    if (tempIncome.length == 1) {
+      temp.push({
+        name: "Income",
+        y: tempIncome[0]?.amount
+      })
+    }
+    else if (tempIncome.length == 0) {
+      temp.push({
+        name: "Income",
+        y: 0
+      })
+    }
+    else {
+      temp.push({
+        name: "Income",
+        y: tempIncome.map(item => item.amount).reduce((a, b) => a + b)
+      })
+    }
+    return temp;
   }
 
   const makePieChartDrillDownObjectForCategories = (type) => {
@@ -100,7 +145,7 @@ const DashboardScreen = ({ history }) => {
           }
           else if (inputsForCurrentSubcategory.length > 1) {
             subTempArray.push(
-              [subcategory.name, inputsForCurrentSubcategory.map(item=> item.amount).reduce((a,b)=>a+b)]
+              [subcategory.name, inputsForCurrentSubcategory.map(item => item.amount).reduce((a, b) => a + b)]
             )
           }
         });
@@ -113,26 +158,41 @@ const DashboardScreen = ({ history }) => {
     return tempArray;
   }
 
-  const makerAreaChartObjectForYear=(type)=>{
-    let tempArray = [];
-    for (let i = 1; i < 13; i++) {
-      let tempArrayForThisMonth=inputList.filter(input => new Date(input?.datetime).getMonth()==i-1 && categoryList.filter(cat => cat?.id === input?.category)[0].type==type );
-      // console.log(i+" "+tempArrayForThisMonth);
-      if(tempArrayForThisMonth.length==1){
-        tempArray.push(tempArrayForThisMonth[0].amount);
-      }
-      if(tempArrayForThisMonth.length==0){
-        tempArray.push(0);
-      }
-      else if (tempArrayForThisMonth.length > 1) {
-        tempArray.push(tempArrayForThisMonth.map(item=> item.amount).reduce((a,b)=>a+b));
+  const makerAreaChartObjectForYear = (type) => {
+    try {
+      let tempArray = [];
+      for (let i = 1; i < 13; i++) {
+        let tempArrayForThisMonth = inputList.filter(input => new Date(input?.datetime).getMonth() == i - 1 && categoryList.filter(cat => cat?.id === input?.category)[0]?.type == type);
+        if (tempArrayForThisMonth.length == 1) {
+          tempArray.push(tempArrayForThisMonth[0].amount);
+        }
+        if (tempArrayForThisMonth.length == 0) {
+          tempArray.push(0);
+        }
+        else if (tempArrayForThisMonth.length > 1) {
+          tempArray.push(tempArrayForThisMonth.map(item => item.amount).reduce((a, b) => a + b));
 
+        }
       }
+      // console.log("tempArray");
+
+      // console.log(tempArray);
+      return tempArray;
+    } catch (error) {
+      console.error(error);
     }
-    console.log("tempArray");
 
-    console.log(tempArray);
-    return tempArray;
+  }
+
+  const makeAreaChartDiff=()=>{
+    const expensesPerMonths=makerAreaChartObjectForYear("Expense")
+    const incomePerMonths=makerAreaChartObjectForYear("Income")
+
+    let result=[];
+    for (let i = 0; i < 12; i++) {
+      result.push(incomePerMonths[i]-expensesPerMonths[i])      
+    }
+    return result
   }
 
   const optionsPieChartExpenses = {
@@ -160,18 +220,10 @@ const DashboardScreen = ({ history }) => {
     },
 
     tooltip: {
-      pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+      pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f} kn</b><br/>'
     },
     chart: {
       type: "pie",
-      //   events: {
-      //     click: function (e) {
-      //       console.log(e);
-      //     },
-      //     dropdown: function (e) {
-      //       console.log(e);
-      //     }
-      //   }
     },
     series: [
       {
@@ -180,6 +232,39 @@ const DashboardScreen = ({ history }) => {
     ],
     drilldown: {
       series: makePieChartDrillDownObjectForCategories("Expense")
+    }
+  };
+
+  const optionsPieChartExpensesVsIncome = {
+    title: {
+      text: 'Expense vs income'
+    },
+    accessibility: {
+      announceNewData: {
+        enabled: true
+      },
+      point: {
+        valueSuffix: 'kn'
+      }
+    },
+    plotOptions: {
+      series: {
+        dataLabels: {
+          enabled: true,
+          format: '{point.name}: {point.y:.2f} kn'
+        }
+      }
+    },
+
+    tooltip: {
+      pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}kn</b><br/>'
+    },
+    chart: {
+      type: "pie",
+    },
+    series:
+    {
+      data: makePieChartObjectForExpensesVsIncome()
     }
   };
 
@@ -223,23 +308,23 @@ const DashboardScreen = ({ history }) => {
     yAxis: {
       title: {
         text: 'Amount (kn)'
-      },      
+      },
     },
     plotOptions: {
       area: {
-          pointStart: 1,
-          marker: {
-              enabled: false,
-              symbol: 'circle',
-              radius: 2,
-              states: {
-                  hover: {
-                      enabled: true
-                  }
-              }
+        pointStart: 1,
+        marker: {
+          enabled: false,
+          symbol: 'circle',
+          radius: 2,
+          states: {
+            hover: {
+              enabled: true
+            }
           }
+        }
       }
-  },
+    },
     series: [
       {
         name: 'Expenses',
@@ -253,10 +338,43 @@ const DashboardScreen = ({ history }) => {
   };
 
 
+
+  const optionsAreaChartDifference = {
+    chart: {
+      type: 'area'
+    },
+    title: {
+      text: 'Area chart with negative values'
+    },
+    xAxis: {
+      categories: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']
+    },
+    credits: {
+      enabled: false
+    },
+    series: [{
+      name: 'John',
+      data: makeAreaChartDiff()
+    }
+    ]
+  }
+
   return (
-    <div>
-      <HighchartsReact highcharts={Highcharts} options={optionsPieChartExpenses} />
-      <HighchartsReact highcharts={Highcharts} options={optionsLineChartForYear} />
+    <div className="chartScreen">
+      <div className="chartSmall">
+        <HighchartsReact highcharts={Highcharts} options={optionsPieChartExpenses} />
+      </div>
+      <div className="chartLarge">
+        <HighchartsReact highcharts={Highcharts} options={optionsLineChartForYear} />
+      </div>
+      <div className="chartLarge">
+        <HighchartsReact highcharts={Highcharts} options={optionsPieChartExpensesVsIncome} />
+      </div>
+
+      <div className="chartLarge">
+        <HighchartsReact highcharts={Highcharts} options={optionsAreaChartDifference} />
+      </div>
+
     </div>
   );
 };
