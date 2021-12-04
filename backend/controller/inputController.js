@@ -1,10 +1,22 @@
 const asyncHandler = require("express-async-handler");
 const Input = require("../models/InputModel");
+const Category = require("../models/CategoryModel");
+const Account = require("../models/AccountModel");
 
 //AsyncHandler ce hvatati sve greske
 
 const createInput = asyncHandler(async (req, res) => {
     const { datetime, category, subcategory, description,amount,user,account } = req.body;
+
+    const thisCategory=await Category.findById(category);
+    if(thisCategory.type=="Expense"){
+         (await Account.findOneAndUpdate({ _id: account }, { $inc: { amount: -amount } }));
+    }
+    else if(thisCategory.type=="Income"){
+        (await Account.findOneAndUpdate({ _id: account }, { $inc: { amount: amount } }));
+    }
+
+
     const input = await Input.create({
         datetime,
         category,

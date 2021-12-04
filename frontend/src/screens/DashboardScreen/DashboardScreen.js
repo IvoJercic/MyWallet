@@ -11,6 +11,7 @@ const DashboardScreen = ({ history }) => {
   const [categoryList, setCategoryList] = useState([]);
   const [subCategoryList, setSubCategoryList] = useState([]);
   const [inputList, setInputList] = useState([]);
+  const [accountList,setAccountList]=useState([]);
 
 
   useEffect(() => {
@@ -22,14 +23,10 @@ const DashboardScreen = ({ history }) => {
       getAllSubCategories();
       getAllCategories();
       getAllInputs();
+      getAllAccounts();
+
     }
   }, []);
-
-
-  useEffect(() => {
-    makeAreaChartDiff();
-  }, [inputList]);
-
 
 
   const getAllCategories = async () => {
@@ -51,6 +48,13 @@ const DashboardScreen = ({ history }) => {
       "/api/input/" + JSON.parse(localStorage.getItem("userInfo"))._id
     );
     setInputList(data.inputsList);
+  }
+
+  const getAllAccounts = async () => {
+    const { data } = await axios.get(
+      "/api/account/" + JSON.parse(localStorage.getItem("userInfo"))._id
+    );
+    setAccountList(data.accountsList);
   }
 
   const makePieChartObjectForCategories = (type) => {
@@ -184,15 +188,24 @@ const DashboardScreen = ({ history }) => {
 
   }
 
-  const makeAreaChartDiff=()=>{
-    const expensesPerMonths=makerAreaChartObjectForYear("Expense")
-    const incomePerMonths=makerAreaChartObjectForYear("Income")
+  const makeAreaChartDiff = () => {
+    const expensesPerMonths = makerAreaChartObjectForYear("Expense")
+    const incomePerMonths = makerAreaChartObjectForYear("Income")
 
-    let result=[];
+    let result = [];
     for (let i = 0; i < 12; i++) {
-      result.push(incomePerMonths[i]-expensesPerMonths[i])      
+      result.push(incomePerMonths[i] - expensesPerMonths[i])
     }
     return result
+  }
+
+
+  const makePieChartObjectAccounts = () => {
+    let temp=[];
+    accountList.forEach(element => {
+      temp.push({name:element.name,y:element.amount})
+    });    
+    return temp    
   }
 
   const optionsPieChartExpenses = {
@@ -337,8 +350,6 @@ const DashboardScreen = ({ history }) => {
     ]
   };
 
-
-
   const optionsAreaChartDifference = {
     chart: {
       type: 'area'
@@ -359,23 +370,67 @@ const DashboardScreen = ({ history }) => {
     ]
   }
 
+  const optionsPieChartAccounts = {
+    title: {
+      text: 'Amount per accounts'
+    },
+    accessibility: {
+      announceNewData: {
+        enabled: true
+      },
+      point: {
+        valueSuffix: 'kn'
+      }
+    },
+    plotOptions: {
+      series: {
+        dataLabels: {
+          enabled: true,
+          format: '{point.name}: {point.y:.2f} kn'
+        }
+      }
+    },
+
+    tooltip: {
+      pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}kn</b><br/>'
+    },
+    chart: {
+      type: "pie",
+    },
+    series:
+    {
+      data: makePieChartObjectAccounts()
+    }
+  };
+
+
   return (
-    <div className="chartScreen">
-      <div className="chartSmall">
-        <HighchartsReact highcharts={Highcharts} options={optionsPieChartExpenses} />
+    <>
+      <div className="chartScreen">
+        <div className="chartSmall">
+          <HighchartsReact highcharts={Highcharts} options={optionsPieChartExpenses} />
+        </div>
+        <div className="chartLarge">
+          <HighchartsReact highcharts={Highcharts} options={optionsLineChartForYear} />
+        </div>
       </div>
-      <div className="chartLarge">
-        <HighchartsReact highcharts={Highcharts} options={optionsLineChartForYear} />
-      </div>
-      <div className="chartLarge">
-        <HighchartsReact highcharts={Highcharts} options={optionsPieChartExpensesVsIncome} />
+      <div className="chartScreen">
+        <div className="chartSmall">
+          <HighchartsReact highcharts={Highcharts} options={optionsPieChartExpensesVsIncome} />
+        </div>
+
+        <div className="chartLarge">
+          <HighchartsReact highcharts={Highcharts} options={optionsAreaChartDifference} />
+        </div>
       </div>
 
-      <div className="chartLarge">
-        <HighchartsReact highcharts={Highcharts} options={optionsAreaChartDifference} />
+      <div className="chartScreen">
+        <div className="chartSmall">
+          <HighchartsReact highcharts={Highcharts} options={optionsPieChartAccounts} />
+        </div>
+       
       </div>
-
-    </div>
+    </>
   );
 };
 

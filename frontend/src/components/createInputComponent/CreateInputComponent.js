@@ -67,6 +67,8 @@ const CreateInputComponent = ({
             },
             config
         );
+        window.location.reload(true);
+
         setRefresher(prevState => !prevState);
         setStartDate(new Date());
         setSelectedCategory("");
@@ -117,7 +119,7 @@ const CreateInputComponent = ({
                 value: element.name,
                 label:
                     <div>
-                        <span>{element.name}</span>
+                        <span>{element.name} ({element.amount} kn)</span>
                     </div>,
                 category: element
             })
@@ -210,13 +212,14 @@ const CreateInputComponent = ({
 
             <label htmlFor="inputAmount" /> Amount (kn)
             <div className="createcategory__input">
-                <i className="fas fa-list"></i>
+                <i></i>
                 <input
                     id="inputAmount"
                     type="number"
                     placeholder="Amount (kn)"
                     value={amount}
                     min={0}
+                    max={selectedCategory.type=="Expense"?selectedAccount.amount:99999}
                     onChange={(e) => handleAmountChange(e)}
                 />
             </div>

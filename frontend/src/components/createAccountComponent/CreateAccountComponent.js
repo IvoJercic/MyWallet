@@ -23,6 +23,7 @@ const CreateAccountComponent = ({setRefresher}) => {
             },
             config
         );
+        
         setRefresher(prevState => !prevState);
         setName("");
         setAmount(0);

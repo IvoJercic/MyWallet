@@ -63,6 +63,7 @@ const TransferComponent = ({setRefresher,accountList}) => {
                 },
                 config
             );
+            window.location.reload(true);
             setRefresher(prevState => !prevState);
             setAccountSender("");
             setAccountReceiver("");
