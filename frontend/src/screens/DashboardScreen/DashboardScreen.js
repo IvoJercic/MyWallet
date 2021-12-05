@@ -407,28 +407,11 @@ const DashboardScreen = ({ history }) => {
   return (
     <>
       <div className="chartScreen">
-        <div className="chartSmall">
           <HighchartsReact highcharts={Highcharts} options={optionsPieChartExpenses} />
-        </div>
-        <div className="chartLarge">
           <HighchartsReact highcharts={Highcharts} options={optionsLineChartForYear} />
-        </div>
-      </div>
-      <div className="chartScreen">
-        <div className="chartSmall">
           <HighchartsReact highcharts={Highcharts} options={optionsPieChartExpensesVsIncome} />
-        </div>
-
-        <div className="chartLarge">
-          <HighchartsReact highcharts={Highcharts} options={optionsAreaChartDifference} />
-        </div>
-      </div>
-
-      <div className="chartScreen">
-        <div className="chartSmall">
+          <HighchartsReact highcharts={Highcharts} options={optionsAreaChartDifference} />      
           <HighchartsReact highcharts={Highcharts} options={optionsPieChartAccounts} />
-        </div>
-       
       </div>
     </>
   );

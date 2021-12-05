@@ -34,7 +34,6 @@ const AccountsScreen = ({ history }) => {
         }
     }, [refresher]);
 
-
     const handleChangeMode=()=>{
         setMainCategoryMode(!mainCategoryMode)
 
@@ -72,7 +71,6 @@ const AccountsScreen = ({ history }) => {
         });
         setTransferList(tempTransfersList);
     }
-
 
     const handleDeleteAccount = async (account) => {
         const popup = window.confirm("Are you sure you want to delete your account " + account.name + "?");
@@ -139,6 +137,7 @@ const AccountsScreen = ({ history }) => {
                         : <CreateAccountComponent
                             setRefresher={setRefresher} />
                     }
+                    
                     <TransferComponent
                         setRefresher={setRefresher}
                         accountList={accountList} />

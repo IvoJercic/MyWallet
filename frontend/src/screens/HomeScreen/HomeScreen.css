@@ -298,6 +298,13 @@ form.sign-in-form {
 
 .container.sign-up-mode .right-panel {
   pointer-events: all;
+}  
+.categoryList__div{
+  height: 30rem;
+  overflow: auto;
+  display: flex;  
+  flex-direction: column; 
+  width: 100%;
 }
 
 @media (max-width: 986px) {
@@ -312,6 +319,9 @@ form.sign-in-form {
     transition: 1s 0.8s ease-in-out;
   }
 
+  .historyScreen_table_row{
+    font-size: 16px !important;
+  }
 
   #rightPanel{
     transform: translateY(250px);
@@ -411,18 +421,37 @@ form.sign-in-form {
     padding: 0 1.5rem;
   }
 
+  .historyScreen_table_row{
+    font-size: 14px !important;
+  }
+
+  #rightPanel{
+    transform: translateY(530px);
+  }
+
+  .inputTab{
+    font-size: 14px !important;
+    width: 50%;
+  }
+
+  #categoryLeft{    
+    /* width: 2rem; */
+  }
+
   .image {
     display: none;
   }
   .panel .content {
     padding: 0.5rem 1rem;
+    /* width: 60% !important; */
   }
+
   .container {
     padding: 1.5rem;
   }
 
   .container:before {
-    bottom: 72%;
+    bottom: 67%;
     left: 50%;
   }
 
@@ -541,6 +570,7 @@ form.sign-in-form {
 
 .chartScreen{
   display: flex;
+  flex-direction: column;
 }
 
 .chartSmall{

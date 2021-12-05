@@ -24,6 +24,7 @@
     height: 10rem;
   }
 
+  
   .inputTab:hover{
       color: #102B49;
   }  
@@ -51,4 +52,25 @@
     display: flex;
     flex: 0.4;
 
+  }
+
+  @media (max-width: 570px) {
+    .panel .content {
+      padding:0%;
+      left: 0;
+    }
+
+    .inputTab
+    {
+      width: 100%;
+    }
+
+
+    .panel{
+      padding:0px;
+    }
+
+    .categoryList__div{
+      overflow: hidden;
+    }
   }

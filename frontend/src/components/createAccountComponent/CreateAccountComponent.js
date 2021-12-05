@@ -38,7 +38,7 @@ const CreateAccountComponent = ({setRefresher}) => {
     }
 
     return (
-        <form action="#" className="signin-up-form createcategory" onSubmit={(e) => handleSubmit(e)}>
+        <form action="#" className="sign-in-form createcategory" onSubmit={(e) => handleSubmit(e)}>
             <h1 className="center">New account:</h1>
         
             <br />

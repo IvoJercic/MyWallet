@@ -78,7 +78,7 @@ const HistoryScreen = ({ history }) => {
           <div
             style={{ color: "black" }}
           >
-            {React.createElement(FaIcons[element.icon])}
+            {React.createElement(FaIcons[element?.icon])}
             <span>{element.name} ({element.type})</span>
           </div>,
         category: element
@@ -96,7 +96,7 @@ const HistoryScreen = ({ history }) => {
           <div
             style={{ color: "black" }}
           >
-            {React.createElement(FaIcons[element.icon])}
+            {React.createElement(FaIcons[element?.icon])}
             <span>{element.name} ({element.type})</span>
           </div>,
         category: element
