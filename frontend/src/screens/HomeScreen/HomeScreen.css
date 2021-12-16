@@ -55,10 +55,10 @@ form {
   grid-row: 1 / 2;
 }
 
-form.sign-up-form {
+/* form.sign-up-form {
   opacity: 0;
   z-index: 1;
-}
+} */
 
 
 
@@ -304,7 +304,9 @@ form.sign-in-form {
   overflow: auto;
   display: flex;  
   flex-direction: column; 
-  width: 100%;
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;  
 }
 
 @media (max-width: 986px) {
@@ -415,52 +417,6 @@ form.sign-in-form {
     transform: translate(-50%, 0);
   }
 }
-
-@media (max-width: 570px) {
-  form {
-    padding: 0 1.5rem;
-  }
-
-  .historyScreen_table_row{
-    font-size: 14px !important;
-  }
-
-  #rightPanel{
-    transform: translateY(530px);
-  }
-
-  .inputTab{
-    font-size: 14px !important;
-    width: 50%;
-  }
-
-  #categoryLeft{    
-    /* width: 2rem; */
-  }
-
-  .image {
-    display: none;
-  }
-  .panel .content {
-    padding: 0.5rem 1rem;
-    /* width: 60% !important; */
-  }
-
-  .container {
-    padding: 1.5rem;
-  }
-
-  .container:before {
-    bottom: 67%;
-    left: 50%;
-  }
-
-  .container.sign-up-mode:before {
-    bottom: 28%;
-    left: 50%;
-  }
-}
-
 
 
 /* width */
@@ -579,4 +535,32 @@ form.sign-in-form {
 
 .chartLarge{
   width: 70%;
+}
+
+.mainDiv{
+  background-color: #102B49;
+  display: flex;
+  flex-direction: column;
+}
+
+.white{
+  color: white;
+}
+
+.tablink{
+  width: 50%;
+  background: #2196f3;
+  color: white;
+  display: flex;  
+  justify-content: center;
+  padding:10px;
+}
+
+.tablink:hover{
+  background-color: #365a85;
+  cursor: pointer;
+}
+
+.activeTab{
+  background-color: #102B49 !important;
 }

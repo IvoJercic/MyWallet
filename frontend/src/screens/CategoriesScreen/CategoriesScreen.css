@@ -23,28 +23,11 @@
   }
 
   @media (max-width: 570px) {
-    .panel .content {
-      padding:0%;
-      left: 0;
+    .categoryTab{
+      width: 20rem;  
+      font-size: 22px !important;
+
     }
-
-    .categoryTab
-    {
-      width: 100%;
-    }
-
-
-    .panel{
-      padding:0px;
-    }
-
-    .categoryList__div{
-      overflow: hidden;
-    }
-  }
-
-  .categoryTab .opened{
-    height: 10rem;
   }
 
   .categoryTab:hover{

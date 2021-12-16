@@ -22,7 +22,7 @@ const CategoriesScreen = ({ history }) => {
 
     const [updateSubCategory, setUpdateSubCategory] = useState(false);
     const [subCategoryForUpdate, setSubCategoryForUpdate] = useState("");
-    
+
     //Proslijedujemo child componenti
     const [selectedCategory, setSelectedCategory] = useState(null);
 
@@ -39,22 +39,6 @@ const CategoriesScreen = ({ history }) => {
         }
     }, [refresher]);
 
-
-    const handleChangeMode=()=>{
-        setMainCategoryMode(!mainCategoryMode)
-
-        if(mainCategoryMode==true){
-            setTimeout(() => {
-                document.getElementById("categoryRight").style="display:block";    
-            }, 2000);
-            
-        }   
-        else{
-            setTimeout(() => {
-                document.getElementById("categoryRight").style="display:none";    
-            }, 2000);
-        } 
-    }
 
     const getAllCategories = async () => {
         const { data } = await axios.get(
@@ -161,26 +145,57 @@ const CategoriesScreen = ({ history }) => {
         );
     };
 
-    const toggleDiv = (e) => {
-        let flag = false;
-        e.target.classList.forEach(clazz => {
-            if (clazz == "opened") {
-                flag = true;
-            }
-        });
-
-        if (flag) {
-            e.target.classList.remove("opened");
+    const activateTab = (tabId) => {
+        if (tabId == "categoryTab") {
+            document.getElementById("subcategoryTab").classList.remove("activeTab");
+            document.getElementById("categoryTab").classList.add("activeTab");
+            setMainCategoryMode(true);
         }
-        else {
-            e.target.classList.add("opened");
+        else if (tabId == "subcategoryTab") {
+            document.getElementById("categoryTab").classList.remove("activeTab");
+            document.getElementById("subcategoryTab").classList.add("activeTab");
+            setMainCategoryMode(false);
         }
     }
 
     return (
-        <div className={mainCategoryMode === false ? "container sign-up-mode" : "container"}>
-            <div className="forms-container">
-                <div className="signin-signup">
+        <div className="mainDiv">
+            <div style={{ display: "flex" }}>
+                <div className="tablink activeTab" onClick={() => activateTab("categoryTab")} id="categoryTab">Categories</div>
+                <div className="tablink" onClick={() => activateTab("subcategoryTab")} id="subcategoryTab">Subcategories</div>
+            </div>
+
+
+            <div style={mainCategoryMode ? { display: "block" } : { display: "none" }}>
+                <div className="categoryList__div">
+                    <h1 className="center white">Your categories </h1>
+                    {categoryList ?
+                        categoryList.map(category =>
+                            <div className="categoryTab"
+                                key={category.name}
+                                style={{ background: category.color }}
+                            >
+                                {category.type == "Income"
+                                    ? createIcon("FaAngleDoubleUp")
+                                    : createIcon("FaAngleDoubleDown")}
+                                &nbsp;&nbsp;
+                                &nbsp;&nbsp;
+                                {createIcon(category.icon)}
+                                &nbsp;&nbsp;
+                                <b>
+                                    {category.name}
+
+                                </b>
+                                &nbsp;&nbsp;
+                                &nbsp;&nbsp;
+                                {createEditIcon(category, "category")}
+                                &nbsp;&nbsp;
+                                {createDeleteIcon(category, "category")}
+                            </div>
+                        ) : ""}
+                </div>
+
+                <div>
                     {updateCategory
                         ? <UpdateCategoryComponent
                             setRefresher={setRefresher}
@@ -191,7 +206,35 @@ const CategoriesScreen = ({ history }) => {
                             setRefresher={setRefresher} />
                     }
 
-                    {updateSubCategory
+                </div>
+            </div>
+
+            <div style={mainCategoryMode ? { display: "none" } : { display: "block" }}>
+                <div className="categoryList__div" >
+                    {selectedCategory
+                        ? <h1 className="center white">Category: {selectedCategory.name} </h1>
+                        : <h1 className="center white">Choose category </h1>
+                    }
+                    {subCategoriesList ?
+                        subCategoriesList.map(subcategory =>
+                            <div className="categoryTab"
+                                key={subcategory.name}
+                                style={{ background: selectedCategory.color }}
+                            >
+                                {createIcon(subcategory.icon, "sub")}
+                                &nbsp;&nbsp;
+                                <b>
+                                    {subcategory.name}
+                                </b>
+                                &nbsp;&nbsp;
+                                {createEditIcon(subcategory, "subcategory")}
+                                &nbsp;&nbsp;
+                                {createDeleteIcon(subcategory, "subcategory")}
+                            </div>
+                        ) : ""}
+                </div>
+                <div>
+                {updateSubCategory
                         ? <UpdateSubCategoryComponent
                             setRefresher={setRefresher}
                             subCategoryForUpdate={subCategoryForUpdate}
@@ -204,76 +247,6 @@ const CategoriesScreen = ({ history }) => {
                             setRefresher={setRefresher}
                         />
                     }
-                </div>
-            </div>
-
-            <div className="panels-container">
-                <div className="panel left-panel" id="categoryLeft">
-                    <div className="content">
-                        <div className="categoryList__div">
-                            <h1 className="center">Your categories </h1>
-                            <hr />
-                            {categoryList ?
-                                categoryList.map(category =>
-                                    <div className="categoryTab"
-                                        key={category.name}
-                                        style={{ background: category.color }}
-                                    // onClick={(e) => toggleDiv(e)}
-                                    >
-                                        {category.type == "Income"
-                                            ? createIcon("FaAngleDoubleUp")
-                                            : createIcon("FaAngleDoubleDown")}
-                                        &nbsp;&nbsp;
-                                        &nbsp;&nbsp;
-                                        {createIcon(category.icon)}
-                                        &nbsp;&nbsp;
-                                        <b>
-                                            {category.name}
-
-                                        </b>
-                                        &nbsp;&nbsp;
-                                        &nbsp;&nbsp;
-                                        {createEditIcon(category, "category")}
-                                        &nbsp;&nbsp;
-                                        {createDeleteIcon(category, "category")}
-                                    </div>
-                                ) : ""}
-                        </div>
-                        <button className="btn transparent" id="sign-up-btn" onClick={() => handleChangeMode()}>
-                            Add Subcategories
-                        </button>
-                    </div>
-                </div>
-                <div className="panel right-panel" id="rightPanel">
-                    <div className="content" id="categoryRight" style={{display:"none"}}>
-                        <div className="categoryList__div" id="rightWindow">
-                            {selectedCategory
-                                ? <h1 className="center">Category: {selectedCategory.name} </h1>
-                                : <h1 className="center">Choose category </h1>
-                            }
-                            <hr />
-                            {subCategoriesList ?
-                                subCategoriesList.map(subcategory =>
-                                    <div className="categoryTab"
-                                        key={subcategory.name}
-                                        style={{ background: selectedCategory.color }}
-                                    >
-                                        {createIcon(subcategory.icon, "sub")}
-                                        &nbsp;&nbsp;
-                                        <b>
-                                            {subcategory.name}
-                                        </b>
-                                        &nbsp;&nbsp;
-                                        {createEditIcon(subcategory, "subcategory")}
-                                        &nbsp;&nbsp;
-                                        {createDeleteIcon(subcategory, "subcategory")}
-                                    </div>
-                                ) : ""}
-                        </div>
-                        <button className="btn transparent" id="sign-up-btn" onClick={() => handleChangeMode()}>
-                            Add category
-                        </button>
-                    </div>
                 </div>
             </div>
         </div>

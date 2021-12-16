@@ -55,22 +55,5 @@
   }
 
   @media (max-width: 570px) {
-    .panel .content {
-      padding:0%;
-      left: 0;
-    }
-
-    .inputTab
-    {
-      width: 100%;
-    }
-
-
-    .panel{
-      padding:0px;
-    }
-
-    .categoryList__div{
-      overflow: hidden;
-    }
+    
   }
