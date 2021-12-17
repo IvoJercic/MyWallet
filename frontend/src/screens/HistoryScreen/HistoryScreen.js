@@ -116,34 +116,16 @@ const HistoryScreen = ({ history }) => {
   return (
     <div className="historyScreen">
       <h1 className="center">All inputs ever</h1>
-      <form action="#" className="historyScreenBox">
-        <div className="historyScreen_table">
+        <div className="historyScreen_table">       
+          <br />
+          <br />
           {/* <div className="historyScreen_table_header">
-            <div>
-              <ReactSelectComponent
-                options={categoryListForSelect}
-                handleCategorySelect={handleFilterCategorySelect}
-              />
-            </div>
-            <div>
-              <ReactSelectComponent
-                options={subCategoryListForSelect}
-                handleCategorySelect={handleFilterSubCategorySelect}
-              />
-            </div>
-            <div>AMOUNT</div>
-            <div>CATEGORY</div>
-            <div>SUBCATEGORY</div>
-          </div> */}
-          <br />
-          <br />
-          <div className="historyScreen_table_header">
             <h4>DATE</h4>
             <h4>DESCRIPTION</h4>
             <h4>AMOUNT</h4>
             <h4>CATEGORY</h4>
             <h4>SUBCATEGORY</h4>
-          </div>
+          </div> */}
           <br />
           <hr />
           <div className="historyScreen_table_body">
@@ -170,7 +152,6 @@ const HistoryScreen = ({ history }) => {
               ) : ""}
           </div>
         </div>
-      </form>
     </div>
   );
 };

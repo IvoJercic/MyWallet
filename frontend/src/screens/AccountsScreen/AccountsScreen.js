@@ -34,20 +34,20 @@ const AccountsScreen = ({ history }) => {
         }
     }, [refresher]);
 
-    const handleChangeMode=()=>{
+    const handleChangeMode = () => {
         setMainCategoryMode(!mainCategoryMode)
 
-        if(mainCategoryMode==true){
+        if (mainCategoryMode == true) {
             setTimeout(() => {
-                document.getElementById("categoryRight").style="display:block";    
+                document.getElementById("categoryRight").style = "display:block";
             }, 2000);
-            
-        }   
-        else{
+
+        }
+        else {
             setTimeout(() => {
-                document.getElementById("categoryRight").style="display:none";    
+                document.getElementById("categoryRight").style = "display:none";
             }, 2000);
-        } 
+        }
     }
 
     const getAllAccounts = async () => {
@@ -120,12 +120,51 @@ const AccountsScreen = ({ history }) => {
             </div>
         );
     };
-
+    const activateTab = (tabId) => {
+        if (tabId == "categoryTab") {
+            document.getElementById("subcategoryTab").classList.remove("activeTab");
+            document.getElementById("categoryTab").classList.add("activeTab");
+            setMainCategoryMode(true);
+        }
+        else if (tabId == "subcategoryTab") {
+            document.getElementById("categoryTab").classList.remove("activeTab");
+            document.getElementById("subcategoryTab").classList.add("activeTab");
+            setMainCategoryMode(false);
+        }
+    }
 
     return (
-        <div className={mainCategoryMode === false ? "container sign-up-mode" : "container"}>
-            <div className="forms-container">
-                <div className="signin-signup">
+        <div className="mainDiv">
+            <div style={{ display: "flex" }}>
+                <div className="tablink activeTab" onClick={() => activateTab("categoryTab")} id="categoryTab">Accounts</div>
+                <div className="tablink" onClick={() => activateTab("subcategoryTab")} id="subcategoryTab">Transfers</div>
+            </div>
+
+
+            <div style={mainCategoryMode ? { display: "block" } : { display: "none" }}>
+                <div className="categoryList__div">
+                    <h1 className="center white">Your accounts </h1>
+                    {accountList ?
+                        accountList.map(account =>
+                            <div className="categoryTab"
+                                key={account.id}
+                                style={{ background: "#2196f3" }}
+                            >
+                                <b>
+                                    {account.name}
+                                </b>
+                                &nbsp;
+                                ({account.amount} kn)
+                                &nbsp;&nbsp;
+                                &nbsp;&nbsp;
+                                {createEditIcon(account)}
+                                &nbsp;&nbsp;
+                                {createDeleteIcon(account)}
+                            </div>
+                        ) : ""}
+                </div>
+
+                <div>
                     {updateAccount
                         ?
                         <UpdateAccountsComponent
@@ -137,67 +176,30 @@ const AccountsScreen = ({ history }) => {
                         : <CreateAccountComponent
                             setRefresher={setRefresher} />
                     }
-                    
-                    <TransferComponent
-                        setRefresher={setRefresher}
-                        accountList={accountList} />
                 </div>
             </div>
 
-            <div className="panels-container">
-                <div className="panel left-panel" id="categoryLeft">
-                    <div className="content">
-                        <div className="categoryList__div">
-                            <h1 className="center">Your accounts </h1>
-                            <hr />
-                            {accountList ?
-                                accountList.map(account =>
-                                    <div className="categoryTab"
-                                        key={account.id}
-                                        style={{ background: "#2196f3" }}
-                                    >
-                                        <b>
-                                            {account.name}
-                                        </b>
-                                        &nbsp;
-                                        ({account.amount} kn)
-                                        &nbsp;&nbsp;
-                                        &nbsp;&nbsp;
-                                        {createEditIcon(account)}
-                                        &nbsp;&nbsp;
-                                        {createDeleteIcon(account)}
-                                    </div>
-                                ) : ""}
-                        </div>
-                        <button className="btn transparent" id="sign-up-btn" onClick={() => handleChangeMode()}>
-                            Transfer
-                        </button>
-                    </div>
-                </div>
+            <div style={mainCategoryMode ? { display: "none" } : { display: "block" }}>
+                <div className="categoryList__div" >
+                    <h1 className="center white">Transfers: </h1>
 
-                <div className="panel right-panel" id="rightPanel">
-                <div className="content" id="categoryRight" style={{display:"none"}}>
-                <div className="categoryList__div" id="rightWindow">
-                            <h1 className="center">Transfers: </h1>
-                            <hr />
-                            {transferList ?
-                                transferList.map(transfer =>
-                                    <div className="categoryTab"
-                                        key={transfer.id}
-                                        style={{ background: "#2196f3" }}
-                                    >
-                                        {accountList.filter(acc => acc?.id === transfer?.sender)[0]?.name}
-                                        {">"}
-                                        {accountList.filter(acc => acc?.id === transfer?.receiver)[0]?.name}
-                                        {"("+transfer.amount+" kn)"}
-                                    </div>
-                                ).reverse() : ""}
-                        </div>
-                        <br/>
-                        <button className="btn transparent" id="sign-up-btn" onClick={() => handleChangeMode()}>
-                            Add account
-                        </button>
-                    </div>
+                    {transferList ?
+                        transferList.map(transfer =>
+                            <div className="categoryTab"
+                                key={transfer.id}
+                                style={{ background: "#2196f3" }}
+                            >
+                                {accountList.filter(acc => acc?.id === transfer?.sender)[0]?.name}
+                                {">"}
+                                {accountList.filter(acc => acc?.id === transfer?.receiver)[0]?.name}
+                                {"(" + transfer.amount + " kn)"}
+                            </div>
+                        ).reverse() : ""}
+                </div>
+                <div>
+                    <TransferComponent
+                        setRefresher={setRefresher}
+                        accountList={accountList} />
                 </div>
             </div>
         </div>

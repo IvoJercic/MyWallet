@@ -322,7 +322,7 @@ form.sign-in-form {
   }
 
   .historyScreen_table_row{
-    font-size: 16px !important;
+    font-size: 14px !important;
   }
 
   #rightPanel{
@@ -345,9 +345,6 @@ form.sign-in-form {
     align-items: center;
     padding: 2.5rem 8%;
     grid-column: 1 / 2;
-  }
-
-  .right-panel {
   }
 
   .left-panel {
@@ -488,7 +485,7 @@ form.sign-in-form {
   padding-bottom: 10px;
   padding-left: 15px;
   /* font-weight: bold; */
-  font-size: 20px;
+  font-size: 18px;
 }
 
 .historyScreen_table_row:hover{
