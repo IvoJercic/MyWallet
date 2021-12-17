@@ -124,7 +124,7 @@ const HistoryScreen = ({ history }) => {
             <h4>DESCRIPTION</h4>
             <h4>AMOUNT</h4>
             <h4>CATEGORY</h4>
-            <h4>SUBCATEGORY</h4>
+            <h4>SUBCATEGORY</h4 >
           </div> */}
           <br />
           <hr />
