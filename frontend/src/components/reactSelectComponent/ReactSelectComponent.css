@@ -1,4 +1,10 @@
 .reactSelect{
     width: 300px;
     border-radius: 100px !important;
-   }
+}
+
+@media (max-width: 570px) {
+    .reactSelect{
+        width: 200px;
+    }
+  }

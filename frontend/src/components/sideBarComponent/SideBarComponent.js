@@ -32,7 +32,7 @@ function SideBarComponent() {
           <Link to='#' className='menu-bars'>
             <FaIcons.FaBars onClick={showSidebar} />
           </Link>
-          ALO
+          MyWallet
           <span className="navbar__logout">
             <button
             onClick={handleLogout}

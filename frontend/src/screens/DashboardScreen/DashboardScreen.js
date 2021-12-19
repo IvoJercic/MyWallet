@@ -11,7 +11,7 @@ const DashboardScreen = ({ history }) => {
   const [categoryList, setCategoryList] = useState([]);
   const [subCategoryList, setSubCategoryList] = useState([]);
   const [inputList, setInputList] = useState([]);
-  const [accountList,setAccountList]=useState([]);
+  const [accountList, setAccountList] = useState([]);
 
 
   useEffect(() => {
@@ -201,11 +201,11 @@ const DashboardScreen = ({ history }) => {
 
 
   const makePieChartObjectAccounts = () => {
-    let temp=[];
+    let temp = [];
     accountList.forEach(element => {
-      temp.push({name:element.name,y:element.amount})
-    });    
-    return temp    
+      temp.push({ name: element.name, y: element.amount })
+    });
+    return temp
   }
 
   const optionsPieChartExpenses = {
@@ -245,6 +245,9 @@ const DashboardScreen = ({ history }) => {
     ],
     drilldown: {
       series: makePieChartDrillDownObjectForCategories("Expense")
+    },
+    credits: {
+      enabled: false
     }
   };
 
@@ -278,7 +281,10 @@ const DashboardScreen = ({ history }) => {
     series:
     {
       data: makePieChartObjectForExpensesVsIncome()
-    }
+    },
+    credits: {
+      enabled: false
+    },
   };
 
   const optionsLineChartForYear = {
@@ -347,7 +353,10 @@ const DashboardScreen = ({ history }) => {
         name: 'Income',
         data: makerAreaChartObjectForYear("Income")
       }
-    ]
+    ],
+    credits: {
+      enabled: false
+    },
   };
 
   const optionsAreaChartDifference = {
@@ -355,7 +364,7 @@ const DashboardScreen = ({ history }) => {
       type: 'area'
     },
     title: {
-      text: 'Area chart with negative values'
+      text: 'Diff(Income - Expenses) per months'
     },
     xAxis: {
       categories: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']
@@ -364,7 +373,8 @@ const DashboardScreen = ({ history }) => {
       enabled: false
     },
     series: [{
-      name: 'John',
+      name: 'Diff',
+      showInLegend: false,
       data: makeAreaChartDiff()
     }
     ]
@@ -400,18 +410,35 @@ const DashboardScreen = ({ history }) => {
     series:
     {
       data: makePieChartObjectAccounts()
-    }
+    },
+    credits: {
+      enabled: false
+    },
   };
 
 
   return (
     <>
       <div className="chartScreen">
+        <div className="chart">
           <HighchartsReact highcharts={Highcharts} options={optionsPieChartExpenses} />
+        </div>
+
+        <div className="chart">
           <HighchartsReact highcharts={Highcharts} options={optionsLineChartForYear} />
+        </div>
+
+        <div className="chart">
           <HighchartsReact highcharts={Highcharts} options={optionsPieChartExpensesVsIncome} />
-          <HighchartsReact highcharts={Highcharts} options={optionsAreaChartDifference} />      
+        </div>
+
+        <div className="chart">
+          <HighchartsReact highcharts={Highcharts} options={optionsAreaChartDifference} />
+        </div>
+
+        <div className="chart">
           <HighchartsReact highcharts={Highcharts} options={optionsPieChartAccounts} />
+        </div>
       </div>
     </>
   );

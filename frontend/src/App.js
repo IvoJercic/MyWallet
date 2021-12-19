@@ -31,8 +31,6 @@ function App() {
           <Route exact path="/input" component={InputScreen} />
           <Route exact path="/history" component={HistoryScreen} />
           <Route exact path="/accounts" component={AccountsScreen} />
-
-
         </Switch>
       </main>
     </Router>

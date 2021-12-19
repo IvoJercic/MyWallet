@@ -166,7 +166,7 @@ const CreateInputComponent = ({
     }
 
     return (
-        <form action="#" className="signin-up-form createcategory" onSubmit={(e) => handleSubmit(e)}>
+        <form action="#" className="createcategory" onSubmit={(e) => handleSubmit(e)}>
             <h1 className="center">New input:</h1>
             <br />
             <div>

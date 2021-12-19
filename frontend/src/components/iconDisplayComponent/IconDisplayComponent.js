@@ -5,18 +5,18 @@ import * as FaIcons from 'react-icons/fa';
 
 import './IconDisplayComponent.css';
 
-const IconDisplayComponent = ({ selectedColor ,setSelectedIcon,updateMode,iconBeforeUpdate}) => {
+const IconDisplayComponent = ({ selectedColor, setSelectedIcon, updateMode, iconBeforeUpdate }) => {
     const [selectedIconName, setSelectedIconName] = useState("");
 
 
     useEffect(() => {
-        if(updateMode){        
+        if (updateMode) {
             setSelectedIconName(iconBeforeUpdate);
             setSelectedIcon(iconBeforeUpdate);
         }
     }, []);
 
-    const iconList = [        
+    const iconList = [
         "FaBtc",
         "FaCreativeCommonsBy",
         "FaCuttlefish",
@@ -36,7 +36,6 @@ const IconDisplayComponent = ({ selectedColor ,setSelectedIcon,updateMode,iconBe
         "FaBeer",
         "FaBicycle",
         "FaBiking",
-        "FaBirthdayCake",
         "FaBomb",
         "FaBullseye",
         "FaCamera",
@@ -80,6 +79,29 @@ const IconDisplayComponent = ({ selectedColor ,setSelectedIcon,updateMode,iconBe
         "FaSkull",
         "FaTrain",
         "FaTrash",
+        "FaCarCrash",
+        "FaCarBattery",
+        "FaBus",
+        "FaBriefcaseMedical",
+        "FaCandyCane",
+        "FaCartPlus",
+        "FaBasketballBall",
+        "FaAward",
+        "FaBolt",
+        "FaBirthdayCake",
+        "FaBurn",
+        "FaCocktail",
+        "FaCookie",
+        "FaDollarSign",
+        "FaDonate",
+        "FaFish",
+        "FaGifts",
+        "FaGlassCheers",
+        "FaIceCream",
+        "FaPhoneAlt",
+        "FaSearchDollar",
+        "FaTablets",
+        "FaWrench"
     ];
 
     const handleIconSelect = (e, iconName) => {
@@ -91,17 +113,17 @@ const IconDisplayComponent = ({ selectedColor ,setSelectedIcon,updateMode,iconBe
     const createIcon = (iconName) => {
         const icon = React.createElement(FaIcons[iconName], { key: iconName, className: "icon" });
         let bckColor;
-        if(iconName===selectedIconName){
-            bckColor=selectedColor
+        if (iconName === selectedIconName) {
+            bckColor = selectedColor
         }
-        else{
-            bckColor="#C0C0C0";
+        else {
+            bckColor = "#C0C0C0";
         }
         return (
             <div
                 onClick={(e) => handleIconSelect(e, iconName)}
                 key={"div__" + iconName}
-                style={{background:bckColor}}
+                style={{ background: bckColor }}
             >{icon}
             </div>
         );
