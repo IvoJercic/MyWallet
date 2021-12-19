@@ -12,7 +12,7 @@ import LoginComponent from "../../components/loginComponent/LoginComponent";
 import RegisterComponent from "../../components/registerComponent/RegisterComponent";
 
 const HomeScreen = ({ history }) => {
-    const [signInMode, setSignInMode] = useState(true);
+    const [mainCategoryMode, setMainCategoryMode] = useState(true);
 
     useEffect(() => {
         const userInfo = localStorage.getItem("userInfo");
@@ -22,41 +22,45 @@ const HomeScreen = ({ history }) => {
         }
     }, [history]);
 
+    const activateTab = (tabId) => {
+        if (tabId == "categoryTab") {
+            document.getElementById("subcategoryTab").classList.remove("activeTab");
+            document.getElementById("categoryTab").classList.add("activeTab");
+            setMainCategoryMode(true);
+        }
+        else if (tabId == "subcategoryTab") {
+            document.getElementById("categoryTab").classList.remove("activeTab");
+            document.getElementById("subcategoryTab").classList.add("activeTab");
+            setMainCategoryMode(false);
+        }
+    }
+
     return (
-        <div className={signInMode === false ? "container sign-up-mode" : "container"}>
-            <div className="forms-container">
-                <div className="signin-signup">
-                    <LoginComponent history={history}/>                                        
-                    <RegisterComponent history={history}/>
+        <div className="mainDiv">
+            <div style={{ display: "flex" }}>
+                <div className="tablink activeTab" onClick={() => activateTab("categoryTab")} id="categoryTab">Login</div>
+                <div className="tablink" onClick={() => activateTab("subcategoryTab")} id="subcategoryTab">Register</div>
+            </div>
+
+
+            <div style={mainCategoryMode ? { display: "block" } : { display: "none" }}>
+                <div className="homeTitleDiv">
+                    <h1 className="center white">Welcome to MyWallet app.</h1>
+                    <h3 className="center white typing">Here you can track your money flow</h3>
+                </div>
+
+                <div>
+                    <LoginComponent history={history} />
                 </div>
             </div>
 
-            <div className="panels-container">
-                <div className="panel left-panel">
-                    <div className="content">
-                        <h3>Welcome ?</h3>
-                        <p>
-                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Debitis,
-                            ex ratione. Aliquid!
-                        </p>
-                        <button className="btn transparent" id="sign-up-btn" onClick={()=>setSignInMode(!signInMode)}>
-                            Sign up
-                        </button>
-                    </div>
-                    <img src={log} className="image" alt="" />
+            <div style={mainCategoryMode ? { display: "none" } : { display: "block" }}>
+                <div className="homeTitleDiv" >
+                <h1 className="center white">Register here</h1>
+
                 </div>
-                <div className="panel right-panel">
-                    <div className="content">
-                        <h3>One of us ?</h3>
-                        <p>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum
-                            laboriosam ad deleniti.
-                        </p>
-                        <button className="btn transparent" id="sign-in-btn" onClick={()=>setSignInMode(!signInMode)}>
-                            Sign in
-                        </button>
-                    </div>
-                    <img src={register} className="image" alt="" />
+                <div>
+                    <RegisterComponent history={history} />
                 </div>
             </div>
         </div>

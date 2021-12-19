@@ -24,7 +24,7 @@ const LoginComponent = ({ history }) => {
     }
     return (
         <form action="#" className="sign-in-form" onSubmit={(e) => handleSubmit(e)}>
-            <h1 className="title">Login here</h1>
+            <h1 className="title white">Login here</h1>
 
             <div className="input-field">
                 <i className="fas fa-user"></i>

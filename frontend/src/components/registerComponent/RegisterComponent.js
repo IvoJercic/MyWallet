@@ -71,7 +71,6 @@ const RegisterComponent = ({history}) => {
 
     return (
         <form action="#" className="sign-up-form" onSubmit={(e) => handleSubmit(e)}>
-            <h1 className="title">Register here</h1>
             <div className="input-field">
                 <i className="fas fa-user"></i>
                 <input

@@ -13,6 +13,7 @@ html{
 body,
 input {
   font-family: "Poppins", sans-serif;
+  background-color: #102B49;
 }
 
 .container {
@@ -151,7 +152,7 @@ form.sign-in-form {
 .btn {
   width: 150px;
   text-align: center;
-  background-color: #102B49;
+  background-color: #2196f3;
   border: none;
   outline: none;
   height: 49px;
@@ -560,4 +561,14 @@ form.sign-in-form {
 
 .activeTab{
   background-color: #102B49 !important;
+}
+
+.homeTitleDiv{
+  height: 10rem;
+  overflow: auto;
+  display: flex;  
+  flex-direction: column; 
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;  
 }
