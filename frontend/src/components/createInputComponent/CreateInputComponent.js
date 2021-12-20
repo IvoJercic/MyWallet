@@ -103,7 +103,7 @@ const CreateInputComponent = ({
                     <div
                         style={{ color: element.color }}
                     >
-                        {/* {React.createElement(FaIcons[element.icon])} */}
+                        {React.createElement(FaIcons[element.icon])}
                         <span>{element.name} ({element.type})</span>
                     </div>,
                 category: element
@@ -136,7 +136,7 @@ const CreateInputComponent = ({
                     <div
                         style={{ color: element.color }}
                     >
-                        {/* {React.createElement(FaIcons[element.icon])} */}
+                        {React.createElement(FaIcons[element.icon])}
                         <span>{element.name} ({element.type})</span>
                     </div>,
                 category: element

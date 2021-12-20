@@ -118,7 +118,8 @@ const InputScreen = ({ history }) => {
       <div>
         <div className="categoryList__div">
           <h1 className="center white">Your last inputs </h1>
-          {
+          { inputList.length>0
+          ?
             inputList.map(input =>
               <div className="inputTab"
                 key={input.id}
@@ -143,7 +144,8 @@ const InputScreen = ({ history }) => {
 
                 </div>
               </div>
-            ).reverse().slice(0, 10)}
+            ).reverse().slice(0, 10)
+          :""}
         </div>
 
         <div>

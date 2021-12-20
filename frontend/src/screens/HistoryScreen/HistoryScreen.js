@@ -71,37 +71,41 @@ const HistoryScreen = ({ history }) => {
 
   const makeObjectForCategorySelect = () => {
     let temp = [];
-    categoryList.map(element => {
-      temp.push({
-        value: element.name,
-        label:
-          <div
-            style={{ color: "black" }}
-          >
-            {/* {React.createElement(FaIcons[element?.icon])} */}
-            <span>{element.name} ({element.type})</span>
-          </div>,
-        category: element
-      })
-    });
+    if(categoryList.length>0){
+      categoryList.map(element => {
+        temp.push({
+          value: element.name,
+          label:
+            <div
+              style={{ color: "black" }}
+            >
+              {/* {React.createElement(FaIcons[element?.icon])} */}
+              <span>{element.name} ({element.type})</span>
+            </div>,
+          category: element
+        })
+      });
+    }    
     setCategoryListForSelect(temp);
   }
 
   const makeObjectForSubcategorySelect = () => {
     let temp = [];
-    subCategoryList.map(element => {
-      temp.push({
-        value: element.name,
-        label:
-          <div
-            style={{ color: "black" }}
-          >
-            {/* {React.createElement(FaIcons[element?.icon])} */}
-            <span>{element.name} ({element.type})</span>
-          </div>,
-        category: element
-      })
-    });
+    if(subCategoryList.length>0){
+      subCategoryList.map(element => {
+        temp.push({
+          value: element.name,
+          label:
+            <div
+              style={{ color: "black" }}
+            >
+              {/* {React.createElement(FaIcons[element?.icon])} */}
+              <span>{element.name} ({element.type})</span>
+            </div>,
+          category: element
+        })
+      });
+    }    
     setSubCategoryListForSelect(temp);
   }
 
