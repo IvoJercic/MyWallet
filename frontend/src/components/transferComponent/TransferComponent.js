@@ -73,7 +73,7 @@ const TransferComponent = ({setRefresher,accountList}) => {
 
     return (
         <form action="#" className="sign-up-form createcategory" onSubmit={(e) => handleSubmit(e)}>
-            <h1 className="center">Transfer amount to other account</h1>
+            <h1 className="center">Transfer</h1>
             <p>From</p>
             <ReactSelectComponent
                 options={accountListForSelect}

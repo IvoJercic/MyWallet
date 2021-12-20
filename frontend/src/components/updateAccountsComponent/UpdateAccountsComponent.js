@@ -48,7 +48,7 @@ const UpdateAccountsComponent = ({ setRefresher, accountForUpdate, setUpdateAcco
             <span style={{ display: 'flex' }}><h1 className="center">Update category</h1> </span>
             <h2>{accountForUpdate.name}</h2>
             <div className="createcategory__input">
-                <i className="fas fa-list"></i>
+                <i className=""></i>
                 <input
                     type="text"
                     placeholder="Name"

@@ -83,7 +83,7 @@ const UpdateInputComponent = ({ setRefresher, inputForUpdate, setUpdateInput, ca
             <br />
             <label htmlFor="inputSubCategory" /> Account name
             <div className="createcategory__input">
-                <i className="fas fa-list"></i>
+                <i className=""></i>
                 <input
                     id="inputAccount"
                     type="text"
@@ -116,7 +116,7 @@ const UpdateInputComponent = ({ setRefresher, inputForUpdate, setUpdateInput, ca
             </div>
             <label htmlFor="inputDescription" /> Description of input
             <div className="createcategory__input">
-                <i className="fas fa-list"></i>
+                <i className=""></i>
                 <input
                     id="inputDescription"
                     type="text"
@@ -127,7 +127,7 @@ const UpdateInputComponent = ({ setRefresher, inputForUpdate, setUpdateInput, ca
             </div>
             <label htmlFor="inputAmount" /> Amount (kn)
             <div className="createcategory__input">
-                <i className="fas fa-list"></i>
+                <i className=""></i>
                 <input
                     id="inputAmount"
                     type="number"
@@ -137,7 +137,7 @@ const UpdateInputComponent = ({ setRefresher, inputForUpdate, setUpdateInput, ca
                     onChange={(e) => handleAmountChange(e)}
                 />
             </div>
-            <span style={{ display: "flex" }}>
+            <span style={{ display: "flex",flexDirection:"column" }}>
                 <button
                     type="submit"
                     className={inputDescription !== "" && inputDate !== "" && inputDescription.length > 2 && inputAmount > 0 ? "btn solid" : "btnDisabled"}

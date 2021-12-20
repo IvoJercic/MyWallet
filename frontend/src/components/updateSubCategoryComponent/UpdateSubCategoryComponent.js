@@ -53,10 +53,10 @@ const UpdateSubCategoryComponent = ({ setRefresher, subCategoryForUpdate, setUpd
             <span style={{ display: 'flex' }}><h1 className="center">Update subcategory</h1> </span>
             <h2>{subCategoryForUpdate.name}</h2>
             <div className="createcategory__input">
-                <i className="fas fa-list"></i>
+                <i className=""></i>
                 <input
                     type="text"
-                    placeholder="Name"
+                    placeholder="Subcategory name"
                     value={subCategoryName}
                     onChange={(e) => setSubCategoryName(e.target.value)}
                 />
@@ -70,7 +70,7 @@ const UpdateSubCategoryComponent = ({ setRefresher, subCategoryForUpdate, setUpd
                 iconBeforeUpdate={subCategoryForUpdate.icon}
             />
             <br />
-            <span style={{ display: "flex" }}>
+            <span style={{ display: "flex",flexDirection:"column" }}>
                 <button
                     type="submit"
                     className={selectedIcon !== "" && subCategoryName !== "" && subCategoryName.length > 2 ? "btn solid" : "btnDisabled"}

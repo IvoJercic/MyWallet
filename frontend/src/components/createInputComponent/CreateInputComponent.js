@@ -167,7 +167,7 @@ const CreateInputComponent = ({
 
     return (
         <form action="#" className="createcategory" onSubmit={(e) => handleSubmit(e)}>
-            <h1 className="center">New input:</h1>
+            <h1 className="center">New</h1>
             <br />
             <div>
                 <DatePicker
@@ -200,7 +200,7 @@ const CreateInputComponent = ({
             <label htmlFor="inputDescription" /> Description of input
 
             <div className="createcategory__input">
-                <i className="fas fa-list"></i>
+                <i className=""></i>
                 <input
                     id="inputDescription"
                     type="text"

@@ -115,7 +115,7 @@ const HistoryScreen = ({ history }) => {
 
   return (
     <div className="historyScreen">
-      <h1 className="center">All inputs ever</h1>
+      <h1 className="center">All inputs</h1>
         <div className="historyScreen_table">       
           <br />
           <br />
@@ -127,7 +127,6 @@ const HistoryScreen = ({ history }) => {
             <h4>SUBCATEGORY</h4 >
           </div> */}
           <br />
-          <hr />
           <div className="historyScreen_table_body">
             {inputList ?
               inputList.map(input =>

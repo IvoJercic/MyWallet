@@ -1,0 +1,21 @@
+.chartScreen{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+}
+
+@media (max-width: 968px) {
+    .chartScreen{
+        grid-template-columns: repeat(1,1fr);  
+    }
+  }
+
+.chart{      
+    width: 90%;
+    margin: auto;
+    margin-top: 10px !important;
+    margin-bottom: 10px !important; 
+  }
+  
+  .chart > div{
+    border-radius: 50px;
+  }

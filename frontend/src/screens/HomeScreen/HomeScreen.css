@@ -287,7 +287,6 @@ form.sign-in-form {
   pointer-events: all;
 }  
 .categoryList__div{
-  height: 30rem;
   overflow: auto;
   display: flex;  
   flex-direction: column; 
@@ -556,10 +555,3 @@ form.sign-in-form {
 }
 
 
-.chart{      
-  width: 90%;
-  margin: auto;
-  margin-top: 10px !important;
-  margin-bottom: 10px !important;
-  border-radius: 50px;
-}

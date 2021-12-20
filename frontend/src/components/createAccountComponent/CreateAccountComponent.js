@@ -45,7 +45,7 @@ const CreateAccountComponent = ({setRefresher}) => {
             <label htmlFor="inputDescription" /> Name
 
             <div className="createcategory__input">
-                <i className="fas fa-list"></i>
+                <i className=""></i>
                 <input
                     id="inputDescription"
                     type="text"
@@ -57,7 +57,7 @@ const CreateAccountComponent = ({setRefresher}) => {
 
             <label htmlFor="inputAmount" /> Amount (kn)
             <div className="createcategory__input">
-                <i className="fas fa-list"></i>
+                <i className=""></i>
                 <input
                     id="inputAmount"
                     type="number"

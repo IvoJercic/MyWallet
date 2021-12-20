@@ -49,10 +49,10 @@ const CreateCategoryComponent = ({ setRefresher }) => {
         <form action="#" className="sign-in-form createcategory" onSubmit={(e) => handleSubmit(e)}>
             <h2 className="center">New category</h2>
             <div className="createcategory__input">
-                <i className="fas fa-list"></i>
+                <i className=""></i>
                 <input
                     type="text"
-                    placeholder="Name"
+                    placeholder="Category name"
                     value={categoryName}
                     onChange={(e) => setCategoryName(e.target.value)}
                 />

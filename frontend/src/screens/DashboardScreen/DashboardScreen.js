@@ -3,6 +3,7 @@ import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 import axios from "axios";
 import drilldow from "highcharts/modules/drilldown";
+import './DashboardScreen.css';
 drilldow(Highcharts);
 
 //Components
@@ -178,9 +179,6 @@ const DashboardScreen = ({ history }) => {
 
         }
       }
-      // console.log("tempArray");
-
-      // console.log(tempArray);
       return tempArray;
     } catch (error) {
       console.error(error);
@@ -210,7 +208,7 @@ const DashboardScreen = ({ history }) => {
 
   const optionsPieChartExpenses = {
     title: {
-      text: 'Amount of expenses per category'
+      text: 'Expenses'
     },
     subtitle: {
       text: 'Click the slices to view expenses per subcategories'
@@ -364,7 +362,7 @@ const DashboardScreen = ({ history }) => {
       type: 'area'
     },
     title: {
-      text: 'Diff(Income - Expenses) per months'
+      text: 'Diff per month'
     },
     xAxis: {
       categories: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']
@@ -382,7 +380,7 @@ const DashboardScreen = ({ history }) => {
 
   const optionsPieChartAccounts = {
     title: {
-      text: 'Amount per accounts'
+      text: 'Accounts'
     },
     accessibility: {
       announceNewData: {

@@ -7,32 +7,31 @@ export const SideBarComponentData = [
   {
     title: 'Dashboard',
     path: '/dashboard',
-    icon: <AiIcons.AiFillHome />,
-    cName: 'nav-text'
-  },
-  {
-    title: 'Categories',
-    path: '/categories',
-    icon: <AiIcons.AiFillHome />,
-    cName: 'nav-text'
-  },
-  {
-    title: 'Input',
-    path: '/input',
-    icon: <AiIcons.AiFillHome />,
-    cName: 'nav-text'
-  },
-  {
-    title: 'History',
-    path: '/history',
-    icon: <AiIcons.AiFillHome />,
+    icon: <AiIcons.AiOutlineDashboard />,
     cName: 'nav-text'
   },
   {
     title: 'Accounts',
     path: '/accounts',
-    icon: <AiIcons.AiFillHome />,
+    icon: <AiIcons.AiOutlineProfile />,
     cName: 'nav-text'
   },
-  
+  {
+    title: 'Categories',
+    path: '/categories',
+    icon: <AiIcons.AiOutlineGroup />,
+    cName: 'nav-text'
+  },
+  {
+    title: 'Input',
+    path: '/input',
+    icon: <AiIcons.AiOutlinePlusSquare />,
+    cName: 'nav-text'
+  },
+  {
+    title: 'History',
+    path: '/history',
+    icon: <AiIcons.AiOutlineHistory />,
+    cName: 'nav-text'
+  },  
 ];

@@ -88,11 +88,11 @@ const CreateSubCategoryComponent = (
 
             <label htmlFor="subCategoryName" /> Subcategory name
             <div className="createcategory__input">
-                <i className="fas fa-list"></i>
+                <i className=""></i>
                 <input
                     id="subCategoryName"
                     type="text"
-                    placeholder="Subcategory"
+                    placeholder="Subcategory name"
                     value={subCategoryName}
                     onChange={(e) => handleSubCategoryChange(e)}
                 />

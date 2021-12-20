@@ -167,32 +167,34 @@ const CategoriesScreen = ({ history }) => {
 
 
             <div style={mainCategoryMode ? { display: "block" } : { display: "none" }}>
-                <div className="categoryList__div">
-                    <h1 className="center white">Your categories </h1>
-                    {categoryList ?
-                        categoryList.map(category =>
-                            <div className="categoryTab"
-                                key={category.name}
-                                style={{ background: category.color }}
-                            >
-                                {category.type == "Income"
-                                    ? createIcon("FaAngleDoubleUp")
-                                    : createIcon("FaAngleDoubleDown")}
-                                &nbsp;&nbsp;
-                                &nbsp;&nbsp;
-                                {createIcon(category.icon)}
-                                &nbsp;&nbsp;
-                                <b>
-                                    {category.name}
+                <div> 
+                    <div className="categoryList__div">
+                        <h1 className="center white">Your categories </h1>
+                        {categoryList ?
+                            categoryList.map(category =>
+                                <div className="categoryTab"
+                                    key={category.name}
+                                    style={{ background: category.color }}
+                                >
+                                    {category.type == "Income"
+                                        ? createIcon("FaAngleDoubleUp")
+                                        : createIcon("FaAngleDoubleDown")}
+                                    &nbsp;&nbsp;
+                                    &nbsp;&nbsp;
+                                    {createIcon(category.icon)}
+                                    &nbsp;&nbsp;
+                                    <b>
+                                        {category.name}
 
-                                </b>
-                                &nbsp;&nbsp;
-                                &nbsp;&nbsp;
-                                {createEditIcon(category, "category")}
-                                &nbsp;&nbsp;
-                                {createDeleteIcon(category, "category")}
-                            </div>
-                        ) : ""}
+                                    </b>
+                                    &nbsp;&nbsp;
+                                    &nbsp;&nbsp;
+                                    {createEditIcon(category, "category")}
+                                    &nbsp;&nbsp;
+                                    {createDeleteIcon(category, "category")}
+                                </div>
+                            ) : ""}
+                    </div>
                 </div>
 
                 <div>
@@ -213,8 +215,9 @@ const CategoriesScreen = ({ history }) => {
                 <div className="categoryList__div" >
                     {selectedCategory
                         ? <h1 className="center white">Category: {selectedCategory.name} </h1>
-                        : <h1 className="center white">Choose category </h1>
+                        :<h1 className="center white">Choose category </h1>                       
                     }
+                    {/* <a href="#edit">KLIK</a> */}
                     {subCategoriesList ?
                         subCategoriesList.map(subcategory =>
                             <div className="categoryTab"
@@ -234,19 +237,21 @@ const CategoriesScreen = ({ history }) => {
                         ) : ""}
                 </div>
                 <div>
-                {updateSubCategory
-                        ? <UpdateSubCategoryComponent
-                            setRefresher={setRefresher}
-                            subCategoryForUpdate={subCategoryForUpdate}
-                            setUpdateSubCategory={setUpdateSubCategory}
-                            selectedCategory={selectedCategory} />
+                    <section id="edit">
+                        {updateSubCategory
+                            ? <UpdateSubCategoryComponent
+                                setRefresher={setRefresher}
+                                subCategoryForUpdate={subCategoryForUpdate}
+                                setUpdateSubCategory={setUpdateSubCategory}
+                                selectedCategory={selectedCategory} />
 
-                        : <CreateSubCategoryComponent
-                            categoryList={categoryList}
-                            setSelectedCategory={setSelectedCategory}
-                            setRefresher={setRefresher}
-                        />
-                    }
+                            : <CreateSubCategoryComponent
+                                categoryList={categoryList}
+                                setSelectedCategory={setSelectedCategory}
+                                setRefresher={setRefresher}
+                            />
+                        }
+                    </section>
                 </div>
             </div>
         </div>

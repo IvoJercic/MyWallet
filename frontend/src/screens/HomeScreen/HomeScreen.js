@@ -42,11 +42,10 @@ const HomeScreen = ({ history }) => {
                 <div className="tablink" onClick={() => activateTab("subcategoryTab")} id="subcategoryTab">Register</div>
             </div>
 
-
             <div style={mainCategoryMode ? { display: "block" } : { display: "none" }}>
                 <div className="homeTitleDiv">
                     <h1 className="center white">Welcome to MyWallet app.</h1>
-                    <h3 className="center white typing">Here you can track your money flow</h3>
+                    <h3 className="center white typing">Track your money flow</h3>
                 </div>
 
                 <div>

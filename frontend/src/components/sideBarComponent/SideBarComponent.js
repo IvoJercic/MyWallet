@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom';
 import { SideBarComponentData } from './SideBarComponentData';
 import { IconContext } from 'react-icons';
 import './SideBarComponent.css';
-import {useDispatch, useSelector} from "react-redux";
-import {logout} from "../../redux/actions/userActions";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../../redux/actions/userActions";
 import { useHistory } from 'react-router';
 
 function SideBarComponent() {
@@ -14,15 +14,18 @@ function SideBarComponent() {
   const showSidebar = () => setSidebar(!sidebar);
 
 
-  const history=useHistory();
+  const history = useHistory();
 
-  const dispatch=useDispatch();
+  const dispatch = useDispatch();
 
-  const userLogin=useSelector((state)=>state.userLogin);
-  const {userInfo} =userLogin;
-  const handleLogout=()=>{
-    dispatch(logout());
-    history.push("/");
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+  const handleLogout = () => {
+    const popup = window.confirm("Are you sure you want to logout ?");
+    if (popup) {
+      dispatch(logout());
+      history.push("/");
+      }
   }
 
   return (
@@ -33,13 +36,11 @@ function SideBarComponent() {
             <FaIcons.FaBars onClick={showSidebar} />
           </Link>
           MyWallet
-          <span className="navbar__logout">
-            <button
+          <button style={{background:"#102B49" ,height:"70%",marginLeft:"auto",marginRight:"20px"}} className="btn solid"
             onClick={handleLogout}
-            >
-              LOGOUT
-            </button>
-          </span>
+          >
+            Logout
+          </button>
         </div>
         <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
           <ul className='nav-menu-items' onClick={showSidebar}>

@@ -57,10 +57,10 @@ const UpdateCategoryComponent = ({ setRefresher, categoryForUpdate, setUpdateCat
             <span style={{ display: 'flex' }}><h1 className="center">Update category</h1> </span>
             <h2>{categoryForUpdate.name}</h2>
             <div className="createcategory__input">
-                <i className="fas fa-list"></i>
+                <i className=""></i>
                 <input
                     type="text"
-                    placeholder="Name"
+                    placeholder="Category name"
                     value={categoryName}
                     onChange={(e) => setCategoryName(e.target.value)}
                 />
