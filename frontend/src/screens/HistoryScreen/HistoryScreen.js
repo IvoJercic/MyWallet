@@ -78,7 +78,7 @@ const HistoryScreen = ({ history }) => {
           <div
             style={{ color: "black" }}
           >
-            {React.createElement(FaIcons[element?.icon])}
+            {/* {React.createElement(FaIcons[element?.icon])} */}
             <span>{element.name} ({element.type})</span>
           </div>,
         category: element
@@ -96,7 +96,7 @@ const HistoryScreen = ({ history }) => {
           <div
             style={{ color: "black" }}
           >
-            {React.createElement(FaIcons[element?.icon])}
+            {/* {React.createElement(FaIcons[element?.icon])} */}
             <span>{element.name} ({element.type})</span>
           </div>,
         category: element
@@ -138,12 +138,12 @@ const HistoryScreen = ({ history }) => {
                   <div>{input.description}</div>
                   <div>{input.amount} kn</div>
                   <div>
-                    {React.createElement(FaIcons[categoryList.filter(cat => cat?.id === input?.category)[0]?.icon])}
+                    {/* {React.createElement(FaIcons[categoryList.filter(cat => cat?.id === input?.category)[0]?.icon])} */}
                     &nbsp;
                     {categoryList.filter(cat => cat?.id === input?.category)[0]?.name}
                   </div>
                   <div>
-                    {React.createElement(FaIcons[subCategoryList.filter(cat => cat?.id === input?.subcategory)[0]?.icon])}
+                    {/* {React.createElement(FaIcons[subCategoryList.filter(cat => cat?.id === input?.subcategory)[0]?.icon])} */}
                     &nbsp;
                     {subCategoryList.filter(subC => subC?.id === input?.subcategory)[0]?.name}
                   </div>
