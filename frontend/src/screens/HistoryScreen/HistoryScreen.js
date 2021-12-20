@@ -5,6 +5,7 @@ import './HistoryScreen.css';
 import * as FaIcons from 'react-icons/fa';
 import axios from "axios";
 import ReactSelectComponent from '../../components/reactSelectComponent/ReactSelectComponent';
+import SideBarComponent from "../../components/sideBarComponent/SideBarComponent";
 
 
 const HistoryScreen = ({ history }) => {
@@ -71,7 +72,7 @@ const HistoryScreen = ({ history }) => {
 
   const makeObjectForCategorySelect = () => {
     let temp = [];
-    if(categoryList.length>0){
+    if (categoryList.length > 0) {
       categoryList.map(element => {
         temp.push({
           value: element.name,
@@ -85,13 +86,13 @@ const HistoryScreen = ({ history }) => {
           category: element
         })
       });
-    }    
+    }
     setCategoryListForSelect(temp);
   }
 
   const makeObjectForSubcategorySelect = () => {
     let temp = [];
-    if(subCategoryList.length>0){
+    if (subCategoryList.length > 0) {
       subCategoryList.map(element => {
         temp.push({
           value: element.name,
@@ -105,7 +106,7 @@ const HistoryScreen = ({ history }) => {
           category: element
         })
       });
-    }    
+    }
     setSubCategoryListForSelect(temp);
   }
 
@@ -119,42 +120,43 @@ const HistoryScreen = ({ history }) => {
 
   return (
     <div className="historyScreen">
+      <SideBarComponent />
       <h1 className="center">All inputs</h1>
-        <div className="historyScreen_table">       
-          <br />
-          <br />
-          {/* <div className="historyScreen_table_header">
+      <div className="historyScreen_table">
+        <br />
+        <br />
+        {/* <div className="historyScreen_table_header">
             <h4>DATE</h4>
             <h4>DESCRIPTION</h4>
             <h4>AMOUNT</h4>
             <h4>CATEGORY</h4>
             <h4>SUBCATEGORY</h4 >
           </div> */}
-          <br />
-          <div className="historyScreen_table_body">
-            {inputList ?
-              inputList.map(input =>
-                <div className="historyScreen_table_row" key={input.id} style={{ background: categoryList?.filter(cat => cat?.id === input?.category)[0]?.color }}>
-                  <div>
-                    {new Date(input.datetime).toLocaleString().substring(0, 19)}
-                    &nbsp;
-                  </div>
-                  <div>{input.description}</div>
-                  <div>{input.amount} kn</div>
-                  <div>
-                    {/* {React.createElement(FaIcons[categoryList.filter(cat => cat?.id === input?.category)[0]?.icon])} */}
-                    &nbsp;
-                    {categoryList.filter(cat => cat?.id === input?.category)[0]?.name}
-                  </div>
-                  <div>
-                    {/* {React.createElement(FaIcons[subCategoryList.filter(cat => cat?.id === input?.subcategory)[0]?.icon])} */}
-                    &nbsp;
-                    {subCategoryList.filter(subC => subC?.id === input?.subcategory)[0]?.name}
-                  </div>
+        <br />
+        <div className="historyScreen_table_body">
+          {inputList ?
+            inputList.map(input =>
+              <div className="historyScreen_table_row" key={input.id} style={{ background: categoryList?.filter(cat => cat?.id === input?.category)[0]?.color }}>
+                <div>
+                  {new Date(input.datetime).toLocaleString().substring(0, 19)}
+                  &nbsp;
                 </div>
-              ) : ""}
-          </div>
+                <div>{input.description}</div>
+                <div>{input.amount} kn</div>
+                <div>
+                  {/* {React.createElement(FaIcons[categoryList.filter(cat => cat?.id === input?.category)[0]?.icon])} */}
+                  &nbsp;
+                  {categoryList.filter(cat => cat?.id === input?.category)[0]?.name}
+                </div>
+                <div>
+                  {/* {React.createElement(FaIcons[subCategoryList.filter(cat => cat?.id === input?.subcategory)[0]?.icon])} */}
+                  &nbsp;
+                  {subCategoryList.filter(subC => subC?.id === input?.subcategory)[0]?.name}
+                </div>
+              </div>
+            ) : ""}
         </div>
+      </div>
     </div>
   );
 };

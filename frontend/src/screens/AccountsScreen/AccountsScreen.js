@@ -12,6 +12,7 @@ import UpdateSubCategoryComponent from "../../components/updateSubCategoryCompon
 import CreateAccountComponent from "../../components/createAccountComponent/CreateAccountComponent";
 import UpdateAccountsComponent from "../../components/updateAccountsComponent/UpdateAccountsComponent";
 import TransferComponent from "../../components/transferComponent/TransferComponent";
+import SideBarComponent from "../../components/sideBarComponent/SideBarComponent";
 
 
 const AccountsScreen = ({ history }) => {
@@ -135,6 +136,7 @@ const AccountsScreen = ({ history }) => {
 
     return (
         <div className="mainDiv">
+            <SideBarComponent />
             <div style={{ display: "flex" }}>
                 <div className="tablink activeTab" onClick={() => activateTab("categoryTab")} id="categoryTab">Accounts</div>
                 <div className="tablink" onClick={() => activateTab("subcategoryTab")} id="subcategoryTab">Transfers</div>

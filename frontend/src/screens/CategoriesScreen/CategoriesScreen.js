@@ -9,6 +9,7 @@ import * as FaIcons from 'react-icons/fa';
 import axios from "axios";
 import UpdateCategoryComponent from "../../components/updateCategoryComponent/UpdateCategoryComponent";
 import UpdateSubCategoryComponent from "../../components/updateSubCategoryComponent/UpdateSubCategoryComponent";
+import SideBarComponent from "../../components/sideBarComponent/SideBarComponent";
 
 
 const CategoriesScreen = ({ history }) => {
@@ -160,6 +161,7 @@ const CategoriesScreen = ({ history }) => {
 
     return (
         <div className="mainDiv">
+            <SideBarComponent />
             <div style={{ display: "flex" }}>
                 <div className="tablink activeTab" onClick={() => activateTab("categoryTab")} id="categoryTab">Categories</div>
                 <div className="tablink" onClick={() => activateTab("subcategoryTab")} id="subcategoryTab">Subcategories</div>
@@ -167,7 +169,7 @@ const CategoriesScreen = ({ history }) => {
 
 
             <div style={mainCategoryMode ? { display: "block" } : { display: "none" }}>
-                <div> 
+                <div>
                     <div className="categoryList__div">
                         <h1 className="center white">Your categories </h1>
                         {categoryList ?
@@ -215,7 +217,7 @@ const CategoriesScreen = ({ history }) => {
                 <div className="categoryList__div" >
                     {selectedCategory
                         ? <h1 className="center white">Category: {selectedCategory.name} </h1>
-                        :<h1 className="center white">Choose category </h1>                       
+                        : <h1 className="center white">Choose category </h1>
                     }
                     {/* <a href="#edit">KLIK</a> */}
                     {subCategoriesList ?

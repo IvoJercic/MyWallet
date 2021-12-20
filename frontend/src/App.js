@@ -20,7 +20,6 @@ function App() {
   return (
     <Router>
       <main>
-      <SideBarComponent />
         <Switch>
           {/* <Route exact path="/" component={HomeScreen} />
           <Route exact path="/product/:id" component={ProductScreen} />

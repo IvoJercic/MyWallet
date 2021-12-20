@@ -4,6 +4,7 @@ import HighchartsReact from "highcharts-react-official";
 import axios from "axios";
 import drilldow from "highcharts/modules/drilldown";
 import './DashboardScreen.css';
+import SideBarComponent from "../../components/sideBarComponent/SideBarComponent";
 drilldow(Highcharts);
 
 //Components
@@ -417,6 +418,8 @@ const DashboardScreen = ({ history }) => {
 
   return (
     <>
+      <SideBarComponent />
+      
       <div className="chartScreen">
         <div className="chart">
           <HighchartsReact highcharts={Highcharts} options={optionsPieChartExpenses} />

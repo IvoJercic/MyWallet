@@ -6,6 +6,7 @@ import CreateInputComponent from "../../components/createInputComponent/CreateIn
 import * as FaIcons from 'react-icons/fa';
 import axios from "axios";
 import UpdateInputComponent from "../../components/updateInputComponent/UpdateInputComponent";
+import SideBarComponent from "../../components/sideBarComponent/SideBarComponent";
 
 
 const InputScreen = ({ history }) => {
@@ -115,11 +116,12 @@ const InputScreen = ({ history }) => {
 
   return (
     <div className="mainDiv">
+      <SideBarComponent />
       <div>
         <div className="categoryList__div">
           <h1 className="center white">Your last inputs </h1>
-          { inputList.length>0
-          ?
+          {inputList.length > 0
+            ?
             inputList.map(input =>
               <div className="inputTab"
                 key={input.id}
@@ -132,7 +134,7 @@ const InputScreen = ({ history }) => {
                 <div className="inputTab__description">
                   <b>
                     {input.description}
-                    <br/>
+                    <br />
                     ({input.amount} kn)
                   </b>
                 </div>
@@ -145,7 +147,7 @@ const InputScreen = ({ history }) => {
                 </div>
               </div>
             ).reverse().slice(0, 10)
-          :""}
+            : ""}
         </div>
 
         <div>
